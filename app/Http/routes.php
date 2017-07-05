@@ -11,12 +11,12 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+ Route::get('/', function () {
+     return view('welcome');
+ });
 // 后台路由
 // 注册登录
-Route::controller('admin/login','Admin\LonginController');
+Route::controller('admin/login','Admin\LoginController');
 // 管理员管理路由
 Route::controller('admin/admin','Admin\AdminController');
 // 用户管理路由
@@ -31,7 +31,7 @@ Route::controller('admin/config','Admin\ConfigController');
 
 // 前台路由
 // 首页路由
-Route::controller('/','Home\IndexController');
+Route::controller('/index','Home\IndexController');
 // 列表页路由
 Route::controller('/list','Home\ListController');
 // 注册路由
