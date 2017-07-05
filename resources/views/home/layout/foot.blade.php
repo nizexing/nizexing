@@ -1,3 +1,12 @@
+
+<span class="clearfix"></span>
+</div>
+</div>
+</div>
+<span class="clearfix"></span>
+<!-- main 主体结束 -->
+
+
 <!-- footer -->
 <div id="footer">
     <div id="footer-inner">
@@ -112,3 +121,7 @@
 </body>
 
 </html>
+
+@section("js")
+
+@show
