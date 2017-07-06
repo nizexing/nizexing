@@ -10,22 +10,22 @@
         <meta name="description" content="AcFun是一家弹幕视频网站，致力于为每一个人带来欢乐。">
         <title>登录 - AcFun弹幕视频网</title>
        
-        <link rel="stylesheet" href="/static/css/core.css">
+        <link rel="stylesheet" href="/home/css/core.css">
         <!--[if lte IE 7]>
-            <link rel="stylesheet" href="/static/css/font-awesome-ie7.min.css"></link>
+            <link rel="stylesheet" href="/home/css/font-awesome-ie7.min.css"></link>
         <![endif]-->
         <!--[if (gte IE 8)|!(IE)]>
             <!-->
-            <link rel="stylesheet" href="/static/css/font-awesome.min.css"></link>
+            <link rel="stylesheet" href="/home/css/font-awesome.min.css"></link>
         <!--<![endif]-->
         <!--[if lte IE 7]>
-            <link rel="stylesheet" href="/static/css/style-ie7.css"></link>
+            <link rel="stylesheet" href="/home/css/style-ie7.css"></link>
         <![endif]-->
         <!--[if (gte IE 8)|!(IE)]>
             <!-->
-            <link rel="stylesheet" href="/static/css/style.css"></link>
+            <link rel="stylesheet" href="/home/css/style.css"></link>
         <!--<![endif]-->
-        <link rel="stylesheet" href="/static/css/style_1.css"></head>
+        <link rel="stylesheet" href="/home/css/style_1.css"></head>
     
     <body>
        
@@ -299,10 +299,20 @@
                                 <div id="form-login" data-focus="auto" data-save="form-login" class="form">
                                     <h3 class="title">登录 AcFun
                                         <a href="/info/#page=help" target="_blank" class="area-login-help"></a></h3>
-                                    <form action="/home/login/dologin" method="post">    
+                                    <div style="margin:-25px 104px;float: right">
+                                        @if(session('error'))
+                                            <p style="font-size:16px;width:180px;">{{ session('error') }}</p>
+                                        @endif
+                                    </div>
+
+                               {{--登录表单开始   --}}
+
+                                    <form action="/login/dologin" method="post">
+                                        {{ csrf_field() }}
                                     <div class="area">
                                         <i class="inp-icon icon icon-user"></i>
-                                        <input id="ipt-account-login" type="text" name="username" data-direction="right" spellcheck="false" autocomplete="off" data-length="1,32" data-name="账号" required="required" class="name l">
+                                        <input id="ipt-account-login" type="text" name="username" data-direction="right" spellcheck="false" autocomplete="off" data-length="1,32" data-name="账号" required="required">
+
                                         <span class="clearfix"></span>
                                     </div>
                                     
@@ -313,19 +323,26 @@
 
                                         <span class="clearfix"></span>
                                     </div>
-                                    <div class="area area-captcha hidden">
-                                        <input id="ipt-captcha-login" type="text" data-direction="bottom" disabled="disabled" autocomplete="off" data-name="验证码" data-length="4,4" data-placeholder="请输入验证码" required="required" class="captcha l">
-                                        <img src="/static/picture/0a759445550541d2a125f59c57c81008.gif" onclick="this.src='/verification/captcha?d='+(new Date()).getTime()" class="captcha-pic l">
-                                        <a id="ipt-captcha-switch" class="l">换一张</a>
+                                    <div class="area area-captcha">
+                                        <input id="ipt-captcha-login" type="text"   placeholder="请输入验证码" class="captcha l"
+                                        name="code">
+                                        &nbsp;&nbsp;&nbsp;
+                                        <img src="/code" alt="" class="code" onclick="this.src='/code?a='+Math.random()"class="captcha-pic l">
+                                        <a id="ipt-captcha-switch" >点击换一张</a>
                                         <span class="clearfix"></span>
                                     </div>
-                                    {{ csrf_field() }}
+
                                     <div class="area-tool">
                                         <a  ><input class="btn-login btn success do l" type="submit"value="登录"></a>
-                                        <a href="/home/login/reg" class="btn r">注册</a>
+                                        <a href="/reg/zhuce" class="btn r">注册</a>
                                         <span class="clearfix"></span>
                                     </div>
+
+
                                     </form>
+                                   
+                                    {{--登录表单结束--}}
+                                   
                                 </div>
                                 <div class="other-login">
                                     <!--span.l 使用第三方账号登录-->

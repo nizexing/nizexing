@@ -7,23 +7,26 @@
     <meta name="keywords" content="A站 ACFUN ACG 弹幕 视频 动画 漫画 游戏 斗鱼 新番 鬼畜 东方 初音 DOTA MUGEN LOL Vocaloid MAD AMV 天下漫友是一家">
     <meta name="description" content="AcFun是一家弹幕视频网站，致力于为每一个人带来欢乐。">
     <title> 注册</title>
-    <link rel="stylesheet" href="/static/css/core.css">
-    <link rel="stylesheet" href="/static/css/form.css">
+    <link rel="stylesheet" href="/home/css/core.css">
+    <link rel="stylesheet" href="/home/css/form.css">
     <!--[if lte IE 7]>
-        <link rel="stylesheet" href="/static/css/font-awesome-ie7.min.css"></link>
+        <link rel="stylesheet" href="/home/css/font-awesome-ie7.min.css"></link>
     <![endif]-->
     <!--[if (gte IE 8)|!(IE)]>
         <!-->
-        <link rel="stylesheet" href="/static/css/font-awesome.min.css"></link>
+        <link rel="stylesheet" href="/home/css/font-awesome.min.css"></link>
     <!--<![endif]-->
     <!--[if lte IE 7]>
-        <link rel="stylesheet" href="/static/css/style-ie7.css"></link>
+        <link rel="stylesheet" href="/home/css/style-ie7.css"></link>
     <![endif]-->
     <!--[if (gte IE 8)|!(IE)]>
         <!-->
-        <link rel="stylesheet" href="/static/css/style.css"></link>
+        <link rel="stylesheet" href="/home/css/style.css"></link>
     <!--<![endif]-->
-    <link rel="stylesheet" href="/static/css/style_1.css"></head>
+    <link rel="stylesheet" href="/home/css/style_1.css">
+    <script src="/home/js/jquery-1.8.3.min.js"></script>
+  
+    </head>
 <body>
     <!-- Google Tag Manager -->
     <div id="stage">
@@ -284,7 +287,9 @@
                     </div>
                     <div class="block r">
                         <div class="area-login">
-                            <form id="form-reg" action="/home/login/insert" method="post" class="form">
+
+                        <!-- 注册表单开始 -->
+                            <form id="form-reg" action="/reg/insert" method="post" class="form">
                                 {{csrf_field()}}
                                 @if($errors)
                                 <ul>
@@ -296,31 +301,39 @@
                                 <h3 class="title">注册 AcFun</h3>
                                 <div class="area">
                                     <i class="inp-icon icon icon-mobile"></i>
-                                    <input id="ipt-mobile-reg" name="username" spellcheck="false" type="text" data-name="手机号码" data-di rection="right" autocomplete="off" class="" placeholder="请输入手机号码" required="required">
+                                    <input name="username" type="text" placeholder="请输入手机号码" required="required" value="" maxlength="11" 
+                                    class="phone"> 
+                                   
                                     <span class="clearfix"></span>
                                 </div>
+ <p class="aa" style="font-size: 12px;margin: -45px -90px 0px 0px;width: 87px;float: right;"></p>
                                 <div class="area">
                                     <i class="inp-icon icon icon-user"></i>
-                                    <input id="ipt-username-reg" name="name" spellcheck="false" type="text" data-name="昵称" data-direction="right" data-length="4,16" class="regname name l" placeholder="请输入昵称" required="required">
+                                    <input name="name" placeholder="请输入昵称" required="required" class="nickname">
                                     <span class="clearfix"></span>
                                 </div>
+                            <p class="bb" style="font-size: 12px;margin: -45px -90px 0px 0px;width: 87px;float: right;"></p>
                                 <div class="area">
                                     <i class="inp-icon icon icon-lock"></i>
-                                    <input id="ipt-pwd-reg" name="password" type="password" data-name="密码" data-length="6,32" data-direction="right" placeholder="请输入密码" class="password l" required="required">
+                                    <input name="password" type="password" placeholder="请输入密码" required="required" class="pwd">
                                     <span class="clearfix"></span>
                                 </div>
+                            <p class="cc" style="font-size: 12px;margin: -45px -90px 0px 0px;width: 87px;float: right;"></p>
                                 <div class="area">
-                                    <input id="ipt-repwd-reg" name="password2" type="password" data-name="确认密码" data-length="6,32" data-direction="right" placeholder="确认密码" class="re-password l" required="required">
+                                    <input name="password2" type="password" placeholder="确认密码" required="required" class="repwd">
                                     <span class="clearfix"></span>
                                 </div>
+                            <p class="dd" style="font-size: 12px;margin: -45px -90px 0px 0px;width: 87px;float: right;"></p>
                                 <div class="area">
-                                <input id="ipt-mobile-code" name="code" type="text"  placeholder="验证码" class="" required="required">
-                                <img src="/home/code" onclick="this.src=this.src+'?a=1'" alt="" width="40" height="50" style="margin:0 auto;width:285px;height:60px">
+                                <input name="code" type="text"  placeholder="验证码" class="" required="required">
+                                <div style="height: 5px"></div>
+                                <img src="/code" onclick="this.src='/code?a='+Math.random()" alt="" width="40" height="50" style="margin:0 auto;width:125px;height:60px">
                                 <span class="clearfix"></span></div>
+                            <p class="ee" style="font-size: 12px;margin: -45px -90px 0px 0px;width: 87px;float: right;"></p>
                                 <script type="text/javascript">
                                 document.getElementById('ipt-mobile-code');
                                 </script>
-                                <a href="/home/login/login" class="back-login">返回登录</a>
+                                <a href="/login/login" class="back-login">返回登录</a>
                                 <span class="clearfix"></span>
                         </div>
                         <div class="area-tool">
@@ -331,7 +344,66 @@
                             <span class="clearfix"></span>
                         </div>
                         </form>
-                        <script type="text/javascript"></script>
+                        
+                        <script>
+                        //验证电话
+                           var p=/^1[3|5|8][0-9]+$/;
+                           $('.phone').blur(function()
+                           {  
+                             var phone=$('.phone').val();
+
+                            if(!p.test(phone) || phone.length!=11){
+
+                                   $('.aa').text('电话号码不合法!').css('color','red');
+                               }else{
+                                    //发送AJAX
+                                    $.get('/reg/yz',{'phone':phone},function(msg){
+                                        if(!msg){
+
+                                            $('.aa').text('该号码可用!').css('color','green');
+                                            
+                                    }else{
+
+                                           $('.aa').text('该号码已被注册!').css('color','red');
+                                    }
+                             });}})
+                           //验证密码
+                           var pwd=/[0-9a-zA-Z_]{8,16}/;
+                            $('.pwd').blur(function(){
+                                var password=$('.pwd').val();
+                                // console.log(password);
+                                
+                                if(!pwd.test(password)){
+
+                                     $('.cc').text('密码不符合规则!').css('color','red');
+                                }else{
+                                    if(!(password.length>=8 &&  password.length<=16)){
+                                        $('.cc').text('请输入8-16位密码!').css('color','red');
+                                    }else{
+                                        $('.cc').text('密码可用!').css('color','green');
+                                    }
+                                }
+
+
+                            });
+
+                           $('repwd').blur(function(){
+                                var password=$('.pwd').val();
+                                var passworda=$('.repwd').val();
+                             // if(passworda==''){
+                             //        $('.dd').text('请输入相同密码').css('color','red');
+                             //    }else 
+                                if(password!=passworda){
+                                    $('.dd').text('密码与上面不符!').css('color','red');
+                                }else{
+                                    $('.dd').text('两次密码正确!').css('color','green');
+                                }
+                           });
+
+                        </script>
+            <!-- 注册表单结束 -->
+
+                        
                     </div>
                 </div>
                 <span class="clearfix"></span>
