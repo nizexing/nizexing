@@ -1,18 +1,20 @@
-<?php
-
+<?php 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use Gregwar\Captcha\CaptchaBuilder;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CodeController extends Controller
+use Illuminate\Http\Request;
+
+//引用对应的命名空间
+use Gregwar\Captcha\CaptchaBuilder;
+use Session;
+
+class codeController extends Controller
 {
-   public function  code()
+       public  function code()
     {
-         //生成验证码图片的Builder对象，配置相应属性
+      //生成验证码图片的Builder对象，配置相应属性
         $builder = new CaptchaBuilder;
         //可以设置图片宽高及字体
         $builder->build($width = 100, $height = 40, $font = null);
@@ -20,10 +22,11 @@ class CodeController extends Controller
         $phrase = $builder->getPhrase();
 
         //把内容存入session
-        session(['code'=>$phrase]);
+        Session::flash('code', $phrase);
         //生成图片
         header("Cache-Control: no-cache, must-revalidate");
         header('Content-Type: image/jpeg');
         $builder->output();
+       
     }
 }

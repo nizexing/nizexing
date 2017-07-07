@@ -25,7 +25,7 @@
                 <ul m-id="302" m-name="小图综合推荐" m-type="2" class="slider-small">
 
                     <li>
-                        <a href="/v/ac3807858" target="_blank">
+                        <a href="{{ url('/play/play') }}" target="_blank">
                             <img src="/static/picture/1498386915.gif" width="216" height="120" />
                             <div class="mask-gradient mask">
                                 <b>总之大金空调猴赛雷就对了</b>
@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/v/ac3807858" target="_blank">
+                        <a href="{{ url('/paly/play') }}" target="_blank">
                             <img src="/static/picture/1498386915.gif" width="216" height="120" />
                             <div class="mask-gradient mask">
                                 <b>总之大金空调猴赛雷就对了</b>

@@ -36,6 +36,8 @@ Route::controller('/index','Home\IndexController');
 Route::controller('/list','Home\ListController');
 // 注册路由
 Route::controller('/reg','Home\RegController');
+//验证码
+Route::get('/code','codeController@code');
 // 登录路由
 Route::controller('/login','Home\LoginController');
 // 视频播放页路由
