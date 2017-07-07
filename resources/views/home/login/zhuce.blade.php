@@ -301,35 +301,37 @@
                                 <h3 class="title">注册 AcFun</h3>
                                 <div class="area">
                                     <i class="inp-icon icon icon-mobile"></i>
-                                    <input name="username" type="text" placeholder="请输入手机号码" required="required" value="" maxlength="11" 
+                                    <input name="tel" type="text" placeholder="请输入手机号码" required="required" value="" maxlength="11" 
                                     class="phone"> 
                                    
                                     <span class="clearfix"></span>
                                 </div>
- <p class="aa" style="font-size: 12px;margin: -45px -90px 0px 0px;width: 87px;float: right;"></p>
+ <p class="aa" style="font-size: 12px;margin: -45px -115px 0px 0px;width: 110px;float: right;">请输入11位电话号码</p>
                                 <div class="area">
                                     <i class="inp-icon icon icon-user"></i>
                                     <input name="name" placeholder="请输入昵称" required="required" class="nickname">
                                     <span class="clearfix"></span>
                                 </div>
-                            <p class="bb" style="font-size: 12px;margin: -45px -90px 0px 0px;width: 87px;float: right;"></p>
+                            <p class="bb" style="font-size: 12px;margin: -45px -115px 0px 0px;width: 110px;float: right;"></p>
                                 <div class="area">
                                     <i class="inp-icon icon icon-lock"></i>
-                                    <input name="password" type="password" placeholder="请输入密码" required="required" class="pwd">
+                                    <input name="password" type="password" placeholder="请输入密码" required="required" class="pwd" >
                                     <span class="clearfix"></span>
                                 </div>
-                            <p class="cc" style="font-size: 12px;margin: -45px -90px 0px 0px;width: 87px;float: right;"></p>
+                            <p class="cc" style="font-size: 12px;margin: -45px -105px 0px 0px;width: 100px;float: right;">输入8-16位密码</p>
                                 <div class="area">
                                     <input name="password2" type="password" placeholder="确认密码" required="required" class="repwd">
                                     <span class="clearfix"></span>
                                 </div>
                             <p class="dd" style="font-size: 12px;margin: -45px -90px 0px 0px;width: 87px;float: right;"></p>
+
                                 <div class="area">
-                                <input name="code" type="text"  placeholder="验证码" class="" required="required">
+                                <input name="code" type="text" value="" placeholder="验证码" class="yzm" required="required"> <p class="ee" style="font-size: 12px;margin: -28px -92px 0px 0px;width: 87px;float: right;"></p>
                                 <div style="height: 5px"></div>
-                                <img src="/code" onclick="this.src='/code?a='+Math.random()" alt="" width="40" height="50" style="margin:0 auto;width:125px;height:60px">
+                                <img src="/code" onclick="this.src='/code?a='+Math.random()" alt="" width="40" height="50" style="margin:0 auto;width:125px;height:60px" class="yzmt">
                                 <span class="clearfix"></span></div>
-                            <p class="ee" style="font-size: 12px;margin: -45px -90px 0px 0px;width: 87px;float: right;"></p>
+                           
+
                                 <script type="text/javascript">
                                 document.getElementById('ipt-mobile-code');
                                 </script>
@@ -337,7 +339,7 @@
                                 <span class="clearfix"></span>
                         </div>
                         <div class="area-tool">
-                            <input type="submit" class="do login-btn primary" value="注册">
+                            <input type="submit" class="do login-btn primary" value="注册" id="zhuce">
                             <p>
                                 <!--(onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=800055564&o=acfun.cn&q=7', '_blank')") 海外号码点此联系客服--></p>
                             
@@ -346,18 +348,22 @@
                         </form>
                         
                         <script>
+
                         //验证电话
                            var p=/^1[3|5|8][0-9]+$/;
+
                            $('.phone').blur(function()
                            {  
                              var phone=$('.phone').val();
 
-                            if(!p.test(phone) || phone.length!=11){
+                            if(!p.test(phone) || phone.length!=11)
+                            {
+                                $('.aa').text('电话号码不合法!').css('color','red');
 
-                                   $('.aa').text('电话号码不合法!').css('color','red');
-                               }else{
-                                    //发送AJAX
-                                    $.get('/reg/yz',{'phone':phone},function(msg){
+                            }else{
+                                //发送AJAX 
+                                $.get('/reg/yz',{'phone':phone},function(msg)
+                                {
                                         if(!msg){
 
                                             $('.aa').text('该号码可用!').css('color','green');
@@ -366,43 +372,144 @@
 
                                            $('.aa').text('该号码已被注册!').css('color','red');
                                     }
-                             });}})
-                           //验证密码
-                           var pwd=/[0-9a-zA-Z_]{8,16}/;
-                            $('.pwd').blur(function(){
-                                var password=$('.pwd').val();
-                                // console.log(password);
-                                
-                                if(!pwd.test(password)){
+                                });
+                            }
+                            })
+                           //验证昵称
+                           var n=/^[-|/|?|~|.|,|=|+|<|>|!|@|#|$|%|^|&|*]+./;
 
-                                     $('.cc').text('密码不符合规则!').css('color','red');
+                           $('.nickname').blur(function(){
+
+                             var nickname=$('.nickname').val();
+
+                                if(n.test(nickname)==true)
+                                {
+                                        $('.bb').text('不能以符号开头').css('color','red');
                                 }else{
-                                    if(!(password.length>=8 &&  password.length<=16)){
-                                        $('.cc').text('请输入8-16位密码!').css('color','red');
-                                    }else{
-                                        $('.cc').text('密码可用!').css('color','green');
-                                    }
+                                        $('.bb').text('该昵称可用').css('color','green');
+                                     }
+
+                                if(nickname.length>12)
+                                {
+                                        $('.bb').text('昵称长度超过12位').css('color','red');
                                 }
 
+                           });
+                          
+                           //验证密码
+                           var pwd=/[0-9a-zA-Z_]{8,16}/;
+
+                            $('.pwd').blur(function()
+                            {
+                                var password=$('.pwd').val();
+                               
+                                if(password=='')
+                                {
+                                    $('.cc').text('密码不能为空!').css('color','red');
+                                }
+
+                                if(!pwd.test(password))
+                                {
+                                     $('.cc').text('密码不符合规则!').css('color','red');
+                                }else{
+
+                                    if(!(password.length>=8 &&  password.length<=16))
+                                    {
+                                        $('.cc').text('请输入8-16位密码!').css('color','red');
+                                    }else{
+
+                                        $('.cc').text('密码可用!').css('color','green');
+                                    }
+
+                                }
 
                             });
 
-                           $('repwd').blur(function(){
+                            //验证确认密码
+                           $('.repwd').blur(function()
+                           {
                                 var password=$('.pwd').val();
+
                                 var passworda=$('.repwd').val();
-                             // if(passworda==''){
-                             //        $('.dd').text('请输入相同密码').css('color','red');
-                             //    }else 
-                                if(password!=passworda){
+                               
+                             if(passworda=='')
+                             {
+                                 $('.dd').text('请输入相同密码').css('color','red');
+
+                             }else 
+                                
+                                if(password!=passworda)
+                                {
                                     $('.dd').text('密码与上面不符!').css('color','red');
+
                                 }else{
+
                                     $('.dd').text('两次密码正确!').css('color','green');
+                                }
+                           });
+
+                           //验证码
+                           $('.yzm').blur(function()
+                           {
+
+                                var code=$('.yzm').val();
+                    
+
+                            if(code==''){
+                                $('.ee').text('请填写验证码!').css('color','red');
+                                return;
+                            }else{
+
+                           // 发送ajax验证
+                                $.get('/reg/code',{},function(msg)
+                                {
+                                   if(code!=msg)
+                                   {
+
+                                        $('.ee').text('验证码不正确!').css('color','red');
+
+                                   }else{
+
+                                    $('.ee').text('验证码正确!').css('color','green');
+
+                                        } 
+                                }) 
+                                 } 
+                             });
+
+                            // alert($('.form')     );
+                           // 当输入都合法时注册跳转
+                           $('.form').submit(function()
+                           {
+                                var a=$('.aa').css('color');
+
+                                var b=$('.bb').css('color');
+
+                                var c=$('.cc').css('color');
+
+                                var d=$('.dd').css('color');
+
+                                var e=$('.ee').css('color');
+
+                                if(a==b && b==c && c==d && d==e)
+                                {
+                                    alert('注册成功,马上跳转......');
+
+                                   location.href = "{{ url('/reg/insert') }}";
+                                    
+                                }else{
+
+                                    alert('注册失败!');
+
+                                    location.href = "{{ url('/reg/zhuce') }}";
+
+                                    return false;
                                 }
                            });
 
                         </script>
             <!-- 注册表单结束 -->
-
+          
                         
                     </div>
                 </div>

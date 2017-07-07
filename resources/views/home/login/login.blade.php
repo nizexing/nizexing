@@ -26,6 +26,7 @@
             <link rel="stylesheet" href="/home/css/style.css"></link>
         <!--<![endif]-->
         <link rel="stylesheet" href="/home/css/style_1.css"></head>
+         <script src="/home/js/jquery-1.8.3.min.js"></script>
     
     <body>
        
@@ -300,8 +301,9 @@
                                     <h3 class="title">登录 AcFun
                                         <a href="/info/#page=help" target="_blank" class="area-login-help"></a></h3>
                                     <div style="margin:-25px 104px;float: right">
+                                    <p class="Prompt" style="font-size:12px;width:180px;color: red;margin:34px -290px 0px 0px;float: right;"></p>
                                         @if(session('error'))
-                                            <p style="font-size:16px;width:180px;">{{ session('error') }}</p>
+                                            <p style="font-size:12px;width:180px;color: red;margin:34px -290px 0px 0px;float: right;">{{ session('error') }}</p>
                                         @endif
                                     </div>
 
@@ -311,7 +313,7 @@
                                         {{ csrf_field() }}
                                     <div class="area">
                                         <i class="inp-icon icon icon-user"></i>
-                                        <input id="ipt-account-login" type="text" name="username" data-direction="right" spellcheck="false" autocomplete="off" data-length="1,32" data-name="账号" required="required">
+                                        <input id="ipt-account-login" type="text" name="tel" data-direction="right" spellcheck="false" autocomplete="off" data-length="1,32" data-name="账号" required="required" class="tel" value="{{ old('tel') }}">
 
                                         <span class="clearfix"></span>
                                     </div>
@@ -319,16 +321,15 @@
                                     <div class="area">
                                         <i class="inp-icon icon icon-lock"></i>
                                         
-                                        <input id="ipt-pwd-login" type="password" data-direction="right" autocomplete="off" data-name="密码" placeholder="请输入密码" name="password" required="required" data-length="6,32" class="password l">
+                                        <input id="ipt-pwd-login" type="password" data-direction="right" autocomplete="off" data-name="密码" placeholder="请输入密码" name="password" required="required" data-length="6,32" class="password l" value="">
 
                                         <span class="clearfix"></span>
                                     </div>
                                     <div class="area area-captcha">
-                                        <input id="ipt-captcha-login" type="text"   placeholder="请输入验证码" class="captcha l"
-                                        name="code">
+                                        <input id="ipt-captcha-login" type="text"   placeholder="请输入验证码" class="captcha l" required="required"
+                                        name="code" style="width: 175px">
                                         &nbsp;&nbsp;&nbsp;
                                         <img src="/code" alt="" class="code" onclick="this.src='/code?a='+Math.random()"class="captcha-pic l">
-                                        <a id="ipt-captcha-switch" >点击换一张</a>
                                         <span class="clearfix"></span>
                                     </div>
 
@@ -340,7 +341,19 @@
 
 
                                     </form>
-                                   
+                                    
+                                   <script>
+                                   $('.tel').blur(function()
+                                   {
+                                        var a=$('.tel').val();
+
+                                        if(a.length>11)
+                                        {
+                                            $('.Prompt').text('账号长度不得超过11位');
+                                        }
+                                   });
+
+                                   </script>
                                     {{--登录表单结束--}}
                                    
                                 </div>

@@ -14,17 +14,36 @@ class RegController extends Controller
     {
       return view('home.login.zhuce');
     }
+
     //接收用户注册数据
     public function postInsert(Request $request)
     {
         $data = $request->except('_token');
-        // dump($a);
+
+        $regtime=time();
+
+         DB::table('user')->insert(['tel'=>$data['tel'],'username'=>$data['name'],'password'=>$data['password'],'regtime'=>$regtime]);
+
+         return redirect('/login/login');
+
         
     }
-    public function getYz(){
+
+
+    //验证电话号码
+    public function getYz()
+    {
        $phone=$_GET['phone'];
+
        $a=DB::table('user')->where('tel',$phone)->first();
+
        return $a;
+    }
+
+
+    public function getCode()
+    {
+        echo session('code');
     }
    
 }

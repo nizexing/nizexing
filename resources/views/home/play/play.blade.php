@@ -11,9 +11,9 @@
     <link rel="search" type="application/opensearchdescription+xml" href="http://cdn.aixifan.com/acfun-pc/2.0.56/xml/opensearch.xml" title="AcFun" />
     <title>凯文先生《结果》非洲鼓丽江手鼓音乐演奏表演 - AcFun弹幕视频网 - 认真你就输啦 (?ω?)ノ- ( ゜- ゜)つロ</title>
     <link href="http://cdn.aixifan.com/ico/favicon.ico" rel="shortcut icon" />
-    <link rel="stylesheet" href="home/css/core.min.css" />
-    <link rel="stylesheet" href="home/css/detail.min.css" />
-    <link rel="stylesheet" href="home/css/comm.min.css" />
+    <link rel="stylesheet" href="/home/css/core.min.css" />
+    <link rel="stylesheet" href="/home/css/detail.min.css" />
+    <link rel="stylesheet" href="/home/css/comm.min.css" />
     <!--[if lt IE 9]>
     <script src="admin/js/html5shiv.min.js"></script>
     <![endif]-->
@@ -34,7 +34,7 @@
     <nav id="nav" class="wp nav">
         <div class="clearfix wp nav-parent">
             <ul class="fl">
-                <h1 class="fl logo"> <a href="http://www.acfun.cn"> <img src="picture/logo.png" width="88" height="27" /></a> </h1>
+                <h1 class="fl logo"> <a href="http://www.acfun.cn"> <img src="/home/picture/logo.png" width="88" height="27" /></a> </h1>
                 <li data-category="105" data-cid="0"> <a href="/v/list144/index.htm">番剧</a></li>
                 <li data-category="14" data-cid="1"> <a href="/v/list1/index.htm">动画</a></li>
                 <li data-category="16" data-cid="58"> <a href="/v/list58/index.htm">音乐</a></li>
@@ -241,7 +241,7 @@
                 <a href="/v/list58/index.htm" class="sp3">音乐</a>
                 <span class="sp4">&gt;</span>
                 <a href="/v/list137/index.htm" class="sp5">演奏</a>
-                <a href="/u/12138573.aspx" target="_blank" class="avatar-wrap"> <img src="picture/avatar.jpg" class="avatar" /></a>
+                <a href="/u/12138573.aspx" target="_blank" class="avatar-wrap"> <img src="/home/picture/avatar.jpg" class="avatar" /></a>
                 <a href="/u/12138573.aspx" target="_blank" class="name-wrap">凯文先生在路上</a>
                 <span class="sp6">发布于</span>
                 <!--坑爹的百分点-->
@@ -259,8 +259,15 @@
             <div class="handle">
                 拖动播放器
             </div>
-            <object wmode="window" allowfullscreeninteractive="true" allowfullscreen="true" allowscriptaccess="always" width="980" height="568" id="ACFlashPlayer" type="application/x-shockwave-flash" data="http://cdn.aixifan.com/flash/player-view-homura.swf" style="visibility: visible;"> <param name="wmode" value="window"></param> <param name="allowFullscreenInteractive" value="true"></param> <param name="allowfullscreen" value="true"></param>
-                <!-- <param name="allowscriptaccess" value="always"> --> <param name="flashvars" value="wmode=window&amp;allowFullscreenInteractive=true&amp;allowfullscreen=true&amp;allowscriptaccess=always&amp;hint=小贴士：如果发现感兴趣的系列类投稿，可以通过关注up主的方式获得最新更新推送。&amp;backgroundURL=http://imgs.aixifan.com/content/2017_06_26/1498490252.jpg&amp;type=acfun&amp;vid=5345399&amp;videoId=5345399&amp;autoplay=0"></param> </object>
+
+            <object wmode="window" allowfullscreeninteractive="true" allowfullscreen="true" allowscriptaccess="always" width="980" height="568" id="ACFlashPlayer" type="application/x-shockwave-flash" data="http://cdn.aixifan.com/flash/player-view-homura.swf" style="visibility: visible;"> 
+            <param name="wmode" value="window"></param> 
+            <param name="allowFullscreenInteractive" value="true"></param> 
+            <param name="allowfullscreen" value="true"></param>
+                <!-- <param name="allowscriptaccess" value="always"> --> 
+            <param name="flashvars" value="wmode=window&amp;allowFullscreenInteractive=true&amp;allowfullscreen=true&amp;allowscriptaccess=always&amp;hint=小贴士：如果发现感兴趣的系列类投稿，可以通过关注up主的方式获得最新更新推送。&amp;backgroundURL=http://imgs.aixifan.com/content/2017_06_26/1498490252.jpg&amp;type=acfun&amp;vid=5345399&amp;videoId=5345399&amp;autoplay=0"></param> 
+        </object>
+        
         </div>
     </section>
     <section class="clearfix wp area crumb">
