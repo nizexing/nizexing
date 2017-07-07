@@ -19,7 +19,7 @@
                             <span class="clearfix"></span>
                         </div>
                         <div id="block-banner-right" class="block banner">
-                            <a href="javascript:;" class="tab active">
+                            <a href="#aphoto" class="tab active">
                                 <i class="icon"></i>编辑资料</a>
                         </div>
                         <div id="block-first" class="block">
@@ -32,10 +32,10 @@
                                 <div id="unit-basic" class="">
                                     <div class="l a">
                                         <a href="#area=change-avatar" class="thumb">
-                                            <img id="img-avatar-personal"  src="{{$detail->photo}}" class="avatar"></a>
+                                            <img id="img-avatar-personal"  src="{{asset('/'.$user['photo'])}}" class="avatar"></a>
                                     </div>
                                     <div class="l b">
-                                        <a id="name-personal" href="/u/12001390.aspx" class="name">小彦东琦</a>
+                                        <a id="name-personal" href="/u/12001390.aspx" class="name">{{$user['name']}}</a>
                                         <style>
                                             .b a{font-size: 16px;
                                                 font-weight: bold;
@@ -47,9 +47,9 @@
 
                                         </style>
                                         <style rel="stylesheet" href="/static/css/info.css"></style>
-                                        <span id="uid-personal">Uid:{{$user->uid}}</span>
+                                        <span id="uid-personal">Uid:{{$user['uid']}}</span>
 
-                                        <p id="hint-reg-personal">注册于 {{date("m月d日(星期w) H时i分",$user->regtime)}}</p>
+                                        <p id="hint-reg-personal">注册于 {{date("m月d日(星期w) H时i分",$user['regtime'])}}</p>
 
                                     </div>
                                     <span class="clearfix"></span>
@@ -57,9 +57,9 @@
                                 <p class="divider"></p>
                                 <div class="unit-tool">
                                     <div class="l">
-                                        <a id="btn-avatar-personal" href="#area=change-avatar" class="btn info">
+                                        <a id="btn-avatar-personal" href="#aphoto" class="btn info">
                                             <i class="icon icon-user"></i>修改头像</a>
-                                        <a id="btn-sign-personal" class="btn primary">
+                                        <a id="btn-sign-personal" href="#aphoto" class="btn primary">
                                             <i class="icon icon-edit"></i>修改个性签名</a>
                                     </div>
 
@@ -77,8 +77,9 @@
                                     <span class="hint">Extra Information</span></p>
                             </div>
                             <div class="mainer form">
-                                <form action="/member/upload" method="post" id="memform">
+                                <form action="/member/update" method="post" id="memform">
                                     {{csrf_field()}}
+                                    <input type="hidden" name="uid" value="{{$user['uid']}}">
 
                                 <p class="alert">扩展信息将会显示在用户的个人空间中。
                                     <br>请留空您不想暴露的个人信息，以免造成不必要的隐私泄露。</p>
@@ -87,9 +88,9 @@
                                         <p class="subtitle">性别</p></div>
                                     <div class="l b">
                                         <select id="ipt-gender-personal" name="sex">
-                                            <option value="x">不公开</option>
-                                            <option value="w">男</option>
-                                            <option value="m">女</option></select>
+                                            <option value="x" @if($user['sex']=='x') selected @endif>不公开</option>
+                                            <option value="m" @if($user['sex']=='w') selected @endif>男</option>
+                                            <option value="w" @if($user['sex']=='m') selected @endif>女</option></select>
                                     </div>
                                     <span class="clearfix"></span>
                                 </div>
@@ -97,7 +98,7 @@
                                     <div class="l a">
                                         <p class="subtitle">年龄</p></div>
                                     <div class="l b">
-                                        <input id="ipt-home-personal" name="age" type="text" class="req" placeholder="">
+                                        <input id="ipt-home-personal" name="age" type="text" class="req" value="{{$user['age']}}" placeholder="请输入年龄">
                                     </div>
                                     <span class="clearfix"></span>
                                 </div>
@@ -106,91 +107,92 @@
                                     <div class="l a">
                                         <p class="subtitle">真实姓名</p></div>
                                     <div class="l b">
-                                        <input id="ipt-truename-personal" name="realname" data-length="0,8" type="text" class="name" placeholder="请输入真实姓名"></div>
+                                        <input id="ipt-truename-personal" value="{{$user['name']}}" name="realname" data-length="0,8" type="text" class="name" placeholder="请输入真实姓名"></div>
                                     <span class="clearfix"></span>
                                 </div>
-
+                                    <a href="" name="aphoto"></a>
                                 <div class="unit">
                                     <div class="l a">
                                         <p class="subtitle">所在地</p></div>
                                     <div class="l b">
-                                        <select id="ipt-location-a-personal" name="province">
-                                            <option value="不公开">不公开</option>
-                                            <option value="安徽">安徽</option>
-                                            <option value="北京">北京</option>
-                                            <option value="重庆">重庆</option>
-                                            <option value="福建">福建</option>
-                                            <option value="甘肃">甘肃</option>
-                                            <option value="广东">广东</option>
-                                            <option value="广西">广西</option>
-                                            <option value="贵州">贵州</option>
-                                            <option value="海南">海南</option>
-                                            <option value="河北">河北</option>
-                                            <option value="黑龙江">黑龙江</option>
-                                            <option value="河南">河南</option>
-                                            <option value="湖北">湖北</option>
-                                            <option value="湖南">湖南</option>
-                                            <option value="内蒙古">内蒙古</option>
-                                            <option value="江苏">江苏</option>
-                                            <option value="江西">江西</option>
-                                            <option value="吉林">吉林</option>
-                                            <option value="辽宁">辽宁</option>
-                                            <option value="宁夏">宁夏</option>
-                                            <option value="青海">青海</option>
-                                            <option value="山西">山西</option>
-                                            <option value="山东">山东</option>
-                                            <option value="上海">上海</option>
-                                            <option value="四川">四川</option>
-                                            <option value="天津">天津</option>
-                                            <option value="西藏">西藏</option>
-                                            <option value="新疆">新疆</option>
-                                            <option value="云南">云南</option>
-                                            <option value="浙江">浙江</option>
-                                            <option value="陕西">陕西</option>
-                                            <option value="台湾">台湾</option>
-                                            <option value="香港">香港</option>
-                                            <option value="澳门">澳门</option>
-                                            <option value="海外">海外</option>
-                                            <option value="100">其他</option></select>
+                                            <select id="ipt-location-a-personal"name="province">
+                                                <option value="不公开">不公开</option>
+                                            <option value="安徽" @if(strstr($user['address'],'-',true)=="安徽") selected @endif>安徽</option>
+                                            <option value="北京" @if(strstr($user['address'],'-',true)=="北京") selected @endif>北京</option>
+                                            <option value="重庆" @if(strstr($user['address'],'-',true)=="重庆") selected @endif>重庆</option>
+                                            <option value="福建" @if(strstr($user['address'],'-',true)=="福建") selected @endif>福建</option>
+                                            <option value="甘肃" @if(strstr($user['address'],'-',true)=="甘肃") selected @endif>甘肃</option>
+                                            <option value="广东" @if(strstr($user['address'],'-',true)=="广东") selected @endif>广东</option>
+                                            <option value="广西" @if(strstr($user['address'],'-',true)=="广西") selected @endif>广西</option>
+                                            <option value="贵州" @if(strstr($user['address'],'-',true)=="贵州") selected @endif>贵州</option>
+                                            <option value="海南" @if(strstr($user['address'],'-',true)=="海南") selected @endif>海南</option>
+                                            <option value="河北" @if(strstr($user['address'],'-',true)=="河北") selected @endif>河北</option>
+                                            <option value="黑龙江" @if(strstr($user['address'],'-',true)=="黑龙江") selected @endif>黑龙江</option>
+                                            <option value="河南" @if(strstr($user['address'],'-',true)=="河南") selected @endif>河南</option>
+                                            <option value="湖北" @if(strstr($user['address'],'-',true)=="湖北") selected @endif>湖北</option>
+                                            <option value="湖南" @if(strstr($user['address'],'-',true)=="湖南") selected @endif>湖南</option>
+                                            <option value="内蒙古" @if(strstr($user['address'],'-',true)=="内蒙古") selected @endif>内蒙古</option>
+                                            <option value="江苏" @if(strstr($user['address'],'-',true)=="江苏") selected @endif>江苏</option>
+                                            <option value="江西" @if(strstr($user['address'],'-',true)=="江西") selected @endif>江西</option>
+                                            <option value="吉林" @if(strstr($user['address'],'-',true)=="吉林") selected @endif>吉林</option>
+                                            <option value="辽宁" @if(strstr($user['address'],'-',true)=="辽宁") selected @endif>辽宁</option>
+                                            <option value="宁夏" @if(strstr($user['address'],'-',true)=="宁夏") selected @endif>宁夏</option>
+                                            <option value="青海" @if(strstr($user['address'],'-',true)=="青海") selected @endif>青海</option>
+                                            <option value="山西" @if(strstr($user['address'],'-',true)=="山西") selected @endif>山西</option>
+                                            <option value="山东" @if(strstr($user['address'],'-',true)=="山东") selected @endif>山东</option>
+                                            <option value="上海" @if(strstr($user['address'],'-',true)=="上海") selected @endif>上海</option>
+                                            <option value="四川" @if(strstr($user['address'],'-',true)=="四川") selected @endif>四川</option>
+                                            <option value="天津" @if(strstr($user['address'],'-',true)=="天津") selected @endif>天津</option>
+                                            <option value="西藏" @if(strstr($user['address'],'-',true)=="西藏") selected @endif>西藏</option>
+                                            <option value="新疆" @if(strstr($user['address'],'-',true)=="新疆") selected @endif>新疆</option>
+                                            <option value="云南" @if(strstr($user['address'],'-',true)=="云南") selected @endif>云南</option>
+                                            <option value="浙江" @if(strstr($user['address'],'-',true)=="浙江") selected @endif>浙江</option>
+                                            <option value="陕西" @if(strstr($user['address'],'-',true)=="陕西") selected @endif>陕西</option>
+                                            <option value="台湾" @if(strstr($user['address'],'-',true)=="台湾") selected @endif>台湾</option>
+                                            <option value="香港" @if(strstr($user['address'],'-',true)=="香港") selected @endif>香港</option>
+                                            <option value="澳门" @if(strstr($user['address'],'-',true)=="澳门") selected @endif>澳门</option>
+                                            <option value="海外" @if(strstr($user['address'],'-',true)=="海外") selected @endif>海外</option>
+                                            <option value="100" @if(strstr($user['address'],'-',true)=="100") selected @endif>其他</option></select>
                                         <select id="ipt-location-b-personal" name="city">
-                                            <option value="不公开">不公开</option></select>
+                                            <option value="不公开">不公开</option>
+                                            @if(substr($user['address'],strpos($user['address'],'-')+1)!='') <option value="{{substr($user['address'],strpos($user['address'],'-')+1)}}" selected>{{substr($user['address'],strpos($user['address'],'-')+1)}}</option> @endif
+                                        </select>
                                     </div>
                                     <span class="clearfix"></span>
                                 </div>
+
+
                                 <!-- -.unit.l.a p.subtitle 联系电话 .l.b input#ipt-tel-personal.tel(data-name="联系电话", data-length="0,20", type="tel") span.clearfix-->
                                 <p class="sub-divider"></p>
                                 <div class="unit">
                                         <div class="l a">
                                             <p class="subtitle">邮箱</p></div>
                                         <div class="l b">
-                                            <input id="ipt-home-personal" data-name="个人空间地址" name="email" data-length="0,63" type="text" class="req" placeholder="请输入个人空间地址"></div>
+                                            <input id="ipt-home-personal" data-name="个人空间地址" name="email" data-length="0,63" type="text" class="req" value="{{$user['email']}}" placeholder="请输入个人邮箱"></div>
                                         <span class="clearfix"></span>
                                     </div>
-                                    <div class="unit">
-                                        <div class="l a">
-                                            <p class="subtitle">QQ号码</p></div>
-                                        <div class="l b">
-                                            <input id="ipt-qq-personal" data-name="QQ号码" name="QQ" data-length="0,63" type="text" class="number" placeholder="请输入QQ号码"></div>
-                                        <span class="clearfix"></span>
-                                    </div>
+
                                     <p class="divider"></p>
                                     <div class="unit">
                                         <div class="l a">
                                             <p class="subtitle">修改头像</p></div>
                                         <div class="l b">
-                                            <input type="text" name="art_thumb" id="upload_path" style="width:238px;">
-                                            <input   name="photo" id="photo" value="" data-length="0,63" type="file" style="width:65px;"></div>
-
-
-                                        <img src="" id="pic" alt="" style="display:none; width:200px;height:200px;background:red;">
+                                            <input type="text"  id="upload_path" style="width:238px;">
+                                            <input    id="photo" value="" data-length="0,63" type="file" style="width:65px;"></div>
 
                                         <span class="clearfix"></span>
+                                    </div>
+                                    <div class="unit">
+                                        <div class="l a"></div>
+                                        <div class="l b">
+                                            <img src="" id="pic" alt="" style="display:none; width:200px;height:200px;">
+                                        </div>
                                     </div>
                                     <div class="unit">
                                         <div class="l a">
                                             <p class="subtitle">修改个性签名</p></div>
                                         <div class="l b">
-                                            <input   name="sign" data-length="0,63" type="text" ></div>
+                                            <input   name="sign" data-length="0,63" type="text" value="{{$user['sign']}}" ></div>
                                         <div class="uploadimg"></div>
                                         <span class="clearfix"></span>
                                     </div>
@@ -224,7 +226,7 @@
                                             }
 
                                             var formData = new FormData($('#memform')[0]);
-                                            alert(formData);
+//                                            alert(formData);
                                             $.ajax({
                                                 type: "POST",
                                                 url: "/member/upload",
@@ -235,10 +237,15 @@
                                                 processData: false,
                                                 success: function(data) {
                                     console.log(data);
-//                                    alert("上传成功");
-                                                    $('#pic').attr('src','/'+data);
+                                    alert("上传成功");
+                                                    $('#pic').attr('src','{{asset("/")}}'+data);
                                                     $('#pic').show();
                                                     $('#upload_path').val(data);
+                                                    setTimeout(function(){
+
+                                                        location.href= 'www.baidu.com';
+                                                    },500);
+
 
                                                 },
                                                 error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -363,7 +370,7 @@
                                                     return ["不公开"]
                                             }
                                         } (), a = "", n = 0, i = e.length; i > n; n++) r = e[n],
-                                            a += '<option value="' + r + '">' + r + "</option>";
+                                            a += '<option value="' + r + '"> ' + r + "</option>";
                                         return s.html(a)
                                     })
                             }).call(this);

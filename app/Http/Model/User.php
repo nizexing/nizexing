@@ -8,14 +8,14 @@ class User extends Model
 {
     //
     protected $table = "user";
-    protected $primarykey = "uid";
+    protected $primaryKey = "uid";
     public $timestamps = false;
     public $guarded = [];
 
 
-    public function user_detail()
+    public function detail()
     {
-        return $this -> hasOne("App\Http\Model\User_detail");
+        return $this -> hasOne('App\Http\Model\User_detail',"uid","uid");
     }
 
 }

@@ -37,8 +37,20 @@
 
 
 <body>
-
-<div id="area-info"></div>
+@if(session("success"))
+<div id="area-info" style="display:block;height:40px">
+    <div class="item success" style="line-height;24px;left: 0px;opacity: 1; transition: left 200ms ease, opacity 200ms ease;">
+        <i class="icon icon-check-square-o" style="width:12px;height:12px">
+        </i>{{ session("success") }}
+    </div>
+</div>
+@endif
+<script>
+    setTimeout(function(){
+        $('#area-info').fadeOut();
+//        alert(a);
+    },2000);
+</script>
 
 <div id="guide-space" class="simple"></div>
 <div id="guide" class="simple">
@@ -281,42 +293,21 @@
         <div id="block-main">
             <div id="area-main-left" class="l">
                 <div id="block-user-left" data-active="active">
-                    <a href="javascript:;" class="thumb">
-                        <img src="/{{$detail->photo}}" class="avatar" />
+                    <a href="{{asset('member/info')}}?#aphoto" class="thumb">
+                        <img src="/{{$user['photo']}}" class="avatar" />
                         <span class="cover">
-                                    <i class="icon icon-user"></i>编辑资料{{$user->name}}</span>
+                                    <i class="icon icon-user"></i>编辑资料{{$user['name']}}</span>
                     </a>
                     <div class="d">
-                        <a href="/u/12001390.aspx" target="_blank" class="name">{{$user->name}}</a></div>
+                        <a href="javascript:;"  class="name" style="cursor:default;">{{$user['name']}}</div>
 
 
                     <button id="btn-sign-user" data-checked="0" data-group="0" class="btn primary">
                         <i class="icon icon-check-circle"></i>签到
                     </button>
-                    <p title="点击以修改签名" class="desc">{{$detail->sign}}
+                    <p title="点击以修改签名" class="desc">{{$user['sign']}}
                         <i class="icon icon-edit"></i></p>
-                    <div class="area-extra">
-                        <div class="space"></div>
-                        <a href="#area=post-history">
-                            <span class="pts">0</span>
-                            <span class="hint">过审投稿</span></a>
-                        <a href="#area=following">
-                            <span class="pts">1</span>
-                            <span class="hint">收听</span></a>
-                        <a href="#area=followers">
-                            <span class="pts">0</span>
-                            <span class="hint">听众</span></a>
-                        <a href="#area=banana">
-                            <span class="pts">14</span>
-                            <span class="hint">香蕉</span></a>
-                        <a href="#area=golden-banana">
-                            <span class="pts">0</span>
-                            <span class="hint">金香蕉</span></a>
-                        <a href="#area=splash" title="18% - 当前总经验值：9 / 下一级所需总经验值：50">
-                            <span class="pts">0</span>
-                            <span class="hint">等级</span></a>
-                        <span class="clearfix"></span>
-                    </div>
+
                 </div>
                 <div id="shadow-guide-left" class="hidden"></div>
                 <div id="list-guide-left">
