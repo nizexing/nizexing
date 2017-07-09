@@ -31,9 +31,11 @@ Route::controller('admin/config','Admin\ConfigController');
 
 // 前台路由
 // 首页路由
-Route::controller('/index','Home\IndexController');
+Route::get('/index','Home\IndexController@index');
+// 二级分类展示页路由
+Route::get('/v/{tid}/index','Home\IndexController@vindex');
 // 列表页路由
-Route::controller('/list','Home\ListController');
+Route::get('/list/{key}','Home\ListController@vlist');
 // 注册路由
 Route::controller('/reg','Home\RegController');
 //验证码

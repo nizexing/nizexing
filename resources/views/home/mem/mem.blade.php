@@ -4,10 +4,10 @@
     <link rel="stylesheet" href="{{asset('/static/css/info.css')}}">
 @endsection
 
-@section("area-main-right")
+@section("area-main")
 
     <!-- main  主体 -->
-
+                @parent
                 <div id="area-main-right" class="r">
                     <div id="area-cont-right">
 
