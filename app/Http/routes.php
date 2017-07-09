@@ -15,7 +15,7 @@
      return view('welcome');
  });
 // 后台路由
-// 注册登录
+// 登录
 Route::controller('admin/login','Admin\LoginController');
 // 管理员管理路由
 Route::controller('admin/admin','Admin\AdminController');
