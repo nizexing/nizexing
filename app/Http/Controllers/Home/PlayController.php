@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
+
 use DB;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class PlayController extends Controller
 {
+
    public function play($vid)
    {    
         //获得当前登录用户
@@ -37,6 +40,7 @@ class PlayController extends Controller
 
 
    }
+
 
 
 

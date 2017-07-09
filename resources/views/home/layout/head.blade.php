@@ -10,7 +10,9 @@
     <meta name="keywords" content="A站 ACFUN ACG 弹幕 视频 动画 漫画 游戏 斗鱼 新番 鬼畜 东方 初音 DOTA MUGEN LOL Vocaloid MAD AMV 天下漫友是一家" />
     <meta name="description" content="AcFun是一家弹幕视频网站，致力于为每一个人带来欢乐。" />
     <title>用户中心 - AcFun弹幕视频网 - 认真你就输啦 (・ω・)ノ- ( ゜- ゜)つロ</title>
+
     <script src="{{asset("/static/js/jquery.min.js")}}"></script>
+
     <link rel="stylesheet" href="http://cdn.aixifan.com/dotnet/20130418/style/core.css?v=1.1.76" />
     <!--[if lte IE 7]>
     <link rel="stylesheet" href="http://cdn.aixifan.com/dotnet/20130418/project/font-awesome/4.2.0/css/font-awesome-ie7.min.css"></link>
@@ -26,11 +28,14 @@
         <!-->
     <link rel="stylesheet" href="http://cdn.aixifan.com/dotnet/20130418/project/font-acfun/css/style.css" />
     <!--<![endif]-->
+
     <link rel="stylesheet" media="screen and (min-width: 1440px)" href="/static/css/wide.css" />
+
     <link rel="stylesheet" href="http://cdn.aixifan.com/dotnet/20130418/project/homura/style/member.css?v=1.1.76" />
     <link id="style-theme-member" rel="stylesheet" href="http://cdn.aixifan.com/dotnet/20130418/project/theme/default/theme.css?v=1.1.76" /></head>
 <link href="favicon.ico" rel="shortcut icon">
 {{--<link rel="stylesheet" href="/static/css/core.min.css">--}}
+
 @section("css")
 
 @show
@@ -51,6 +56,7 @@
 //        alert(a);
     },2000);
 </script>
+
 
 <div id="guide-space" class="simple"></div>
 <div id="guide" class="simple">
@@ -288,6 +294,7 @@
             <i class="icon icon-chevron-up"></i>
             <p class="hint">返回顶部</p></div>
     </div>
+
 </div><div id="mainer">
     <div id="mainer-inner">
         <div id="block-main">

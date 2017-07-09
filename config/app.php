@@ -39,7 +39,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'timezone' => 'PRC',
+=======
+    'timezone' => 'UTC',
+>>>>>>> 4137c355c7b641c20e106c331b768dccd4ef9023
 
     /*
     |--------------------------------------------------------------------------
@@ -136,7 +140,11 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+<<<<<<< HEAD
         Barryvdh\Debugbar\ServiceProvider::class,
+=======
+
+>>>>>>> 4137c355c7b641c20e106c331b768dccd4ef9023
         /*
          * Application Service Providers...
          */
@@ -192,7 +200,10 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+<<<<<<< HEAD
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+=======
+>>>>>>> 4137c355c7b641c20e106c331b768dccd4ef9023
 
     ],
 

@@ -3,7 +3,9 @@
 
 
 
-@section("area-main-right")
+
+@section("main")
+
 
 @show
 

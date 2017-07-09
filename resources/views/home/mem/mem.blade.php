@@ -1,5 +1,6 @@
 @extends("home.layout.mem")
 
+
 @section("css")
     <link rel="stylesheet" href="{{asset('/static/css/info.css')}}">
 @endsection

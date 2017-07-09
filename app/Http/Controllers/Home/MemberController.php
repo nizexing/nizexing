@@ -9,10 +9,12 @@ use App\Http\Model\User;
 
 
 use Barryvdh\Debugbar\Middleware\Debugbar;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Input;
 
 class MemberController extends Controller
@@ -105,6 +107,7 @@ class MemberController extends Controller
 //      dump($user);
         return $user;
     }
+
 
 
 }
