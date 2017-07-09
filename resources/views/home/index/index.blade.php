@@ -29,17 +29,107 @@
             </div>
             <div class="fr slider-right-x6">
                 <ul m-id="302" m-name="小图综合推荐" m-type="2" class="slider-small">
+<<<<<<< HEAD
                     @foreach($top as $k=>$v)
                     <li>
                         <a href="{{ url('/play/'.$v['vid']) }}" target="_blank">
                             <img src="{{asset($v['img'])}}" width="216" height="120" />
+=======
+
+                    <li>
+
+                        <a href="{{ url('/play/1') }}" target="_blank">
+
+                            <img src="/static/picture/1498386915.gif" width="216" height="120" />
+                            <div class="mask-gradient mask">
+                                <b>总之大金空调猴赛雷就对了</b>
+                                <p class="text-overflow">
+                                    <span>UP: 等等楼主</span>
+                                    <span class="clearfix">
+                                            <i class="icon icon-view-player">10.1万</i>
+                                            <i class="icon icon-danmu">479</i></span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="{{ url('/paly/2') }}" target="_blank">
+
+                            <img src="/static/picture/1498386915.gif" width="216" height="120" />
+                            <div class="mask-gradient mask">
+                                <b>总之大金空调猴赛雷就对了</b>
+                                <p class="text-overflow">
+                                    <span>UP: 等等楼主</span>
+                                    <span class="clearfix">
+                                            <i class="icon icon-view-player">10.1万</i>
+                                            <i class="icon icon-danmu">479</i></span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="{{ url('/paly/3') }}" target="_blank">
+
+                            <img src="/static/picture/1498386915.gif" width="216" height="120" />
+>>>>>>> origin/nizexing
                             <div class="mask-gradient mask">
                                 <b>{{$v['title']}}</b>
                                 <p class="text-overflow">
                                     <span>UP发布人: {{ $v['name'] }}</span>
                                     <span class="clearfix">
+<<<<<<< HEAD
                                             <i class="icon icon-view-player" data="click">@if($v['click']>10000) {{round($v['click']/10000,1).'万'}}@else @if($v['click']>10000) {{round($v['click']/10000,1).'万'}}@else {{$v['click']}} @endif @endif</i>
                                             <i class="icon icon-danmu" data="comment">@if($v['comment']>10000) {{round($v['comment']/10000,1).'万'}}@else {{$v['comment']}} @endif</i></span>
+=======
+                                            <i class="icon icon-view-player">10.1万</i>
+                                            <i class="icon icon-danmu">479</i></span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="{{ url('/paly/4') }}" target="_blank">
+
+                            <img src="/static/picture/1498386915.gif" width="216" height="120" />
+                            <div class="mask-gradient mask">
+                                <b>总之大金空调猴赛雷就对了</b>
+                                <p class="text-overflow">
+                                    <span>UP: 等等楼主</span>
+                                    <span class="clearfix">
+                                            <i class="icon icon-view-player">10.1万</i>
+                                            <i class="icon icon-danmu">479</i></span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/v/ac3807858" target="_blank">
+                            <img src="/static/picture/1498386915.gif" width="216" height="120" />
+                            <div class="mask-gradient mask">
+                                <b>总之大金空调猴赛雷就对了</b>
+                                <p class="text-overflow">
+                                    <span>UP: 等等楼主</span>
+                                    <span class="clearfix">
+                                            <i class="icon icon-view-player">10.1万</i>
+                                            <i class="icon icon-danmu">479</i></span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/v/ac3807858" target="_blank">
+                            <img src="/static/picture/1498386915.gif" width="216" height="120" />
+                            <div class="mask-gradient mask">
+                                <b>总之大金空调猴赛雷就对了</b>
+                                <p class="text-overflow">
+                                    <span>UP: 等等楼主</span>
+                                    <span class="clearfix">
+                                            <i class="icon icon-view-player">10.1万</i>
+                                            <i class="icon icon-danmu">479</i></span>
+>>>>>>> origin/nizexing
                                 </p>
                             </div>
                         </a>

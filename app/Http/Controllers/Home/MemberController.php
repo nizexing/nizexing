@@ -9,13 +9,18 @@ use App\Http\Model\User;
 
 
 use Barryvdh\Debugbar\Middleware\Debugbar;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 
-class MemberController extends CommonController
+
+use Illuminate\Support\Facades\Input;
+
+class MemberController extends Controller
+
 {
 
     /**
@@ -26,7 +31,6 @@ class MemberController extends CommonController
      */
     public function getInfo()
     {
-
 
         return view("home.mem.mem");
     }
@@ -81,17 +85,36 @@ class MemberController extends CommonController
 
     }
 
+
+
+
+
+
+
     /**
      * 功能:  显示 视频上传 提交页面
      *
      */
     public function getVideo()
     {
+        $user = self::userInfo();
+
         return view("home.mem.video");
     }
 
 
 
+    public static function userInfo()
+    {
+        $user = User::find(1);
+        $detail = $user->detail;
+
+        $user = $user -> toArray();
+        $tmp = array_pop($user);
+        $user = array_merge($user,$tmp);
+//      dump($user);
+        return $user;
+    }
 
 
 

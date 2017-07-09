@@ -8,6 +8,9 @@ class User_detail extends Model
 {
     // 关联数据 表
     protected $table = "user_detail";
+
+
+
     public $timestamps = false;
     public $guarded = [];
 

@@ -7,6 +7,10 @@
 <!-- main 主体结束 -->
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/nizexing
 <!-- footer -->
 <div id="footer">
     <div id="footer-inner">
@@ -120,8 +124,19 @@
 
 </body>
 
+<<<<<<< HEAD
 </html>
 
 @section("js")
 
 @show
+=======
+
+</html>
+@section("js")
+
+@show
+
+
+
+>>>>>>> origin/nizexing

@@ -7,6 +7,7 @@
     <script type="text/javascript" src="{{asset('admin/style/js/jquery.js')}}"></script>
     <script type="text/javascript" src="{{asset('admin/style/js/ch-ui.admin.js')}}"></script>
 
+<<<<<<< HEAD
     <script type="text/javascript" src=""></script>
 </head>
 <body>
@@ -96,5 +97,14 @@
 		CopyRight © 2015. Powered By <a href="http://www.itxdl.cn">http://www.itxdl.cn</a>.
 	</div>
 	<!--底部 结束-->
+=======
+    <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
+</head>
+<body>
+{{--@yield('content')--}}
+@section('content')
+
+    @show
+>>>>>>> origin/nizexing
 </body>
 </html>

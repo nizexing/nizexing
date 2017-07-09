@@ -8,10 +8,16 @@
     <meta name="keywords" content="{{Config('web.keys')}}">
     <meta name="description" content="Config('web.description')">
 
+<<<<<<< HEAD
     <title>{{Config('web.title')}}</title>
     <link href="./favicon.ico" rel="shortcut icon">
     <script src="{{asset("/static/js/jquery.min.js")}}"></script>
     <link rel="stylesheet" href="/static/css/core.css" />
+=======
+    <script src="{{asset("/static/js/jquery.min.js")}}"></script>
+
+    <link rel="stylesheet" href="http://cdn.aixifan.com/dotnet/20130418/style/core.css?v=1.1.76" />
+>>>>>>> origin/nizexing
     <!--[if lte IE 7]>
     <link rel="stylesheet" href="/static/css/font-awesome-ie7.min.css"></link>
     <![endif]-->
@@ -26,6 +32,7 @@
         <!-->
     <link rel="stylesheet" href="/static/css/style.css" />
     <!--<![endif]-->
+<<<<<<< HEAD
     <link rel="stylesheet" media="screen and (min-width: 1440px)" href="/static/css/wide.css" />
     <link rel="stylesheet" href="/static/css/member.css" />
     <link id="style-theme-member" rel="stylesheet" href="/static/css/theme.css" /></head>
@@ -50,6 +57,37 @@
 //        alert(a);
     },2000);
 </script>
+=======
+
+    <link rel="stylesheet" media="screen and (min-width: 1440px)" href="/static/css/wide.css" />
+
+    <link rel="stylesheet" href="http://cdn.aixifan.com/dotnet/20130418/project/homura/style/member.css?v=1.1.76" />
+    <link id="style-theme-member" rel="stylesheet" href="http://cdn.aixifan.com/dotnet/20130418/project/theme/default/theme.css?v=1.1.76" /></head>
+<link href="favicon.ico" rel="shortcut icon">
+{{--<link rel="stylesheet" href="/static/css/core.min.css">--}}
+
+@section("css")
+
+@show
+
+
+<body>
+@if(session("success"))
+<div id="area-info" style="display:block;height:40px">
+    <div class="item success" style="line-height;24px;left: 0px;opacity: 1; transition: left 200ms ease, opacity 200ms ease;">
+        <i class="icon icon-check-square-o" style="width:12px;height:12px">
+        </i>{{ session("success") }}
+    </div>
+</div>
+@endif
+<script>
+    setTimeout(function(){
+        $('#area-info').fadeOut();
+//        alert(a);
+    },2000);
+</script>
+
+>>>>>>> origin/nizexing
 
 <div id="guide-space" class="simple"></div>
 <div id="guide" class="simple">
@@ -287,8 +325,138 @@
             <i class="icon icon-chevron-up"></i>
             <p class="hint">返回顶部</p></div>
     </div>
+<<<<<<< HEAD
 </div><div id="mainer">
     <div id="mainer-inner">
         <div id="block-main">
 
+=======
+
+</div><div id="mainer">
+    <div id="mainer-inner">
+        <div id="block-main">
+            <div id="area-main-left" class="l">
+                <div id="block-user-left" data-active="active">
+                    <a href="{{asset('member/info')}}?#aphoto" class="thumb">
+                        <img src="/{{$user['photo']}}" class="avatar" />
+                        <span class="cover">
+                                    <i class="icon icon-user"></i>编辑资料{{$user['name']}}</span>
+                    </a>
+                    <div class="d">
+                        <a href="javascript:;"  class="name" style="cursor:default;">{{$user['name']}}</div>
+
+
+                    <button id="btn-sign-user" data-checked="0" data-group="0" class="btn primary">
+                        <i class="icon icon-check-circle"></i>签到
+                    </button>
+                    <p title="点击以修改签名" class="desc">{{$user['sign']}}
+                        <i class="icon icon-edit"></i></p>
+
+                </div>
+                <div id="shadow-guide-left" class="hidden"></div>
+                <div id="list-guide-left">
+
+                    <div class="part-guide-left">
+                        <div class="banner">
+                            <a href="#area=favourite" class="tab fixed">
+                                <i class="icon icon-folder-open"></i>收藏夹</a>
+                            <span id="hint-favourite-left" class="hidden">0</span></div>
+                        <div class="mainer hidden">
+                            <a href="#area=favourite" class="tab">
+                                <i class="icon"></i>稿件收藏
+                                <span class="hint hidden hint-favourite-left">(0)</span></a>
+                            <a href="#area=favourite-bangumi" class="tab">
+                                <i class="icon"></i>剧集收藏
+                                <span class="hint hidden hint-favourite-bangumi-left">(0)</span></a>
+                            <a href="#area=favourite-album" class="tab">
+                                <i class="icon"></i>合辑收藏
+                                <span class="hint hidden hint-favourite-album-left">(0)</span></a>
+                        </div>
+                    </div>
+                    <div class="part-guide-left">
+                        <div class="banner">
+                            <a href="#area=history" class="tab fixed">
+                                <i class="icon icon-history"></i>历史</a>
+                        </div>
+                        <div class="mainer hidden">
+                            <a href="#area=history" class="tab">
+                                <i class="icon"></i>历史</a>
+                        </div>
+                    </div>
+                    <div class="part-guide-left">
+                        <div class="banner">
+                            <a href="#area=mail" class="tab fixed">
+                                <i class="icon icon-envelope-square"></i>私信</a>
+                            <span id="hint-mail-left" class="hidden">0</span></div>
+                        <div class="mainer hidden">
+                            <a href="#area=mail" class="tab">
+                                <i class="icon"></i>私信
+                                <span class="hint hidden hint-mail-left">(0)</span></a>
+                        </div>
+                    </div>
+                    <div class="part-guide-left">
+                        <div class="banner">
+                            <p class="tab fixed unfold">
+                                <i class="icon icon-upload"></i>投稿&middot;管理</p>
+                        </div>
+                        <div class="mainer">
+                            <a href="#area=upload-video" class="tab">
+                                <i class="icon"></i>视频投稿</a>
+                            <a href="#area=upload-link" class="tab">
+                                <i class="icon"></i>链接投稿</a>
+                            <a href="#area=post-article" class="tab">
+                                <i class="icon"></i>文章投稿</a>
+                            <a href="#area=post-history" class="tab">
+                                <i class="icon"></i>过往投稿</a>
+                            <a href="#area=post-manage" class="tab">
+                                <i class="icon"></i>视频管理</a>
+                        </div>
+                    </div>
+                    <div class="part-guide-left">
+                        <div class="banner">
+                            <a href="#area=album-manage" class="tab fixed">
+                                <i class="icon icon-book"></i>合辑</a>
+                        </div>
+                        <div class="mainer hidden">
+                            <a href="#area=create-album" class="tab">
+                                <i class="icon"></i>创建合辑</a>
+                            <a href="#area=album-manage" class="tab">
+                                <i class="icon"></i>合辑管理</a>
+                            <a href="#area=album-add-content" class="tab">
+                                <i class="icon"></i>稿件管理</a>
+                        </div>
+                    </div>
+
+                    <div class="part-guide-left">
+                        <div class="banner">
+                            <a href="#area=setting" class="tab fixed">
+                                <i class="icon icon-cog"></i>设置</a>
+                            <span id="hint-setting-left" class="hidden">0</span></div>
+                        <div class="mainer hidden">
+
+                            <a href="#area=profile" class="tab">
+                                <i class="icon"></i>编辑资料</a>
+                        </div>
+                    </div>
+                    <div class="part-guide-left">
+                        <div class="banner">
+                            <a href="#area=banana-store" class="tab fixed">
+                                <i class="icon icon-gift"></i>商城</a>
+                        </div>
+                        <div class="mainer hidden">
+                            <a href="#area=banana-store" class="tab">
+                                <i class="icon"></i>香蕉商城</a>
+                            <a href="#area=banana" class="tab">
+                                <i class="icon"></i>香蕉</a>
+                            <a href="#area=golden-banana" class="tab">
+                                <i class="icon"></i>金香蕉</a>
+                            <a href="#area=depot" class="tab">
+                                <i class="icon"></i>我的道具</a>
+                            <a href="#area=banana-order" class="tab">
+                                <i class="icon"></i>我的订单</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+>>>>>>> origin/nizexing
 

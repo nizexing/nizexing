@@ -1,13 +1,24 @@
 @extends("home.layout.mem")
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/nizexing
 @section("css")
     <link rel="stylesheet" href="{{asset('/static/css/info.css')}}">
 @endsection
 
+<<<<<<< HEAD
 @section("area-main")
 
     <!-- main  主体 -->
                 @parent
+=======
+@section("area-main-right")
+
+    <!-- main  主体 -->
+
+>>>>>>> origin/nizexing
                 <div id="area-main-right" class="r">
                     <div id="area-cont-right">
 
