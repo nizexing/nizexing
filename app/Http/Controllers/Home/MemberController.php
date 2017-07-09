@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Input;
 
 class MemberController extends CommonController
 
+
 {
 
     /**

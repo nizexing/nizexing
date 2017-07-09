@@ -15,7 +15,13 @@ class PlayController extends Controller
    public function play($vid)
    {    
         //获得当前登录用户
-        $user=DB::table('user')->where('uid',$vid)->first();
+    //     if($vid){
+    //         $user=DB::table('user')->where('uid',$vid)->first();
+    //     dump($user);
+    // }else{
+    //         $user['username']=false;
+    // }
+         $user=DB::table('user')->where('uid',$vid)->first();
         dump($user);
 
         //上传人的详细数据
