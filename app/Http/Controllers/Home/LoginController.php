@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Session;
-
+class LoginController extends Controller
 {
 //    登录
   public function getLogin()
