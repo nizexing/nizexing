@@ -15,7 +15,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 
-class MemberController extends Controller
+class MemberController extends CommonController
 {
 
     /**
@@ -26,9 +26,9 @@ class MemberController extends Controller
      */
     public function getInfo()
     {
-        $user = self::userInfo();
 
-        return view("home.mem.mem",['user'=>$user]);
+
+        return view("home.mem.mem");
     }
 
     /**
@@ -87,24 +87,12 @@ class MemberController extends Controller
      */
     public function getVideo()
     {
-        $user = self::userInfo();
-
-        return view("home.mem.video",['user'=>$user]);
+        return view("home.mem.video");
     }
 
 
 
-    public static function userInfo()
-    {
-        $user = User::find(1);
-        $detail = $user->detail;
 
-        $user = $user -> toArray();
-        $tmp = array_pop($user);
-        $user = array_merge($user,$tmp);
-//      dump($user);
-        return $user;
-    }
 
 
 }
