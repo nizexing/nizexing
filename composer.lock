@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+
     "content-hash": "1f6635d82a6be451a14bb65f751eba7c",
     "packages": [
         {
@@ -69,6 +70,7 @@
             "time": "2017-06-14T07:44:44+00:00"
         },
         {
+
             "name": "classpreloader/classpreloader",
             "version": "3.1.0",
             "source": {
@@ -684,6 +686,10 @@
             "time": "2017-04-28T10:15:08+00:00"
         },
         {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/nizexing
             "name": "maximebf/debugbar",
             "version": "1.13.1",
             "source": {
@@ -745,6 +751,7 @@
             "time": "2017-01-05T08:46:19+00:00"
         },
         {
+
             "name": "monolog/monolog",
             "version": "1.23.0",
             "source": {

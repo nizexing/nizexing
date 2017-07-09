@@ -43,6 +43,10 @@ Route::get('/code','codeController@code');
 // 登录路由
 Route::controller('/login','Home\LoginController');
 // 视频播放页路由
-Route::controller('/play','Home\PlayController');
+
+Route::get('/play/{vid}','Home\PlayController@play');
+//评论管理
+Route::controller('/pinlun','Home\pinlunController');
+
 // 个人中心路由
 Route::controller('/member','Home\MemberController');

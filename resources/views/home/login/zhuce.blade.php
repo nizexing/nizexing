@@ -382,6 +382,10 @@
 
                              var nickname=$('.nickname').val();
 
+                                if(nicknane==''){
+                                    $('.bb').text('昵称不能为空').css('color','red');
+                                }
+
                                 if(n.test(nickname)==true)
                                 {
                                         $('.bb').text('不能以符号开头').css('color','red');

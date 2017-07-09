@@ -29,20 +29,11 @@
             </div>
             <div class="fr slider-right-x6">
                 <ul m-id="302" m-name="小图综合推荐" m-type="2" class="slider-small">
+
                     @foreach($top as $k=>$v)
-                    <li>
+                    <li style="float:left;">
                         <a href="{{ url('/play/'.$v['vid']) }}" target="_blank">
-                            <img src="{{asset($v['img'])}}" width="216" height="120" />
-                            <div class="mask-gradient mask">
-                                <b>{{$v['title']}}</b>
-                                <p class="text-overflow">
-                                    <span>UP发布人: {{ $v['name'] }}</span>
-                                    <span class="clearfix">
-                                            <i class="icon icon-view-player" data="click">@if($v['click']>10000) {{round($v['click']/10000,1).'万'}}@else @if($v['click']>10000) {{round($v['click']/10000,1).'万'}}@else {{$v['click']}} @endif @endif</i>
-                                            <i class="icon icon-danmu" data="comment">@if($v['comment']>10000) {{round($v['comment']/10000,1).'万'}}@else {{$v['comment']}} @endif</i></span>
-                                </p>
-                            </div>
-                        </a>
+                            <img src="{{asset($v['img'])}}" width="216" height="120" /></a>>
                     </li>
                     @endforeach
                 </ul>

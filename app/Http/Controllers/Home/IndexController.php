@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 
+
 use App\Http\Controllers\Home\CommonController;
 
 use App\Http\Model\Adver;
@@ -10,6 +11,7 @@ use App\Http\Model\Tjvideo;
 use App\Http\Model\Type;
 use App\Http\Model\Url;
 use App\Http\Model\User;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

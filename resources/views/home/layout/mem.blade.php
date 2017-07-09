@@ -3,6 +3,7 @@
 
 
 
+
 @section("area-main")
     <div id="area-main-left" class="l">
         <div id="block-user-left" data-active="active">
@@ -14,7 +15,7 @@
             </a>
             {{--名字--}}
             <div class="d">
-                <a href="javascript:;"  class="name" style="cursor:default;">{{$user['name']}}</div>
+                <a href="javascript:;"  class="name" style="cursor:default;">{{$user['name']}}</a></div>
             {{--签到--}}
             <button id="btn-sign-user" data-checked="0" data-group="0" class="btn primary">
                 <i class="icon icon-check-circle"></i>签到
@@ -70,6 +71,7 @@
 
         </div>
     </div>
+
 @show
 
 @include("home.layout.foot")

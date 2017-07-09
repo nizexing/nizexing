@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<head xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
     <script src="/static/js/route.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="copyright" content="{{Config('web.copyright')}}">
@@ -12,6 +11,7 @@
     <link href="./favicon.ico" rel="shortcut icon">
     <script src="{{asset("/static/js/jquery.min.js")}}"></script>
     <link rel="stylesheet" href="/static/css/core.css" />
+
     <!--[if lte IE 7]>
     <link rel="stylesheet" href="/static/css/font-awesome-ie7.min.css"></link>
     <![endif]-->
@@ -26,9 +26,11 @@
         <!-->
     <link rel="stylesheet" href="/static/css/style.css" />
     <!--<![endif]-->
+
     <link rel="stylesheet" media="screen and (min-width: 1440px)" href="/static/css/wide.css" />
     <link rel="stylesheet" href="/static/css/member.css" />
-    <link id="style-theme-member" rel="stylesheet" href="/static/css/theme.css" /></head>
+    <link id="style-theme-member" rel="stylesheet" href="/static/css/theme.css" />
+</head>
 
 @section("css")
 
@@ -38,7 +40,7 @@
 <body>
 @if(session("success"))
 <div id="area-info" style="display:block;height:40px">
-    <div class="item success" style="line-height;24px;left: 0px;opacity: 1; transition: left 200ms ease, opacity 200ms ease;">
+    <div class="item success" style="line-height:24px;left: 0px;opacity: 1; transition: left 200ms ease, opacity 200ms ease;">
         <i class="icon icon-check-square-o" style="width:12px;height:12px">
         </i>{{ session("success") }}
     </div>
@@ -50,6 +52,7 @@
 //        alert(a);
     },2000);
 </script>
+
 
 <div id="guide-space" class="simple"></div>
 <div id="guide" class="simple">
@@ -287,8 +290,8 @@
             <i class="icon icon-chevron-up"></i>
             <p class="hint">返回顶部</p></div>
     </div>
+
+
 </div><div id="mainer">
     <div id="mainer-inner">
         <div id="block-main">
-
-

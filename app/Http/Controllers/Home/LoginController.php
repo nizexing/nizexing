@@ -7,6 +7,7 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Session;
 class LoginController extends Controller
 {
 //    登录
@@ -16,6 +17,7 @@ class LoginController extends Controller
   }
 
   //接收用户登录的账号密码
+
     public function postDologin(Request $request)
     {
         $a = $request->except('_token');
@@ -43,6 +45,7 @@ class LoginController extends Controller
       {
           return redirect('/index/index')->with('user',$b);
       }
+
 
     }
 

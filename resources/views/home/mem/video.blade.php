@@ -4,8 +4,10 @@
     <link rel="stylesheet" href="{{asset('/static/css/upload_video.css')}}">
 @endsection
 
+<<<<<<< HEAD
 @section("area-main")
     @parent
+
     <div id="area-main-right" class="r">
     <div id="area-cont-right">
 

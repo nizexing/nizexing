@@ -7,6 +7,10 @@
     <script type="text/javascript" src="{{asset('admin/style/js/jquery.js')}}"></script>
     <script type="text/javascript" src="{{asset('admin/style/js/ch-ui.admin.js')}}"></script>
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 09815a069cc71c16e30bdad47a88585973772f73
     <script type="text/javascript" src=""></script>
 </head>
 <body>
@@ -68,6 +72,7 @@
 
                     <li><a href="{{url('/admin/config/index')}}" target="main"><i class="fa fa-fw fa-cubes"></i>网站配置</a></li>
                     <li><a href="#" target="main"><i class="fa fa-fw fa-database"></i>备份还原</a></li>
+<<<<<<< HEAD
                 </ul>
             </li>
             <li>
@@ -79,6 +84,19 @@
                     <li><a href="element.html" target="main"><i class="fa fa-fw fa-tags"></i>其他组件</a></li>
                 </ul>
             </li>
+=======
+                </ul>
+            </li>
+            <li>
+            	<h3><i class="fa fa-fw fa-thumb-tack"></i>工具导航</h3>
+                <ul class="sub_menu">
+                    <li><a href="http://www.yeahzan.com/fa/facss.html" target="main"><i class="fa fa-fw fa-font"></i>图标调用</a></li>
+                    <li><a href="http://hemin.cn/jq/cheatsheet.html" target="main"><i class="fa fa-fw fa-chain"></i>Jquery手册</a></li>
+                    <li><a href="http://tool.c7sky.com/webcolor/" target="main"><i class="fa fa-fw fa-tachometer"></i>配色板</a></li>
+                    <li><a href="element.html" target="main"><i class="fa fa-fw fa-tags"></i>其他组件</a></li>
+                </ul>
+            </li>
+>>>>>>> 09815a069cc71c16e30bdad47a88585973772f73
 
         </ul>
 	</div>
@@ -88,6 +106,10 @@
 @section('content')
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 09815a069cc71c16e30bdad47a88585973772f73
 @show
 
     <!--底部 开始-->
@@ -95,5 +117,14 @@
 		CopyRight © 2015. Powered By <a href="http://www.itxdl.cn">http://www.itxdl.cn</a>.
 	</div>
 	<!--底部 结束-->
+=======
+    <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
+</head>
+<body>
+{{--@yield('content')--}}
+@section('content')
+
+    @show
+>>>>>>> origin/nizexing
 </body>
 </html>
