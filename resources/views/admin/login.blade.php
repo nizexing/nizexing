@@ -43,12 +43,14 @@
 
                 </div>
 
-
+                @if(session('error'))
+                    <p style="color:#fff;margin-left:80px">{{ session('error') }}</p>
+                @endif
 
                 <form action="/admin/login/insert" method="post" class="am-form tpl-form-line-form">
                 {{ csrf_field() }}
                     <div class="am-form-group">
-                        <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入账号" name="user">
+                        <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入账号" name="user" onkeyup="value=value.replace(/[^\^(?![0-9]*$)[a-zA-Z0-9]{6,20}$]/g,'')">
 
                     </div>
 
@@ -66,7 +68,7 @@
 
                     <div class="am-form-group">
 
-                        <input type="submit" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">登录</input>
+                        <input type="submit" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn"></input>
 
                     </div>
                 </form>

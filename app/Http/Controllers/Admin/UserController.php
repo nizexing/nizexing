@@ -3,85 +3,55 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+     //用户管理
+   public function getUser()
+   {    //获取所有用户
+       
+        $user = DB::table('user')->paginate(5);
+        return view('admin.user',compact('user'));
+   }
+    //用户详情列表
+   public function getDetail($id)
+   {
+        $data=DB::table('user_detail')->where('uid',$id)->first();
+        $user=DB::table('user')->where('uid',$id)->first();
+         // dump($data);
+         // dump($user);
+        $user['regtime']=date('Y年m月d H时i分s秒',$user['regtime']);
+        $data['birth']=date('Y年--m月--d日',$data['birth']);
+         $reg=array_merge($data,$user);
+         // dump($reg);
+        return view('admin.detail',compact('reg'));
+   }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+   //删除用户
+   public function getDelete($id)
+   {   
+      //删除指定用户
+     $a=DB::table('user')->where('uid',$id)->delete();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+     return redirect('/admin/admin/user');
+    
+   }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   public function postUpdate(Request $request)
+   {
+        $a=$request->except(['_token']);
+        // dump($a);
+        $b=DB::table('user')->where('uid',$a['uid'])->update(['tel'=>$a['tel'],'name'=>$a['name']]);
+        $c=DB::table('user_detail')->where('uid',$a['uid'])->update(['sign'=>$a['sign'],'birth'=>$a['birth'],'email'=>$a['email'],'sex'=>$a['sex']]);
+
+
+        // 未完待续.....
+   }
 }
+?>
