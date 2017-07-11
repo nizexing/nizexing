@@ -18,6 +18,7 @@
         .pagination{
             float: right;
             margin: 20px 20px 0px 0px;
+            
         }
 
     </style>
@@ -50,7 +51,7 @@
                 <ul class="sub_menu">
 
                     <li><a href="{{url('/admin/user/user')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>管理用户</a></li>
-                    <li><a href="{{url('/admin/admin/detail')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加用户</a></li>
+                    <li><a href="{{ url('/admin/user/insert')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加用户</a></li>
 
                 </ul>
             </li>
