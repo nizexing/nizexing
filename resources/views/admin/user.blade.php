@@ -27,8 +27,8 @@
                         <td>{{$v['regtime']}}</td>
                         <td>{{$v['status']}}</td>
                         <td>
-                            <a href="/admin/user/detail/{{$v['uid']}}">详情</a>
-                            <a href="/admin/user/delete/{{$v['uid']}}">删除</a>
+                            <a href="/admin/user/detail/{{$v['uid']}}" class="list">详情</a>
+                            <a href="/admin/user/delete/{{$v['uid']}}" class="list">删除</a>
                         </td>
                     </tr>
                   @endforeach

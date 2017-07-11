@@ -91,9 +91,16 @@
 
 
 
-        <button type="submit" class="btn btn-success" style="margin-bottom: 70px">点击修改资料</button>     
+        <button type="submit" class="btn btn-success" style="margin-bottom: 70px">点击修改资料</button> 
+
+        <button type="button" class="btn btn-success" style="margin-bottom: 70px" id="button">返回用户列表</button> 
 </form>
 
+    <script type="text/javascript">
+    $('#button').click(function(){
+        location.href='{{ url('/admin/user/user') }}';
+    });
+    </script>
 
 
 @endsection

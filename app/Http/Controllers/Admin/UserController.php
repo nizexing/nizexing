@@ -17,16 +17,15 @@ class UserController extends Controller
         return view('admin.user',compact('user'));
    }
     //用户详情列表
-   public function getDetail($id)
+   public function getDetail(Request $request,$id)
    {
+
         $data=DB::table('user_detail')->where('uid',$id)->first();
         $user=DB::table('user')->where('uid',$id)->first();
-         // dump($data);
-         // dump($user);
         $user['regtime']=date('Y年m月d H时i分s秒',$user['regtime']);
         $data['birth']=date('Y年--m月--d日',$data['birth']);
+
          $reg=array_merge($data,$user);
-         // dump($reg);
         return view('admin.detail',compact('reg'));
    }
 
@@ -42,16 +41,35 @@ class UserController extends Controller
 
 
 
-
+   //获取修改后的用户资料
    public function postUpdate(Request $request)
-   {
+   {    
         $a=$request->except(['_token']);
-        // dump($a);
         $b=DB::table('user')->where('uid',$a['uid'])->update(['tel'=>$a['tel'],'name'=>$a['name']]);
         $c=DB::table('user_detail')->where('uid',$a['uid'])->update(['sign'=>$a['sign'],'birth'=>$a['birth'],'email'=>$a['email'],'sex'=>$a['sex']]);
 
 
-        // 未完待续.....
+        return redirect('/admin/user/user');
+   }
+   //添加用户
+   public function getInsert()
+   {    //显示添加表单
+        return view('admin.insert');
+   }
+
+
+
+   // 获取添加用户表单的所有数据
+   public  function postData(Request $request)
+   {
+
+        $data=$request->except('_token');
+        $data['birth']=$data['year'].'-'.$data['month'].'-'.$data['day'];
+        unset($data['year']);
+        unset($data['month']);
+        unset($data['day']);
+        dump($data);
    }
 }
+
 ?>
