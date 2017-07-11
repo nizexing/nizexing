@@ -42,8 +42,12 @@ class LoginController extends Controller
        }
        // 全都正确跳转至首页
       if($a['tel'] == $b['tel'] && $a['password'] == $b['password'])
-      {
-          return redirect('/index/index')->with('user',$b);
+      {   
+          $tel=DB::table('user')->where('tel',$b['tel'])->get()[0];
+
+          session(['user'=>$tel['username']]);
+          
+          return redirect('/index');
       }
 
 

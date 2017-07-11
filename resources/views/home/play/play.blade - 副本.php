@@ -51,11 +51,7 @@
             </ul>
             <ol id="header-guide" class="fr header-guide">
                 <li class="guide-item guide-user"> <a href="http://www.acfun.cn/member/" target="_blank" class="user-avatar item"> <img src="/home/picture/avatar.jpg" width="30" height="30" /></a> <a href="http://www.acfun.cn/login/" target="_blank" class="item user-login">
-                @if($user['username'])
-                    {{ $user['username'] }}
-                @else
-                    <a href="{{ url('/login/login') }}">登录</a>/<a href="{{ url('/reg/zhuce') }}">注册</a> 
-                @endif    
+              
                 </a> <span class="user-message-count hidden"></span>
                     <div class="guide-item-con">
                         <p class="clearfix"> <a href="http://www.acfun.cn/member/" target="_blank" class="fl user-name"></a> <a href="http://www.acfun.cn/logout.aspx" class="fr icon icon-logout user-logout">退出</a></p>
@@ -360,7 +356,7 @@
              {{ csrf_field() }}
              <p>请输入评论内容:</p>
                 <textarea name="content" id="" cols="30" rows="10" style="resize: none;width: 720px;height: 100px"></textarea>
-              <input type="submit" value="提交" style="margin: 10px 550px;width: 170px" class="btn btn-default" id="submit">
+              <input type="submit" value="提交" style="margin: 10px 550px;width: 170px" class="btn btn-default" id="button">
         </form>
 
                 <div id="area-comment" class="block">
@@ -372,17 +368,16 @@
                         <p id="btn-refresh" class="tab more"> <i class="icon _icon-refresh"></i> </p>
                     </div>
 
-
-            <!-- 有问题要改 -->
                     <script>
-                    $('#submit').click(function(){
-                        if(!session('user')){
-                            location.href='www.nnn.com/login/login';
+                    $('#button').click(function(){
+                        if(!$user['username']){
+                            location.href="{{url('/login/login')}}";
+                            return false;
                         }
                     });
+
                     </script>
 
-        
                     
 
              <!-- 评论内容区 -->
