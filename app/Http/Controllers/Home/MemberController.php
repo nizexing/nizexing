@@ -80,7 +80,7 @@ class MemberController extends CommonController
             $newName = date('YmdHis').mt_rand(1000,9999).'.'.$extension;
 
             // 移动到public下
-            $path = $file->move(public_path().'/uploads',$newName);
+            $path = $file->move(public_path().'/uploads/video',$newName);
 
             //
             $filePath = 'uploads/'.$newName;
@@ -95,23 +95,16 @@ class MemberController extends CommonController
      */
     public function getVideo()
     {
-        $user = self::userInfo();
+        if(!session('user')){
+            return redirect('/login/login');
+        }
+        $user = session('user');
+        dd($user);
+        session('user')['photo'] = 'uploads/image/211338010csan7q5.jpg';
+
+
 
         return view("home.mem.video",compact('user'));
-    }
-
-
-
-    public static function userInfo()
-    {
-        $user = User::find(1);
-        $detail = $user->detail;
-
-        $user = $user -> toArray();
-        $tmp = array_pop($user);
-        $user = array_merge($user,$tmp);
-//      dump($user);
-        return $user;
     }
 
 

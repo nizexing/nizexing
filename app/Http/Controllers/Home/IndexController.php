@@ -34,8 +34,8 @@ class IndexController extends CommonController
         // top 推荐 6 + 猴子推荐 5
 //        $top = self::_get('Tjvideo',6,3);
         $top = Tjvideo::where('tjstatus',3)->take(6)->get()->all();
-//        $top -> user();
-        dd($top);
+        $top = self::name($top);
+//        dd($top);
         $top = self::name($top);
         
         $monkey = Tjvideo::where('tjstatus',4)->take(5)->get();

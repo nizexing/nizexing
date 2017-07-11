@@ -243,10 +243,10 @@
                                                     $('#pic').attr('src','{{asset("/")}}'+data);
                                                     $('#pic').show();
                                                     $('#upload_path').val(data);
-                                                    setTimeout(function(){
-
-                                                        location.href= 'www.baidu.com';
-                                                    },500);
+//                                                    setTimeout(function(){
+//
+//                                                        location.href= 'www.baidu.com';
+//                                                    },500);
 
 
                                                 },

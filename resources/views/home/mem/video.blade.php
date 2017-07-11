@@ -24,6 +24,8 @@
             <!--#go-old-->
             <!-- a.go-old 返回旧版-->
             <div id="uploadVideo" onsubmit="return false" data-focus="auto" data-save="uploadVideo" class="upload cfix form">
+                <form action="{{asset('/member/videoUpload')}}"  method="post" id="memform">
+                    {{csrf_field()}}
                 <div class="up-info fl">
                     <div class="up-title cfix">
                         <h3 class="up-text fl">投稿信息</h3>
@@ -33,6 +35,7 @@
                             <label>标题
                                 <em>*</em></label>
                             <div class="titt pos-rele">
+                                <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <input id="title" type="text" placeholder="据老司机们说，好的标题能提升15%的Acer投蕉量....." spellcheck="false" autocomplete="off" data-length="1,50" data-name="标题" required="required">
                                 <span class="num">50</span></div>
                         </div>
@@ -54,100 +57,21 @@
                                     <option value="-250">请选择子分区</option>
                                 </select>
                             </div>
-                            <script>
-                                var tt = $('#stype');
-                                abc = {!! json_encode($type2) !!}
-                                console.log(abc);
-
-                                console.log(tt.html());
-                                tt.change(function(){
-                                    for(var i=0;i<abc.length;i++){
-                                        if($('#stype').val()=='-250'){
-                                            $('#stype2').html('<option value="-250">请选择子分区</option>').addClass('disabled');
-                                        }
-
-                                        if($('#stype').val()==abc[i][0].pid){
-                                            str = '';
-                                            for(var j=0;j<abc[i].length;j++){
-                                                str += '<option value="'+abc[i][j].tid+'">'+abc[i][j].tname+'</option>';
-                                            }
-//                                            alert(str);
-                                            $('#stype2').html('<option value="-250">请选择子分区</option>'+str).removeClass('disabled').removeAttr('disabled');
-                                        }
-
-                                    }
-
-                                });
 
 
-                            </script>
-                            <div class="pos-live">未经剪辑的直播录屏请投至本分区，剪辑后的视频请按直播内容投至相应分区
-                                <br>直播分区的投稿将会在娱乐、游戏等的直播子分区出现，但不会进入到各大分区的最新/最热列表中</div></div>
                         <div class="up-pic cfix must">
                             <label>封面
                                 <em>*</em></label>
                             <div class="pic-cont">
                                 <div id="up-pic" class="pos-rele">
-                                    <img src="http://cdn.aixifan.com/dotnet/20130418/style/image/member/default.png"></div>
+                                    <img id="photo" src="http://cdn.aixifan.com/dotnet/20130418/style/image/member/default.png"></div>
                             </div>
                             <div class="pic-textbox">
                                 <input type="hidden" value="" name="img" id="upload-path" >
                                 <input type="file" id="image-upload" style="margin:0 auto">
                                 <p class="pic-text">推荐使用高清精美封面吸引Acer们来围观</p>
-                                <p class="pic-tips">支持≤3MB，JPG、JPEG、PNG格式文件</p></div>
                         </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $("#image-upload").change(function () {
 
-                                    uploadImage();
-                                });
-                            });
-
-                            function uploadImage() {
-//                            判断是否有选择上传文件
-                                var imgPath = $("#image-upload").val();
-                                if (imgPath == "") {
-                                    alert("请选择上传图片！");
-                                    return;
-                                }
-                                //判断上传文件的后缀名
-                                var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
-                                if (strExtension != 'jpg' && strExtension != 'gif'
-                                    && strExtension != 'png' && strExtension != 'bmp') {
-                                    alert("请选择图片文件");
-                                    return;
-                                }
-
-                                var formData = new FormData($('#image-upload')[0]);
-//                                            alert(formData);
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/member/upload",
-                                    data: formData,
-                                    async: true,
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    success: function(data) {
-                                        console.log(data);
-                                        alert("上传成功");
-                                        $('#up-pic img').attr('src','{{asset("/")}}'+data);
-                                        $('#up-pic img').show();
-                                        $('#upload-path').val(data);
-                                        setTimeout(function(){
-
-                                            location.href= 'www.baidu.com';
-                                        },500);
-
-
-                                    },
-                                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                        alert("上传失败，请检查网络后重试");
-                                    }
-                                });
-                            }
-                        </script>
                         <div class="up-tag must">
                             <label>标签
                                 <em>*</em></label>
@@ -208,25 +132,90 @@
                         </li>
                     </ul>
                 </div>
-                <div class="dividers pos-rel">
-                    <div style="display:none" class="pselect cfix tag-checkbox">
-                        <input id="auto-c" type="checkbox" checked="false" value="1" class="auto-submit hide-t">
-                        <label for="auto-c"></label>
-                        <!--todo-->
-                        <span>视频上传完成后自动投稿</span>
-                        <span class="ptotal fr">共5P</span></div>
-                </div>
-                <div class="up-submit cfix">
-                    <!--todo-->
-                    <div class="tip-left hide-t fl">填写视频信息
-                        <i class="icon-done"></i></div>
-                    <div class="tip-right hide-t fl">上传视频文件
-                        <i class="icon-undone"></i></div>
-                    <div id="up-submit">投稿</div></div>
+
             </div>
+                </form>
         </div>
     </div>
     </div>
+        <script type="text/javascript">
+            $(function () {
+
+                $("#photo").change(function () {
+
+                    uploadImage();
+                });
+            });
+
+            function uploadImage() {
+//                            判断是否有选择上传文件
+                var imgPath = $("#photo").val();
+                if (imgPath == "") {
+                    alert("请选择上传图片！");
+                    return;
+                }
+                //判断上传文件的后缀名
+                var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+                if (strExtension != 'jpg' && strExtension != 'gif'
+                    && strExtension != 'png' && strExtension != 'bmp') {
+                    alert("请选择图片文件");
+                    return;
+                }
+
+                var formData = new FormData($('#memform')[0]);
+//                                            alert(formData);
+                $.ajax({
+                    type: "POST",
+                    url: "/member/upload",
+                    data: formData,
+                    async: true,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                        alert("上传成功");
+                        $('#pic').attr('src','{{asset("/")}}'+data);
+                        $('#pic').show();
+                        $('#upload_path').val(data);
+//                                                    setTimeout(function(){
+//
+//                                                        location.href= 'www.baidu.com';
+//                                                    },500);
+
+
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert("上传失败，请检查网络后重试");
+                    }
+                });
+            }
+        </script>
+        <script>
+            var tt = $('#stype');
+            abc = {!! json_encode($type2) !!}
+                                console.log(abc);
+
+            console.log(tt.html());
+            tt.change(function(){
+                for(var i=0;i<abc.length;i++){
+                    if($('#stype').val()=='-250'){
+                        $('#stype2').html('<option value="-250">请选择子分区</option>').addClass('disabled');
+                    }
+
+                    if($('#stype').val()==abc[i][0].pid){
+                        str = '';
+                        for(var j=0;j<abc[i].length;j++){
+                            str += '<option value="'+abc[i][j].tid+'">'+abc[i][j].tname+'</option>';
+                        }
+//                                            alert(str);
+                        $('#stype2').html('<option value="-250">请选择子分区</option>'+str).removeClass('disabled').removeAttr('disabled');
+                    }
+
+                }
+
+            });
+
+
+        </script>
 @endsection
-
-
