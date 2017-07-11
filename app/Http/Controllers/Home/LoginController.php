@@ -76,7 +76,7 @@ class LoginController extends Controller
           $detail=DB::table('user_detail')->where('uid',$tel['uid'])->first();
 
           $user=array_merge($tel,$detail);
-          session(['user'=>$tel['username']]);
+          session(['user'=>$user]);
           
           return redirect('/index');
       }
@@ -88,7 +88,7 @@ class LoginController extends Controller
           $detail=DB::table('user_detail')->where('uid',$tel['uid'])->first();
 
           $user=array_merge($tel,$detail);
-          session(['user'=>$tel['username']]);
+          session(['user'=>$user]);
           
           return redirect('/index');
       }

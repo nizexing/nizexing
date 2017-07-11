@@ -55,6 +55,11 @@ class MemberController extends CommonController
 
         $res = User_detail::where("uid",$data["uid"])->update($data2);
         if($res){
+            $user = User::find($data['uid'])->toArray();
+            $user_detail = User::find($data['uid'])->detail() ->get()->toArray()[0];
+
+             $user = array_merge($user,$user_detail);
+            session(['user'=>$user]);
             return redirect("/member/info")->with("success","扩展信息修改成功");
         }else{
             return redirect("/member/info")->with("error","扩展信息修改失败");
@@ -80,10 +85,10 @@ class MemberController extends CommonController
             $newName = date('YmdHis').mt_rand(1000,9999).'.'.$extension;
 
             // 移动到public下
-            $path = $file->move(public_path().'/uploads/video',$newName);
+            $path = $file->move(public_path().Config('web.img-path'),$newName);
 
             //
-            $filePath = 'uploads/'.$newName;
+            $filePath = '/uploads/'.$newName;
             return $filePath;
         }
 

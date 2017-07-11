@@ -79,7 +79,7 @@
                                     <span class="hint">Extra Information</span></p>
                             </div>
                             <div class="mainer form">
-                                <form action="/member/update" method="post" id="memform">
+                                <form action="/member/update" method="post" id="memform" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <input type="hidden" name="uid" value="{{$user['uid']}}">
 
@@ -180,7 +180,7 @@
                                             <p class="subtitle">修改头像</p></div>
                                         <div class="l b">
                                             <input type="text"  id="upload_path" style="width:238px;">
-                                            <input    id="photo" value="" data-length="0,63" type="file" style="width:65px;"></div>
+                                            <input    id="photo" name="photo" value="" data-length="0,63" type="file" style="width:65px;"></div>
 
                                         <span class="clearfix"></span>
                                     </div>
@@ -228,7 +228,8 @@
                                             }
 
                                             var formData = new FormData($('#memform')[0]);
-//                                            alert(formData);
+
+
                                             $.ajax({
                                                 type: "POST",
                                                 url: "/member/upload",
@@ -239,6 +240,10 @@
                                                 processData: false,
                                                 success: function(data) {
                                     console.log(data);
+                                    if(data=='aabb'){
+                                        alert('上传失败');
+                                        return false;
+                                    }
                                     alert("上传成功");
                                                     $('#pic').attr('src','{{asset("/")}}'+data);
                                                     $('#pic').show();

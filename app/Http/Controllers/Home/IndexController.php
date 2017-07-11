@@ -27,6 +27,7 @@ class IndexController extends CommonController
      */
     public function index()
     {
+
         // 获取 双图广告
         $adver = Adver::orderBy("aid") -> take(2) -> get();
 

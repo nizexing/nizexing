@@ -55,7 +55,7 @@
                 @else
                     <li class="guide-item guide-user user-logined">
                         <a href="/member/info" target="_blank" class="user-avatar item">
-                            <img src="/{{url(asset(session('user')['photo']))}}" width="30" height="30"></a>
+                            <img src="{{url(asset(session('user')['photo']))}}" width="30" height="30"></a>
 
 
                         <div class="guide-item-con">
