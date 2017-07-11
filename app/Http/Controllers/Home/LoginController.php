@@ -20,31 +20,74 @@ class LoginController extends Controller
 
     public function postDologin(Request $request)
     {
+        //表单接收的账号密码
         $a = $request->except('_token');
 
         $request->flash();
-
+        //如果用电话号码登录
        $b=DB::table('user')->where('tel',$a['tel'])->first();
 
-       if($a['tel'] != $b['tel'])
+       //如果用户名登录
+       $c=DB::table('user')->where('username',$a['tel'])->first();
+       // dump($a);
+       // dump($b);
+       // dump($c);
+       // exit;
+
+      //验证账号或电话号码是否存在
+       if($b==null && $a['tel'] != $c['username'])
        {
-            return back()->with('error','该账号不存在');
+          return back()->with('error','该账号不存在');
        }
+
+       if($c==null && $a['tel'] != $b['tel'])
+       {
+          return back()->with('error','该账号不存在');
+       }
+     
+
+
        //验证密码是否正确
-       if($a['tel'] == $b['tel'] && $a['password'] != $b['password'])
+       if($a['tel'] == $b['tel'] && $a['password'] != $b['password'] && $c==null)
        {
            return back()->with('error','该账号密码错误');
        }
+
+        if($a['tel'] == $c['username'] && $a['password'] != $c['password'] && $b==null)
+       {
+           return back()->with('error','该账号密码错误');
+       }
+
        //验证码输入是否正确
-       if($a['tel'] == $b['tel'] && $a['password'] == $b['password'] && $a['code'] != session('code'))
+       if($a['tel'] == $b['tel'] && $a['password'] == $b['password'] && $a['code'] != session('code') && $c==null)
        {
            return back()->with('error','输入的验证码错误');
        }
-       // 全都正确跳转至首页
-      if($a['tel'] == $b['tel'] && $a['password'] == $b['password'])
-      {   
-          $tel=DB::table('user')->where('tel',$b['tel'])->get()[0];
 
+       if($a['tel'] == $c['username'] && $a['password'] == $c['password'] && $a['code'] != session('code') && $b==null)
+       {
+           return back()->with('error','输入的验证码错误');
+       }
+
+       // 全都正确跳转至首页
+      if($a['tel'] == $b['tel'] && $a['password'] == $b['password'] && $c==null && $a['code']==session('code'))
+      {   
+          $tel=DB::table('user')->where('tel',$a['tel'])->get()[0];
+          $detail=DB::table('user_detail')->where('uid',$tel['uid'])->first();
+
+          $user=array_merge($tel,$detail);
+          session(['user'=>$tel['username']]);
+          
+          return redirect('/index');
+      }
+
+       if($a['tel'] == $c['username'] && $a['password'] == $c['password'] && $b==null && $a['code']==session('code'))
+      {    
+          $tel=DB::table('user')->where('username',$a['tel'])->get()[0];
+          // 获取详情
+          $detail=DB::table('user_detail')->where('uid',$tel['uid'])->first();
+
+          $user=array_merge($tel,$detail);
           session(['user'=>$tel['username']]);
           
           return redirect('/index');
