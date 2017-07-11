@@ -30,8 +30,13 @@ class MemberController extends CommonController
      */
     public function getInfo()
     {
+        if(session('user')){
+            $user = session('user');
+            return view("home.mem.mem",compact('user'));
+        }else{
+            return redirect('/login/login');
+        }
 
-        return view("home.mem.mem");
     }
 
     /**
@@ -92,7 +97,7 @@ class MemberController extends CommonController
     {
         $user = self::userInfo();
 
-        return view("home.mem.video");
+        return view("home.mem.video",compact('user'));
     }
 
 

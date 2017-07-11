@@ -13,7 +13,7 @@
     @section("css")
 
     @show
-    <script src="/static/js/jquery.min.js"></script>
+    <script src="{{asset('/static/js/jquery.min.js')}}"></script>
     <!--[if lt IE 9]>
     <script src="/static/js/html5shiv.min.js"></script>
     <script src="/static/js/jquery.min.js"></script>
@@ -37,7 +37,7 @@
                     <img src="{{asset(Config('web.logo'))}}" width="88" height="27"></a>
             </h1>
             <ul id="header-guide" class="fr header-guide">
-                @if(!session('user'))
+                @if(empty(session('user')))
                 <li class="guide-item guide-user">
                     <a href="{{url('/member/index')}}"  class="user-avatar item">
                         <img src="/static/picture/1.png" width="30" height="30"></a>
@@ -55,12 +55,12 @@
                 @else
                     <li class="guide-item guide-user user-logined">
                         <a href="/member/info" target="_blank" class="user-avatar item">
-                            <img src="/{{$user['photo']}}" width="30" height="30"></a>
+                            <img src="/{{url(asset(session('user')['photo']))}}" width="30" height="30"></a>
 
 
                         <div class="guide-item-con">
                             <p class="clearfix">
-                                <a href="" target="_blank" class="fl user-name">{{$user['name']}}</a>
+                                <a href="" target="_blank" class="fl user-name">{{url(asset(session('user')['name']))}}</a>
                                 <a href="http://www.acfun.cn/logout.aspx?returnUrl=http%3A%2F%2Fwww.acfun.cn%2F" class="fr icon icon-logout user-logout">退出</a></p>
                             <div id="user-message" class="user-message">
                                 <ul id="user-message-con" data-count="2" data-url="http://www.acfun.cn/member/#area=profile">

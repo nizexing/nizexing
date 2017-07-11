@@ -28,20 +28,21 @@ class IndexController extends CommonController
     public function index()
     {
         // 获取 双图广告
-        $adver = Adver::orderBy("aid") -> take(2) -> get()->toArray();
-//        dd($adver);
+        $adver = Adver::orderBy("aid") -> take(2) -> get();
 
         // 获取 各种推荐
         // top 推荐 6 + 猴子推荐 5
 //        $top = self::_get('Tjvideo',6,3);
-        $top = Tjvideo::where('tjstatus',3)->take(6)->get()->toArray();
+        $top = Tjvideo::where('tjstatus',3)->take(6)->get()->all();
+//        $top -> user();
+        dd($top);
         $top = self::name($top);
         
-        $monkey = Tjvideo::where('tjstatus',4)->take(5)->get()->toArray();
+        $monkey = Tjvideo::where('tjstatus',4)->take(5)->get();
         $monkey = self::name($monkey);
 //        echo time();
         // 轮播图推荐 6
-        $lunbo = Tjvideo::where("tjstatus",2)->take(6)->get()->toArray();
+        $lunbo = Tjvideo::where("tjstatus",2)->take(6)->get();
         $lunbo = self::name($lunbo);
         // 遍历分类 获取 栏目推荐
         $type = $this -> type;
@@ -58,7 +59,6 @@ class IndexController extends CommonController
             $video = Tjvideo::whereIn('tid',$tmp)->where('tjstatus',1)->take(12)->get()->toArray();
             $video = self::name($video);
             $tjvideo[$v['tid']] = $video;
-
            
         }
 //        dump($type);
@@ -73,10 +73,21 @@ class IndexController extends CommonController
      */
     public static function name($top)
     {
+//        foreach($top as $k=>$v){
+//            $top[$k]['name'] = User::where('uid',$v['uid'])->select('name')->first()->name;
+//        }
+        $tmp = [];
         foreach($top as $k=>$v){
-            $top[$k]['name'] = User::where('uid',$v['uid'])->select('name')->first()->name;
+            $tmp[] = $v['uid'];
         }
-
+        $user = User::where('uid',$tmp)->get();
+        foreach($user as $k=>$v){
+            foreach($top as $key=>$value){
+                if($v['uid']==$value['uid']){
+                    $top[$key]['name'] = $v['name'];
+                }
+            }
+        }
         return $top;
     }
 
@@ -94,6 +105,7 @@ class IndexController extends CommonController
         return $top = self::name($top);
 
     }
+
 
     public function vindex($tid)
     {

@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{asset('/static/css/upload_video.css')}}">
 @endsection
 
-<<<<<<< HEAD
+
 @section("area-main")
     @parent
 
@@ -36,35 +36,51 @@
                                 <input id="title" type="text" placeholder="据老司机们说，好的标题能提升15%的Acer投蕉量....." spellcheck="false" autocomplete="off" data-length="1,50" data-name="标题" required="required">
                                 <span class="num">50</span></div>
                         </div>
-                        <div class="up-type must">
-                            <label>类型
-                                <em>*</em></label>
-                            <input id="up-type1" name="up-type" type="radio" value="3" checked="checked" class="up-typeset">
-                            <label for="up-type1"></label>
-                            <span class="type-text">原创</span>
-                            <input id="up-type2" name="up-type" type="radio" value="1" class="up-typeset">
-                            <label for="up-type2"></label>
-                            <span class="type-text">搬运</span></div>
+
+
                         <div class="up-area must">
                             <label>分区
                                 <em>*</em></label>
                             <div class="pos-rele inline-block">
-                                <select name="channel" class="up-channel">
+                                <select name="type" class="up-channel" id="stype">
                                     <option value="-250">请选择分区</option>
-                                    <option value="1">动画</option>
-                                    <option value="58">音乐</option>
-                                    <option value="123">舞蹈·彼女</option>
-                                    <option value="59">游戏</option>
-                                    <option value="60">娱乐</option>
-                                    <option value="70">科技</option>
-                                    <option value="69">体育</option>
-                                    <option value="125">鱼♂塘</option>
-                                    <option value="-1">其它</option></select>
+                                    @foreach($type as $k=>$v)
+                                    <option value="{{$v['tid']}}">{{$v['tname']}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="pos-rele inline-block">
-                                <select name="subject" class="up-sub disabled">
-                                    <option value="-250">请选择子分区</option></select>
+                                <select name="type2" class="up-sub disabled" id="stype2">
+                                    <option value="-250">请选择子分区</option>
+                                </select>
                             </div>
+                            <script>
+                                var tt = $('#stype');
+                                abc = {!! json_encode($type2) !!}
+                                console.log(abc);
+
+                                console.log(tt.html());
+                                tt.change(function(){
+                                    for(var i=0;i<abc.length;i++){
+                                        if($('#stype').val()=='-250'){
+                                            $('#stype2').html('<option value="-250">请选择子分区</option>').addClass('disabled');
+                                        }
+
+                                        if($('#stype').val()==abc[i][0].pid){
+                                            str = '';
+                                            for(var j=0;j<abc[i].length;j++){
+                                                str += '<option value="'+abc[i][j].tid+'">'+abc[i][j].tname+'</option>';
+                                            }
+//                                            alert(str);
+                                            $('#stype2').html('<option value="-250">请选择子分区</option>'+str).removeClass('disabled').removeAttr('disabled');
+                                        }
+
+                                    }
+
+                                });
+
+
+                            </script>
                             <div class="pos-live">未经剪辑的直播录屏请投至本分区，剪辑后的视频请按直播内容投至相应分区
                                 <br>直播分区的投稿将会在娱乐、游戏等的直播子分区出现，但不会进入到各大分区的最新/最热列表中</div></div>
                         <div class="up-pic cfix must">
@@ -75,9 +91,63 @@
                                     <img src="http://cdn.aixifan.com/dotnet/20130418/style/image/member/default.png"></div>
                             </div>
                             <div class="pic-textbox">
+                                <input type="hidden" value="" name="img" id="upload-path" >
+                                <input type="file" id="image-upload" style="margin:0 auto">
                                 <p class="pic-text">推荐使用高清精美封面吸引Acer们来围观</p>
                                 <p class="pic-tips">支持≤3MB，JPG、JPEG、PNG格式文件</p></div>
                         </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $("#image-upload").change(function () {
+
+                                    uploadImage();
+                                });
+                            });
+
+                            function uploadImage() {
+//                            判断是否有选择上传文件
+                                var imgPath = $("#image-upload").val();
+                                if (imgPath == "") {
+                                    alert("请选择上传图片！");
+                                    return;
+                                }
+                                //判断上传文件的后缀名
+                                var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+                                if (strExtension != 'jpg' && strExtension != 'gif'
+                                    && strExtension != 'png' && strExtension != 'bmp') {
+                                    alert("请选择图片文件");
+                                    return;
+                                }
+
+                                var formData = new FormData($('#image-upload')[0]);
+//                                            alert(formData);
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/member/upload",
+                                    data: formData,
+                                    async: true,
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    success: function(data) {
+                                        console.log(data);
+                                        alert("上传成功");
+                                        $('#up-pic img').attr('src','{{asset("/")}}'+data);
+                                        $('#up-pic img').show();
+                                        $('#upload-path').val(data);
+                                        setTimeout(function(){
+
+                                            location.href= 'www.baidu.com';
+                                        },500);
+
+
+                                    },
+                                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                        alert("上传失败，请检查网络后重试");
+                                    }
+                                });
+                            }
+                        </script>
                         <div class="up-tag must">
                             <label>标签
                                 <em>*</em></label>
