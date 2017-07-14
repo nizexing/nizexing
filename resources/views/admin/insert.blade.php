@@ -1,7 +1,16 @@
 @extends('layouts.admin')
 @section('content')
-		
-        <div class="result_wrap" style="width:1024px;margin:60px 0px 0px 200px">
+		@if (count($errors) > 0)
+      <div class="alert alert-danger" style="background-color: #ffcbca;;margin:60px 0px -65px 200px;width:360px">
+          <p style="font-size:20px;">警告:</p>
+              @foreach ($errors->all() as $error)
+                  <p style="color:red;size:12px;margin-left:45px">{{ $error }}</p>
+              @endforeach
+          
+      </div>
+    @endif
+  
+          <div class="result_wrap" style="width:1024px;margin:60px 0px 0px 200px">
             <div class="result_content">
             <h1>用户详情</h1>         
 
@@ -10,11 +19,22 @@
         {{ csrf_field() }}
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">用户名</label>
+          @if(session('errors'))
+          <p style="color:red;size:12px">{{ session('errors') }}</p>
+          @endif
           <input type="text" class="form-control" id="inputSuccess1" style="width:250px"
-          value="" name="username">
+          value="{{ old('username') }}" name="username">
+        </div>
+         <div class="form-group has-success">
+          <label class="control-label" for="inputSuccess1">密码</label>
+          <input type="text" class="form-control" id="inputSuccess1" style="width:250px"
+          value="{{ old('password') }}" name="password">
         </div>
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">头像</label>
+          @if(session('error'))
+          <p style="color:red;size:12px">{{ session('error') }}</p>
+          @endif
           <input type="file" name="photo" class="photo" value="">
         </div>
 
@@ -22,9 +42,8 @@
         $('.photo').change(function(){
 
           var path=$('.photo').val();
-            $.post('/admin/user/data',{'path':path,'_token':'qtkwTPMePYo34q9MP7gBelZkdXRjVNg0Ugn4i9c0'},function(msg){
-
-            });
+          $('.photos').val(path);
+          
         });
         </script>
 
@@ -32,17 +51,17 @@
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">个性签名</label>
           <input type="text" class="form-control" id="inputSuccess1" style="width:400px"
-          value="" name="sign">
+          value="{{ old('sign') }}" name="sign">
         </div>
         <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">昵称</label>
           <input type="text" class="form-control" id="inputSuccess1" style="width:250px"
-          value="" name="name">
+          value="{{ old('name') }}" name="name">
         </div>
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">电话</label>
           <input type="text" class="form-control" id="inputSuccess1" style="width:250px"
-          value="" name="tel">
+          value="{{ old('tel') }}" name="tel">
         </div>
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">生日</label>
@@ -155,10 +174,8 @@
         </div>
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">邮箱</label>
-          <input type="text" class="form-control" id="inputSuccess1" style="width:400px"
-          value="" name="email">
+          <input type="text" class="form-control" id="email" style="width:400px" value="{{ old('email') }}" name="email">
         </div>
-       
 
         <div class="form-group has-success" style="margin-bottom: 40px">
         <label class="control-label" for="inputSuccess1">性别</label>

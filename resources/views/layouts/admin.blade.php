@@ -3,12 +3,15 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{asset('admin/style/css/ch-ui.admin.css')}}">
-    <link rel="stylesheet" href="{{asset('admin/style/font/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/style/css/layer.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/style/font/css/font-awesome.min.css')}}">
     <script type="text/javascript" src="{{asset('admin/style/js/jquery.js')}}"></script>
     <script type="text/javascript" src="{{asset('admin/style/js/ch-ui.admin.js')}}"></script>
     <link rel="stylesheet" href="{{asset('/bootstrap.min.css')}}">
     <script type="text/javascript" src="{{asset('/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('/jquery.min.js')}}"></script>
+
+    <script type="text/javascript" src="{{asset('/jquery-1.8.3.min.js')}}"></script>
 
     <style type="text/css">
         ul li{
@@ -17,8 +20,7 @@
         }
         .pagination{
             float: right;
-            margin: 20px 20px 0px 0px;
-            
+            margin: 20px 20px 0px 0px;           
         }
 
     </style>
@@ -29,15 +31,15 @@
 		<div class="top_left">
 			<div class="logo">后台管理模板</div>
 			<ul>
-				<li><a href="#" class="active">首页</a></li>
-				<li><a href="#">管理页</a></li>
+				<li><a href="{{ asset('/admin/admin/index') }}" class="active">首页</a></li>
+				<!-- <li><a href="#">管理页</a></li> -->
 			</ul>
 		</div>
 		<div class="top_right">
 			<ul>
-				<li>管理员：admin</li>
-				<li><a href="{{url('admin/repass')}}" target="_self">修改密码</a></li>
-				<li><a href="{{url('admin/quit')}}">退出</a></li>
+				<li>管理员：{{ session('user') }}</li>
+				<li><a href="/admin/user/editpsw/{{ session('user') }}" target="_self">修改密码</a></li>
+				<li><a href="/admin/login/quit/{{ session('user') }}">退出</a></li>
 			</ul>
 		</div>
 	</div>
@@ -59,18 +61,25 @@
 				<h3><i class="fa fa-fw fa-clipboard"></i>分类操作</h3>
 				<ul class="sub_menu">
 
-					<li><a href="" target="_self"><i class="fa fa-fw fa-plus-square"></i>添加分类</a></li>
-					<li><a href="" target="_self"><i class="fa fa-fw fa-list-ul"></i>分类列表</a></li>
+					<li><a href="{{url('/admin/type/add')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>添加分类</a></li>
+					<li><a href="{{url('/admin/type/index')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>分类列表</a></li>
 
 
 				</ul>
 			</li>
 			<li>
 
-				<h3><i class="fa fa-fw fa-clipboard"></i>文章操作</h3>
+
+				<h3><i class="fa fa-fw fa-clipboard"></i>视频操作</h3>
 				<ul class="sub_menu">
-					<li><a href="" target="_self"><i class="fa fa-fw fa-plus-square"></i>添加文章</a></li>
-					<li><a href="" target="_self"><i class="fa fa-fw fa-list-ul"></i>文章列表</a></li>
+					<li><a href="{{url('/admin/video/add')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>添加视频</a></li>
+					<li><a href="{{url('/admin/video/index')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>视频列表</a></li>
+
+				<h3><i class="fa fa-fw fa-clipboard"></i>友情链接管理</h3>
+				<ul class="sub_menu">
+					<li><a href="{{url('/admin/url/url')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>友情链接</a></li>
+					<li><a href="" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加链接</a></li>
+
 
 
 				</ul>
@@ -98,20 +107,22 @@
 	</div>
 	<!--左侧导航 结束-->
 
-
+	<!--主体部分 开始-->
 @section('content')
 
-              
+
 
 
 @show
+	<!--主体部分 结束-->
+
 
     <!--底部 开始-->
-	<div class="bottom_box">
+	<div class="bottom_box" style="margin:auto;width:auto;float:right;">
 		CopyRight © 2015. Powered By <a href="http://www.itxdl.cn">http://www.itxdl.cn</a>.
 	</div>
 	<!--底部 结束-->
 
-    <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
-</head>
+<script type="text/javascript" src="{{asset('static/layer-v3.0.3/layer/layer.js')}}"></script>
+</body>
 </html>
