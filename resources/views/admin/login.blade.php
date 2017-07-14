@@ -50,20 +50,18 @@
                 <form action="/admin/login/insert" method="post" class="am-form tpl-form-line-form">
                 {{ csrf_field() }}
                     <div class="am-form-group">
-                        <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入账号" name="user" onkeyup="value=value.replace(/[^\^(?![0-9]*$)[a-zA-Z0-9]{6,20}$]/g,'')">
+                        <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入账号" name="user" onkeyup="value=value.replace(/[^\^(?![0-9]*$)[a-zA-Z0-9]{6,20}$]/g,'')" value="{{ old('user') }}">
 
                     </div>
 
                     <div class="am-form-group">
-                        <input type="password" class="tpl-form-input" id="user-name" placeholder="请输入密码" name="password">
+                        <input type="password" class="tpl-form-input" id="user-name" placeholder="请输入密码" name="password" value="{{ old('password') }}">
 
                     </div>
-                    <div class="am-form-group tpl-login-remember-me">
-                        <input id="remember-me" type="checkbox">
-                        <label for="remember-me">
-       
-                        记住密码
-                         </label>
+                    <div class="am-form-group">
+                        <input type="password" class="tpl-form-input" id="user-name" placeholder="请输入验证码" name="yanzm" style="width:160px">
+                         <img src="/code" alt="" class="code" onclick="this.src='/code?a='+Math.random()" style="margin:-70px 0px 0px 180px">
+                    </div>
 
 
                     <div class="am-form-group">

@@ -21,7 +21,7 @@
         </div>
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">头像</label>
-          <img src="{{$reg['photo']}}" alt="" class="img-thumbnail">
+          <img src="{{$reg['photo']}}" alt="" class="img-thumbnail" style="width:140px;height:100px">
         </div>
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">个性签名</label>
