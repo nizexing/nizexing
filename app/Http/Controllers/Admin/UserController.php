@@ -51,6 +51,8 @@ class UserController extends Controller
 
         return redirect('/admin/user/user');
    }
+
+
    //添加用户
    public function getInsert()
    {    //显示添加表单
