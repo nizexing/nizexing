@@ -17,7 +17,7 @@
         }
         .pagination{
             float: right;
-            margin: 20px 20px 0px 0px;            
+            margin: 20px 20px 0px 0px;           
         }
 
     </style>
@@ -28,15 +28,15 @@
 		<div class="top_left">
 			<div class="logo">后台管理模板</div>
 			<ul>
-				<li><a href="#" class="active">首页</a></li>
-				<li><a href="#">管理页</a></li>
+				<li><a href="{{ asset('/admin/admin/index') }}" class="active">首页</a></li>
+				<!-- <li><a href="#">管理页</a></li> -->
 			</ul>
 		</div>
 		<div class="top_right">
 			<ul>
 				<li>管理员：{{ session('user') }}</li>
-				<li><a href="{{url('admin/repass')}}" target="_self">修改密码</a></li>
-				<li><a href="{{url('admin/quit')}}">退出</a></li>
+				<li><a href="/admin/user/editpsw/{{ session('user') }}" target="_self">修改密码</a></li>
+				<li><a href="/admin/login/quit/{{ session('user') }}">退出</a></li>
 			</ul>
 		</div>
 	</div>
@@ -68,7 +68,7 @@
 
 				<h3><i class="fa fa-fw fa-clipboard"></i>友情链接管理</h3>
 				<ul class="sub_menu">
-					<li><a href="" target="_self"><i class="fa fa-fw fa-plus-square"></i>友情链接</a></li>
+					<li><a href="{{url('/admin/url/url')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>友情链接</a></li>
 					<li><a href="" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加链接</a></li>
 
 

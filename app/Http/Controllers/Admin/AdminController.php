@@ -15,9 +15,5 @@ class AdminController extends Controller
         return view('/config/index');
    }
 
-   //获取友情链接
-   public function getUrl()
-   {
-   		
-   }
+   
 }

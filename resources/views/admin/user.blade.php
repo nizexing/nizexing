@@ -2,6 +2,22 @@
 @section('content')
 		
         <div class="result_wrap" style="width:1024px;margin:60px 0px 0px 200px">
+            <form class="form-inline" action="/admin/user/search" method="post">
+            {{ csrf_field() }}
+            <!-- 按名字或电话号码搜索 -->
+              <div class="form-group">
+                <label for="exampleInputEmail2">搜索</label>
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="请输入用户名或电话" name="keys" value="">
+              </div>         
+              <!-- 按年龄范围搜索      -->
+                <div class="form-group">
+                <label for="exampleInputEmail2"></label>
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="最小年龄" style="width:100px" name="agemin" value="">&nbsp;&nbsp;~&nbsp;&nbsp;
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="最大年龄" style="width:100px" name="agemax" value="">
+              </div>
+              <button type="submit" class="btn btn-default">点击搜索</button>
+            </form>
+            @if(!session('error'))
             <div class="result_content">
             <h1>用户列表</h1>
                 <table class="list_tab">
@@ -36,7 +52,9 @@
 
             </div>
             {!! $user->render() !!}
-            
+
         </div>
-    </form>
+          @else
+            <p style="margin:30px 0px 0px 25px;font-size:20px">{{ session('error') }}</p>
+            @endif
 @endsection

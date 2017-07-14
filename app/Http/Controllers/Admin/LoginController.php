@@ -41,38 +41,22 @@ class LoginController extends Controller
         return back()->with('error','您输入的验证码错误!');
       }else
 
+      //全都通过登录首页
       if($a['password']==$b['password'] && $a['yanzm']==session('code'))
       {
         Session(['user'=>$b['adminname']]);
         return redirect('/admin/admin/index');
       }
-
       
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //判断校验结果
-    // if($b){
-    //     //账号存在且密码正确
-    //     return redirect('/admin/admin/index');
-    // }else{
-    //   //账号不存在或密码错误
-    //     return back()->with('error','账号或密码不正确!');
-    // }
   }
+
+      //退出
+    public function getQuit($user)
+    {
+      Session(['user'=>null]);
+      return redirect('/admin/login/login');
+    }
+
 }

@@ -14,11 +14,15 @@
  Route::get('/', function () {
      return view('welcome');
  });
+
+
 // 后台路由
 // 登录
 Route::controller('admin/login','Admin\LoginController');
 // 管理员管理路由
 Route::controller('admin/admin','Admin\AdminController');
+//友情链接管理路由
+Route::controller('admin/url','Admin\UrlController');
 // 用户管理路由
 Route::controller('admin/user','Admin\UserController');
 // 分类管理路由
