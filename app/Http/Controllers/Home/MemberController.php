@@ -48,10 +48,20 @@ class MemberController extends CommonController
     {
 
         $data = $request -> all();
-//        dump($data);
+
         // 接收并处理要修改的数据
-        $data2 = $request -> except("uid","_token","province","city");
+        $data2 = $request -> except("uid","_token","province","city",'photo');
         $data2["address"] = $data['province'].'-'.$data['city'];
+
+        $data2['photo'] = $data2['upload_path'];
+        $data2['photo'] = trim($data2['photo'],'/');
+
+        unset($data2['upload_path']);
+        foreach($data2 as $k=>$v){
+            if($v==''){
+                unset($data2[$k]);
+            }
+        }
 
         $res = User_detail::where("uid",$data["uid"])->update($data2);
         if($res){
@@ -85,10 +95,10 @@ class MemberController extends CommonController
             $newName = date('YmdHis').mt_rand(1000,9999).'.'.$extension;
 
             // 移动到public下
-            $path = $file->move(public_path().Config('web.img-path'),$newName);
+            $path = $file->move(public_path().'/'.Config('web.img-path'),$newName);
 
             //
-            $filePath = '/uploads/'.$newName;
+            $filePath = Config('web.img-path').'/'.$newName;
             return $filePath;
         }
 

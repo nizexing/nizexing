@@ -179,15 +179,15 @@
                                         <div class="l a">
                                             <p class="subtitle">修改头像</p></div>
                                         <div class="l b">
-                                            <input type="text"  id="upload_path" style="width:238px;">
-                                            <input    id="photo" name="photo" value="" data-length="0,63" type="file" style="width:65px;"></div>
+                                            <input type="text" name="upload_path" id="upload_path" style="width:238px;">
+                                            <input    id="photo"  name="photo" value="" data-length="0,63" type="file" style="width:65px;"></div>
 
                                         <span class="clearfix"></span>
                                     </div>
                                     <div class="unit">
                                         <div class="l a"></div>
                                         <div class="l b">
-                                            <img src="" id="pic" alt="" style="display:none; width:200px;height:200px;">
+                                            <img src="" id="pic" alt="" class="img img-responsive" style="display:none; width:200px;height:200px;">
                                         </div>
                                     </div>
                                     <div class="unit">
@@ -239,15 +239,16 @@
                                                 contentType: false,
                                                 processData: false,
                                                 success: function(data) {
+
                                     console.log(data);
                                     if(data=='aabb'){
                                         alert('上传失败');
                                         return false;
                                     }
-                                    alert("上传成功");
-                                                    $('#pic').attr('src','{{asset("/")}}'+data);
+                                    alert('上传成功');
+                                                    $('#pic').attr('src','/'+data);
                                                     $('#pic').show();
-                                                    $('#upload_path').val(data);
+                                                    $('#upload_path').val('/'+data);
 //                                                    setTimeout(function(){
 //
 //                                                        location.href= 'www.baidu.com';
