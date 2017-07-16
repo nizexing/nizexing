@@ -19,19 +19,28 @@
                         <td>{{$v['id']}}</td>
                         <td>{{$v['name']}}</td>
                         <td>{{$v['url']}}</td>
-                        <td><img src="{{asset($v['img'])}}" alt=""></td>
-                        <td>{{$v['status']}}</td>                     
-                        <td>	
+                        <td><img src="{{asset($v['img'])}}" alt="" style="width: 60px;height:50px"></td>
+                        @if($v['status']==1)
+                        <td style="color: red">已推荐</td>  
+                        @else
+                        <td style="color: green">未推荐</td>  
+                        @endif                   
+                        <td style="text-align: center">
+                        <div style="width: 73px;margin:0px -50px 0px 10px">
                             <a href="/admin/url/edit/{{$v['id']}}" class="list">修改</a>
                             <a href="/admin/url/delete/{{$v['id']}}" class="list">删除</a>
+                        </div>
                         </td>
-                        <td>
-							@if($v['status'])
-                        	<button type="button"  class="btn btn-danger" value="0">撤销推荐</button>
-                        	@else
-                        	<button type="button"  class="btn btn-success" value="1">设为推荐</button>
-							@endif
-                        </td>
+
+                        @if($v['status'])
+                            <td>
+                            	<button type="button" class="btn btn-danger" value="{{$v['id']}}" id="lost" num="{{$v['status']}}">撤销推荐</button>
+                            </td>
+                        @else
+                            <td>
+                                <button type="button" class="btn btn-success" value="{{$v['id']}}" id="up" num="{{$v['status']}}">设为推荐</button>
+                            </td>
+                        @endif
                     </tr>
                   @endforeach
                 </table>
@@ -40,5 +49,36 @@
             {!! $data->render() !!}
             
         </div>
+
+            <script>
+                $('th').css('text-align','center');
+
+                $('.btn-danger').click(function(){
+                    //ID
+                    var a=$(this).val();
+                    //状态值
+                    var b=$(this).attr('num');
+                    //发送AJAX
+                    $.get('/admin/url/status',{'id':a,'status':b},function(msg){
+                        alert('该链接将从首页撤下!');
+                        location.href=location.href;
+                    });
+                });
+
+                $('.btn-success').click(function(){
+                    //ID
+                    var a=$(this).val();
+                    //状态值
+                    var b=$(this).attr('num');
+                    //发送AJAX
+                    $.get('/admin/url/status',{'id':a,'status':b},function(msg){
+                          alert('该链接将被推荐至首页!');
+                        location.href=location.href;
+
+                    });
+                });
+            </script>
+
+
 
 @endsection
