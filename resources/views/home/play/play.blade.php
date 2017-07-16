@@ -52,13 +52,15 @@
             <ol id="header-guide" class="fr header-guide">
                 <li class="guide-item guide-user"> <a href="http://www.acfun.cn/member/" target="_blank" class="user-avatar item"> <img src="/home/picture/avatar.jpg" width="30" height="30" /></a> <a href="http://www.acfun.cn/login/" target="_blank" class="item user-login">
                 @if($user['username'])
-                    {{ $user['username'] }}
+                   <img src="{{url(asset(session('user')['photo']))}}" width="30" height="30" style="border-radius: 50%"></a>
                 @else
                     <a href="{{ url('/login/login') }}">登录</a>/<a href="{{ url('/reg/zhuce') }}">注册</a> 
                 @endif    
                 </a> <span class="user-message-count hidden"></span>
                     <div class="guide-item-con">
-                        <p class="clearfix"> <a href="http://www.acfun.cn/member/" target="_blank" class="fl user-name"></a> <a href="http://www.acfun.cn/logout.aspx" class="fr icon icon-logout user-logout">退出</a></p>
+                        <p class="clearfix"> 
+                        <a href="http://www.acfun.cn/member/" target="_blank" class="fl user-name"></a> 
+                        <a href="http://www.acfun.cn/logout.aspx" class="fr icon icon-logout user-logout">退出</a></p>
                         <div id="user-message" class="user-message"></div>
                         <a href="http://www.acfun.cn/member/#area=mail" target="_blank" class="more">查看更多</a>
                     </div> </li>
@@ -284,7 +286,8 @@
                 <div class="upzhu"></div>
                 <div data-uid="12138573" class="user">
                     <a href="/u/12138573.aspx" target="_blank" id="bd_uphead" class="a1">
-                        <div class="backg"></div> <img src="/home/picture/avatar.jpg" class="avatar" />
+                        <div class="backg"></div>
+                        <img src="{{ $detail['photo'] }}" class="avatar" />
                         <div class="banana-num"></div>
                         <div class="bubble">
                             <div class="bubble-1 fl"></div>
@@ -356,10 +359,11 @@
 
          <!-- 评论编辑器 -->
 
-        <form action="/pinlun/pinlun/{{ $data['vid'] }}/{{ $user['uid'] }}" method="post">
+        <form action="/pinlun/pinlun/{{ $data['vid'] }}/{{ $user['uid'] }}/{{ $user['username'] }}" method="post">
              {{ csrf_field() }}
              <p>请输入评论内容:</p>
                 <textarea name="content" id="" cols="30" rows="10" style="resize: none;width: 720px;height: 100px"></textarea>
+
               <input type="submit" value="提交" style="margin: 10px 550px;width: 170px" class="btn btn-default" id="submit">
         </form>
 
@@ -394,11 +398,11 @@
             <div id="c-78399892" class="item-comment   item-comment-first " data-fullcid="78395691,78396292,78397393,78397396,78397596,78399892" data-qid="78397596" data-layer="21">
              <div class="area-comment-left"> 
              <a class="thumb" target="_blank" href="http://www.acfun.cn/u/490814.aspx#home">
-             <img class="avatar" src="http://cdn.aixifan.com/dotnet/20120923/style/image/avatar.jpg" data-name="jsakjj">
-             <img class="avatar-bg" src="http://cdn.aixifan.com/dotnet/20130418/style/image/avatar-bg.png"></a> </div> 
+  <!--            <img class="avatar" src="http://cdn.aixifan.com/dotnet/20120923/style/image/avatar.jpg" data-name="jsakjj"> -->
+             <img class="avatar-bg" src="{{ $v['photo'] }}" style="width: 48px"></a> </div> 
              <div class="area-comment-right"> 
              <div class="author-comment last" data-uid="490814"> 
-             <span class="index-comment">{{$user['username']}}</span> 
+             <span class="index-comment">{{$v['uname']}}</span> 
              <a class="name " data-uid="490814" target="_blank" href="http://www.acfun.cn/u/490814.aspx#home"></a> 
              <span class="time_">发表于 {{ date('Y-m-d H:i:s',$v['ctime']) }}</span><p class="floor-comment">6</p> </div>
               <div class="content-comment">{{ $v['content'] }}</div>
