@@ -70,6 +70,7 @@
 				<ul class="sub_menu">
 					<li><a href="{{url('/admin/video/add')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>添加视频</a></li>
 					<li><a href="{{url('/admin/video/index')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>视频列表</a></li>
+
 				</ul>
 			</li>
 			<li>
@@ -83,7 +84,7 @@
 				<h3><i class="fa fa-fw fa-clipboard"></i>友情链接管理</h3>
 				<ul class="sub_menu">
 					<li><a href="{{url('/admin/url/url')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>友情链接</a></li>
-					<li><a href="" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加链接</a></li>
+					<li><a href="{{url('/admin/url/inserturl')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加链接</a></li>
 
 
 
