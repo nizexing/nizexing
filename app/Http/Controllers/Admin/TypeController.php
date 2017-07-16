@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Input;
 class TypeController extends Controller
 {
     /**
-     *
+     *  显示首页
      * @param int $tid
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -35,29 +35,15 @@ class TypeController extends Controller
               foreach($type as $k=>$v){
                   $type[$k]['pname'] = $pname;
               }
-
-
           }
 
-
-          $tmp = [];
-//          foreach($type as $k=>$v){
-//
-//              if($v['pid'] == 0){
-//                  $type[$k]['pname'] = '顶级分类';
-//                  $tmp[$v['tid']] = $v['tname'];
-//              }
-//          }
-//
-//          foreach($type as $k=>$v){
-//              if($v['pid']!=0){
-//                  $type[$k]['pname'] = $tmp[$v['pid']];
-//              }
-//          }
-//          dd($type);
           return view('admin.type.index',compact('type'));
       }
 
+    /**
+     *  显示添加页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
       public function getAdd()
       {
           $type = Type::orderBy('order')->where('pid',0)->get();
@@ -90,21 +76,23 @@ class TypeController extends Controller
       }
 
     /**
-     *  分类 信息
+     *  分类 信息 提交添加
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postDoadd(Request $request)
     {
+
         $data = $request -> only('pid','tname','timg');
          $validator =  Validator::make($data,[
             'pid' => 'required',
-            'tname' => 'required',
+            'tname' => 'required|between:2,8',
             'timg' => 'required'
         ],[
             'pid.required'=>'父分类必选',
             'tname.required'=>'分类必填',
-            'timg.required'=>'分类图片必须',
+            'tname.between'=>'分类名在2-8位',
+            'timg.required'=>'分类图片必须上传'
         ]);
         if ($validator->fails()) {
             return redirect('admin/type/add')
@@ -123,10 +111,10 @@ class TypeController extends Controller
     }
 
     /**
-     *  排序
-     * @param Request $request
-     * @return array
-     */
+ *  排序
+ * @param Request $request
+ * @return array
+ */
     public function getOrder(Request $request)
     {
 //        dd($request->all());
@@ -198,6 +186,7 @@ class TypeController extends Controller
     }
 
     /**
+     * 删除
      * @param $tid
      * @return \Illuminate\Http\RedirectResponse
      */

@@ -64,7 +64,7 @@
                         </tr>
                         <tr>
                             <th><i class="require">*</i>分类名称：</th>
-                            <td><input type="name" name="tname" class="form-control "></td>
+                            <td><input type="text" name="tname" id="tname" class="form-control "></td>
                         </tr>
                         <tr>
                             <th><i class="require">*</i>缩略图：</th>
@@ -82,7 +82,7 @@
                         <tr>
                             <th></th>
                             <td id="submit">
-                                <input type="submit"class="btn primary" value="提交">
+                                <input type="submit" id="submit" class="btn primary" value="提交">
                                 <input type="button" class="btn info" class="back" onclick="history.go(-1)" value="返回">
                             </td>
 
@@ -101,6 +101,23 @@
             $("#img").change(function () {
 
                 uploadImage();
+            });
+
+            $('#submit').click(function(){
+
+                var select = $('select').val();
+                var  tname = $('#tname').val();
+                var timg = $('#upload_path').val();
+                if(select==''){
+                    layer.alert('请选择分类!');
+                }
+                if(tname==""||tname.length<=2||tname.length>=8){
+                    layer.alert('分类名应为2-8位');
+                }
+                if(timg==''){
+                    layer.alert('请选择上传分类图');
+                }
+
             });
         });
 
@@ -148,5 +165,6 @@
             });
         }
     </script>
+
 
 @endsection

@@ -11,5 +11,4 @@
         'img-path' => 'uploads/image',
         'video-path' => 'uploads/video',
 
-
     ];

@@ -29,6 +29,8 @@ Route::controller('admin/user','Admin\UserController');
 Route::controller('admin/type','Admin\TypeController');
 // 视频管理路由
 Route::controller('admin/video','Admin\VideoController');
+// 推荐视频管理路由
+Route::controller('admin/recommend','Admin\RecommendController');
 // 网站管理路由
 Route::controller('admin/config','Admin\ConfigController');
 

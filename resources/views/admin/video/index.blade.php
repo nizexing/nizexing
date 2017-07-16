@@ -23,10 +23,10 @@
                             </ul>
                         @endif
                         @if(session('error'))
-                            <p style="background:#f0ad4e" class="error"> {{session('error')}}</p>
+                            <p style="background:#f0ad4e"  class="bg-error"> {{session('error')}}</p>
                         @endif
                         @if(session('success'))
-                            <p class="success"> {{session('success')}}</p>
+                            <p class="bg-success"> {{session('success')}}</p>
                         @endif
 
                     </div>
@@ -48,10 +48,7 @@
                     <script>
                         function search(){
                             var key= $('#key').val();
-
-                            if(key!==''){
                                 location.href = "{{url('admin/video/index')}}?key="+key;
-                            }
                             return false;
                         }
                     </script>
@@ -99,7 +96,7 @@
                                 layer.confirm('是否确认删除？', {
                                     btn: ['确定','取消'] //按钮
                                 }, function(){
-                                    location.href = '{{url('/admin/type/delete/')}}/'+tid;
+                                    location.href = '{{url('/admin/video/delete/')}}/'+tid;
 
                                 }, function(){
                                     return false;
@@ -109,8 +106,10 @@
 
 
                         <td>
-                            <a href="{{url('/admin/type/detail/'.$v['tid'])}}" id="detail" class="list">详情修改</a>
-                            <a href="javascript:;" onclick="del({{$v['tid']}})" id="delete" class="list">删除</a>
+
+                            <a href="{{url('/admin/video/detail/'.$v['vid'])}}" id="detail" class="btn btn-sm btn-primary">详情管理</a>
+
+                            <a href="javascript:;" onclick="del({{$v['vid']}})" id="delete" class="btn btn-sm btn-danger">删除</a>
                         </td>
                     </tr>
                   @endforeach
@@ -120,20 +119,5 @@
             {!! $video->appends($search)->render() !!}
             
         </div>
-        <script>
-            $(function(){
-                $('input').change(function(){
-                    var order = $(this).val();
-                    var tid = $(this).attr('tid');
-                    $.get('/admin/type/order',{tid:tid,order:order},function(data){
-                       alert(data.msg);
-                       if(data.status==200){
-                           location.href = location.href;
-                       }
-                    })
-                });
 
-
-            })
-        </script>
 @endsection

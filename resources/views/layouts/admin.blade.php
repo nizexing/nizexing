@@ -5,13 +5,13 @@
     <link rel="stylesheet" href="{{asset('admin/style/css/ch-ui.admin.css')}}">
     <link rel="stylesheet" href="{{asset('admin/style/css/layer.css')}}">
 	<link rel="stylesheet" href="{{asset('admin/style/font/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('static/bootstrap-validator/bootstrapValidator.css')}}">
     <script type="text/javascript" src="{{asset('admin/style/js/jquery.js')}}"></script>
     <script type="text/javascript" src="{{asset('admin/style/js/ch-ui.admin.js')}}"></script>
     <link rel="stylesheet" href="{{asset('/bootstrap.min.css')}}">
     <script type="text/javascript" src="{{asset('/bootstrap.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('/jquery.min.js')}}"></script>
-
-    <script type="text/javascript" src="{{asset('/jquery-1.8.3.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('static/bootstrap-validator/bootstrapValidator.js')}}"></script>
+    <script type="text/javascript" src="{{asset('static/bootstrap-validator/zh_CN.js')}}"></script>
 
     <style type="text/css">
         ul li{
@@ -63,17 +63,22 @@
 
 					<li><a href="{{url('/admin/type/add')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>添加分类</a></li>
 					<li><a href="{{url('/admin/type/index')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>分类列表</a></li>
-
-
 				</ul>
 			</li>
 			<li>
-
-
 				<h3><i class="fa fa-fw fa-clipboard"></i>视频操作</h3>
 				<ul class="sub_menu">
 					<li><a href="{{url('/admin/video/add')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>添加视频</a></li>
 					<li><a href="{{url('/admin/video/index')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>视频列表</a></li>
+				</ul>
+			</li>
+			<li>
+				<h3><i class="fa fa-fw fa-clipboard"></i>推荐视频操作</h3>
+				<ul class="sub_menu">
+					<li><a href="{{url('/admin/recommend/index')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>视频列表</a></li>
+				</ul>
+			</li>
+			<li>
 
 				<h3><i class="fa fa-fw fa-clipboard"></i>友情链接管理</h3>
 				<ul class="sub_menu">

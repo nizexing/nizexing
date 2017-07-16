@@ -6,7 +6,7 @@
         <!--面包屑导航 开始-->
         <div class="crumb_warp">
             <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-            <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">视频管理</a> &raquo; 视频列表
+            <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">视频管理</a> &raquo; 视频添加
         </div>
         <!--面包屑导航 结束-->
 
@@ -32,7 +32,7 @@
             <script>
                 $(function(){
                     setTimeout(function(){
-                        $('#info').hide();
+                        $('.result_title').hide();
                     },2000);
 
                 })
@@ -41,153 +41,155 @@
                 <div class="short_wrap">
                     <a href="/admin/video/add"><i class="fa fa-plus"></i>新增视频</a>
 
-                    <a href="javascript:;"><i class="fa fa-refresh"></i>更新排序</a>
+                    <a href="/admin/video/index"><i class="fa fa-list"></i>视频列表</a>
                 </div>
             </div>
         </div>
         <!--结果集标题与导航组件 结束-->
         <div class="result_content">
             <div class="result_wrap">
-                <form action="{{url('admin/video/doadd')}}" id="memform"  method="post" enctype="multipart/form-data">
-                    <table class="add_tab">
-                        {{csrf_field()}}
-                        <tbody>
-                        <tr>
-                            <th width="120"><i class="require">*</i>视频所属分类：</th>
-                            <td>
-                                <select name="type" class="up-channel" id="stype">
-                                    <option value="-250">请选择分区</option>
+                <form class="form-horizontal" id="createForm" method="POST" action="{{url('admin/video/doadd')}}">
+                    {{csrf_field()}}
+                    <div class="modal-body">
+                        <div class="form-group demo2do-form-group">
+                            <label class="col-xs-3 control-label">视频所属分类：</label>
+                            <div class="col-xs-8">
+                                <select id="stype" name="type" class="form-control">
+
+                                    <option value="">请选择分区</option>
                                     @foreach($type as $k=>$v)
                                         <option value="{{$v['tid']}}">{{$v['tname']}}</option>
                                     @endforeach
                                 </select>
-                                <select name="tid" class="up-sub disabled" id="stype2">
-                                    <option value="-250">请选择子分区</option>
+                                <select id="stype2" name="tid" class="form-control">
+                                    <option value="">请选择子分区</option>
                                 </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><i class="require">*</i>视频名称：</th>
-                            <td><input type="name" name="title" class="form-control "></td>
-                        </tr>
-                        <tr>
-                            <th><i class="require">*</i>上传人：</th>
-                            <td><input type="name" disabled name="name" value="官方" class="form-control "></td>
-                        </tr>
-                        <tr>
-                            <th><i class="require">*</i>缩略图：</th>
-                            <td><input type="file"name="img" id="img"></td>
-                        </tr>
+                            </div>
 
-                        <tr>
-                            <th><i class="require">*</i>标签 ：</th>
-                            <td>
+                        </div>
+                        <div class="form-group demo2do-form-group">
+                            <label class="col-xs-3 control-label">视频名称: </label>
+                            <div class="col-xs-8">
+                                <input type="text" name="title" class="form-control ">
+                            </div>
+                        </div>
+                        <div class="form-group demo2do-form-group">
+                            <label class="col-xs-3 control-label">上传人：</label>
+                            <div class="col-xs-8">
+                                <input type="text" disabled name="name" value="官方" class="form-control ">
+                            </div>
+                        </div>
+                        <div class="form-group demo2do-form-group">
+                            <label class="col-xs-3 control-label">缩略图：</label>
+                            <div class="col-xs-8" id="moduleParentDiv">
+                                <input type="file"name="img" id="img">
+                            </div>
+                        </div>
+                        <div class="form-group demo2do-form-group" id="tr">
+                            <label class="col-xs-3 control-label"></label>
+                            <input type="text" class="hide" name="timg" id="upload_path">
+                            <div class="col-xs-8">
+                                <img src="" alt=""width="300" class="hide"  height="200" id="pic">
+                            </div>
+                        </div>
+                        <div class="form-group demo2do-form-group">
+                            <label class="col-xs-3 control-label">标签 ：</label>
+                            <div class="col-xs-8">
                                 <input type="text" name="label"  class="form-control " value="" placeholder="输入标签,多个以 '-' 连接" >
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><i class="require">*</i>描述 ：</th>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="form-group demo2do-form-group">
+                            <label class="col-xs-3 control-label">描述 ：</label>
+                            <div class="col-xs-8">
                                 <textarea name="desc" id="" cols="30" rows="10" placeholder="请输入对视频的描述(255字以内)"></textarea>
-                            </td>
-
-                        </tr>
-
-                        <tr>
-                            <th><i class="require">*</i>上传视频 ：</th>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="form-group demo2do-form-group">
+                            <label class="col-xs-3 control-label">上传视频 ：</label>
+                            <div class="col-xs-8">
                                 <input type="hidden" name="video" id="video" value="">
                                 <input id="file_upload" name="file_upload" type="file" multiple="true">
                                 <a href="javascript:$('#file_upload').uploadify('upload', '*')">开始上传</a>
 
                                 <a href="javascript:$('#file_upload').uploadify('stop')">停止上传</a>
-                            </td>
-                        </tr>
-                        <script type="text/javascript">
+                            </div>
+                            <script type="text/javascript">
 
-                            $(function() {
-                                $('#file_upload').uploadify({
-                                    'formData'     : {
-                                        '_token'     : '{{csrf_token()}}'
-                                    },
-                                    'swf'      : '/admin/uploadify.swf',
-                                    'uploader' : '/admin/video/upload',
-                                    'height' : '30',
-                                    'width' : '120',
-                                    'auto'  : false,
+                                $(function() {
+                                    $('#file_upload').uploadify({
+                                        'formData'     : {
+                                            '_token'     : '{{csrf_token()}}'
+                                        },
+                                        'swf'      : '/admin/uploadify.swf',
+                                        'uploader' : '/admin/video/upload',
+                                        'height' : '30',
+                                        'width' : '120',
+                                        'auto'  : false,
 
-                                    // 上传文件的大小限制
-                                    'fileSizeLimit' : '2GB',
-                                    // 这个属性值必须设置fileTypeExts属性后才有效，默认ALLfile
-                                    'fileTypeDesc' : '请选择.mvk .mp4 .swf .avi .wmv文件',
-                                    // 设置可以选择的文件的类型
-                                    'fileTypeExts' : '*.mvk;*.mp4;*.swf;*.avi;*.wmv',
-                                    // method 默认为post
+                                        // 上传文件的大小限制
+                                        'fileSizeLimit' : '2GB',
+                                        // 这个属性值必须设置fileTypeExts属性后才有效，默认ALLfile
+                                        'fileTypeDesc' : '请选择.mvk .mp4 .swf .avi .wmv文件',
+                                        // 设置可以选择的文件的类型
+                                        'fileTypeExts' : '*.mvk;*.mp4;*.swf;*.avi;*.wmv',
+                                        // method 默认为post
 
-                                    // multi 默认true 可以上传多个 uploadLimit为最大上传数量
-                                    'multi' : false,
-                                    'uploadLimit' : 1,
-                                    "queueSizeLimit" : 1,
-                                    // 设置上传进度显示方式，默认percentage显示上传百分比，speed显示上传速度
-                                    'progressData' : 'speed',
-                                    // 是否自动将已完成任务从队列中删除，如果设置为false则会一直保留此任务显示。默认true
-                                    'removeCompleted' : true,
-                                    'cancelImg': '{{asset('/static/images/uploadify-cancel.png')}}',
+                                        // multi 默认true 可以上传多个 uploadLimit为最大上传数量
+                                        'multi' : false,
+                                        'uploadLimit' : 1,
+                                        "queueSizeLimit" : 1,
+                                        // 设置上传进度显示方式，默认percentage显示上传百分比，speed显示上传速度
+                                        'progressData' : 'speed',
+                                        // 是否自动将已完成任务从队列中删除，如果设置为false则会一直保留此任务显示。默认true
+                                        'removeCompleted' : true,
+                                        'cancelImg': '{{asset('/static/images/uploadify-cancel.png')}}',
 
 
-                                    'onUploadSuccess':function(file, data, response){
-                                        if(data==2){
-                                            alert('视频上传失败');
+                                        'onUploadSuccess':function(file, data, response){
+                                            if(data==2){
+                                                alert('视频上传失败');
+                                                return false;
+                                            }else{
+                                                $('#video').val(data);
+                                                alert('视频上传成功');
+                                                return false;
+                                            }
+
+                                        },
+                                        'onSelectError':function(file, errorCode, errorMsg){
+                                            var msgText = "上传失败\n";
+                                            switch (errorCode) {
+                                                case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+                                                    //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+                                                    msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+                                                    break;
+                                                case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+                                                    msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+                                                    break;
+                                                case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+                                                    msgText += "文件大小为0";
+                                                    break;
+                                                case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+                                                    msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+                                                    break;
+                                                default:
+                                                    msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+                                            }
+                                            alert(msgText);
                                             return false;
-                                        }else{
-                                            $('#video').val(data);
-                                            alert('视频上传成功');
                                         }
 
-                                    },
-                                    'onSelectError':function(file, errorCode, errorMsg){
-                                        var msgText = "上传失败\n";
-                                        switch (errorCode) {
-                                            case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
-                                                //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
-                                                msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
-                                                break;
-                                            case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
-                                                msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
-                                                break;
-                                            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
-                                                msgText += "文件大小为0";
-                                                break;
-                                            case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
-                                                msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
-                                                break;
-                                            default:
-                                                msgText += "错误代码：" + errorCode + "\n" + errorMsg;
-                                        }
-                                        alert(msgText);
-                                        return false;
-                                    }
-
+                                    });
                                 });
-                            });
-                        </script>
-                        <tr style="display:none;" id="tr" >
-                            <th></th>
-                            <td>
-                                <input type="text" class="hide" name="timg" id="upload_path">
-                                <img src="" alt=""width="300" height="200" id="pic">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td>
-                                <input type="submit"class="btn primary" id="submit" value="提交">
-                                <input type="button" class="btn info" class="back" onclick="history.go(-1)" value="返回">
-                            </td>
+                            </script>
+                        </div>
 
-                        </tr>
-                        </tbody>
-                    </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit"  class="btn btn-success btn-shadow btn-shadow-success demo2do-btn" value="添加">
+                        <button type="button" class="btn btn-default btn-shadow btn-shadow-default demo2do-btn" data-dismiss="modal">取消</button>
+                    </div>
                 </form>
             </div>
 
@@ -218,7 +220,7 @@
                 return;
             }
 
-            var formData = new FormData($('#memform')[0]);
+            var formData = new FormData($('#createForm')[0]);
 
 
             $.ajax({
@@ -236,7 +238,7 @@
                         return false;
                     }
                     alert("上传成功");
-                    $('#pic').attr('src','{{asset("/")}}'+data);
+                    $('#pic').attr('src','{{asset("")}}'+data);
                     $('#tr').show();
                     $('#upload_path').val(data);
 //
@@ -250,13 +252,10 @@
     <script>
         var tt = $('#stype');
         abc = {!! json_encode($type2) !!}
-                                console.log(abc);
-
-        console.log(tt.html());
         tt.change(function(){
             for(var i=0;i<abc.length;i++){
                 if($('#stype').val()=='-250'){
-                    $('#stype2').html('<option value="-250">请选择子分区</option>').addClass('disabled');
+                    $('#stype2').html('<option value="">请选择子分区</option>').addClass('disabled');
                 }
 
                 if($('#stype').val()==abc[i][0].pid){
@@ -265,29 +264,76 @@
                         str += '<option value="'+abc[i][j].tid+'">'+abc[i][j].tname+'</option>';
                     }
 //                                            alert(str);
-                    $('#stype2').html('<option value="-250">请选择子分区</option>'+str).removeClass('disabled').removeAttr('disabled');
+                    $('#stype2').html('<option value="">请选择子分区</option>'+str).removeClass('disabled').removeAttr('disabled');
                 }
 
             }
 
         });
 
-        $('#submit').click(function(){
+       $(function(){
+            $('#createForm').bootstrapValidator({
+                message: 'This value is not valid',
+                fields: {
+                    type: {
+                        validators: {
+                            notEmpty: {
+                                message: '分类不能为空'
+                            }
+                        }
+                    },
+                    tid: {
+                        validators: {
+                            notEmpty: {
+                                message: '子分类不能为空'
+                            }
+                        }
+                    },
+                    title: {
+                        validators: {
+                            notEmpty: {
+                                message: '视频标题不能为空'
+                            },
+                            stringLength: {
+                                min: 2,
+                                max: 50,
+                                message: '视频名称必须是2-50位'
+                            }
+                        }
+                    },
+                    img: {
+                        validators: {
+                            notEmpty: {
+                                message: '必须上传封面图片'
+                            }
+                        }
+                    },
+                    label: {
+                        validators: {
+                            notEmpty: {
+                                message: '必须添加至少一个标签'
+                            },
+                            stringLength: {
+                                max: 255,
+                                message: '不能超过255位'
+                            }
+                        }
+                    },
+                    desc: {
+                        validators: {
+                            notEmpty: {
+                                message: '必须填写一段视频的描述'
+                            },
+                            stringLength: {
+                                max: 255,
+                                message: '不能超过255位'
+                            }
+                        }
+                    }
+                }
+            });
+        })
 
-            var a = $('#stype').val();
-            var b = $('#stype2').val();
-
-            if(a=='-250'){
-                layer.alert('请选择分区!');
-                return false;
-            }
-            if(a=='-250'){
-                layer.alert('请选择子分区!');
-                return false;
-             }
-
-
-        });
 
 
     </script>

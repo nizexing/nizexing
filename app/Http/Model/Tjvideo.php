@@ -8,7 +8,7 @@ class Tjvideo extends Model
 {
     //// 关联数据 表
     protected $table = "tjvideo";
-    protected $primaryKey = 'vid';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     public $guarded = [];
 

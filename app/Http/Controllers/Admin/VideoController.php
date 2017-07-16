@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Model\Tjvideo;
 use App\Http\Model\Type;
 use App\Http\Model\Video;
+use App\Http\Model\Video_detail;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class VideoController extends Controller
@@ -47,7 +50,7 @@ class VideoController extends Controller
 
         $video = $video->select('video.*','user.name','type.tname')->paginate(8);
         // 定义video.status视频的状态
-        $status = ['0'=>'未知','1'=>'审核中','2'=>'审核通过','3'=>'冻结'];
+        $status = ['0'=>'未知','1'=>'审核中','2'=>'审核通过','3'=>'冻结','4'=>'推荐'];
 
 
         // 传入视图
@@ -76,9 +79,64 @@ class VideoController extends Controller
      */
     public function postDoadd(Request $request)
     {
-        $data = $request->all();
-//        dd($data);
+
+        $data = $request -> all();
+        // 验证 表单信息
+        $validator =  \Validator::make($data,[
+            'type' => 'required',
+            'tid' => 'required',
+            'title' => 'required|between:2,8',
+            'timg' => 'required',
+            'label' => 'required|max:255',
+            'desc' => 'required|max:200',
+        ],[
+            'type.required'=>'分类必选',
+            'tid.required'=>'二级分类必选',
+            'title.required'=>'标题必填',
+            'title.between'=>'标题位数为6-8位',
+            'timg.required'=>'图片必须上传',
+            'label.required'=>'标签必填',
+            'label.max'=>'标签不能超过255个字符',
+            'desc.required'=>'描述必填',
+            'desc.required'=>'描述不能超过200个字符',
+        ]);
+        if ($validator->fails()) {
+            return redirect('admin/video/add')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // 获取主表的信息
         $video = $request ->only('tid','label','title');
+        $video['img'] = $data['timg'];
+        $video['upload_time'] = time();
+        $video['status'] = 1;
+        $video['comment'] = 0;
+        $video['click'] = 0;
+        if(!$request->has('uid')){
+            $video['uid'] = 0;
+        }
+        // 副表信息
+        $video_detail = $request -> only('desc','video');
+
+        //开启事务
+        DB::beginTransaction();
+
+        $res1 = Video::insertGetId($video);
+        if($res1){
+            $video_detail['vid'] = $res1;
+            $res2 = Video_detail::insert($video_detail);
+        }
+        // 判断
+        if($res1&&!empty($res2)&&$res2){
+            DB::commit();
+            return redirect('admin/video/index')->with('success','添加成功');
+        }else{
+            DB::rollBack();
+            return redirect('admin/video/add')->with('error','添加失败');
+        }
+
+
     }
 
     /**
@@ -115,4 +173,157 @@ class VideoController extends Controller
             return 2;
         }
     }
+
+    /**
+     * 进入详情页 , 修改或进行审核操作
+     * @param $tid
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getDetail($tid)
+    {
+        $video = Video::join('video_detail','video.vid','=','video_detail.vid')
+            ->join('type','type.tid','=','video.tid')
+            ->join('user','user.uid','=','user.name')
+            ->select('video.*','video_detail.*','type.tname','user.name')
+            ->where('video.vid','=',$tid)->first();
+
+        return view('admin.video.edit',compact('video'));
+    }
+
+    /**
+     *  保存修改
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postDoedit(Request $request)
+    {
+//        dd(Input::get('timg'));
+        $vid = $request -> only('vid');
+
+        // video 表
+        $res = Video::find(Input::get('vid'));
+        $res -> title = Input::get('title');
+        $res -> label = Input::get('label');
+        if(Input::get('timg')!=''){
+            $res -> img = Input::get('timg');
+        }
+        // detail 表
+        $res_detail = Video_detail::find($vid)->first();
+        $res_detail -> desc = Input::get('desc');
+
+        // 开启事务
+        DB::beginTransaction();
+        $res1 =  $res -> update();
+        $res2 =  $res_detail -> update();
+        // 判断
+        if($res1&&$res2){
+            DB::commit();
+            return redirect('admin/video/index')->with('success','修改成功');
+        }else{
+            DB::rollBack();
+
+            return back() -> with('error','修改失败');
+        }
+
+    }
+
+    /**
+     * 通过审核
+     * @param $vid
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getCheck($vid)
+    {
+        $video = Video::find($vid);
+//        dd($video);
+        $res = $video -> update(['status'=>2]);
+        if($res){
+            return redirect('admin/video/index')->with('success','通过审核成功');
+        }else{
+            return redirect('admin/video/index') -> with('error','审核失败');
+        }
+    }
+
+    /**
+     * 删除
+     * @param $vid
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getDelete($vid)
+    {
+//        echo $vid;
+        DB::beginTransaction();
+        $res1 = Video::destroy($vid);
+        $res2 = Video_detail::destroy($vid);
+        // 判断
+        if($res1&&$res2){
+            DB::commit();
+            return redirect('admin/video/index')->with('success','删除成功');
+        }else{
+            DB::rollBack();
+            return redirect('admin/video/index') -> with('error','删除失败');
+        }
+
+
+
+    }
+
+    /**
+     * 冻结一条视频
+     * @param $vid
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getFreeze($vid)
+    {
+        $video = Video::find($vid);
+//        dd($video);
+        $res = $video -> update(['status'=>3]);;
+        if($res){
+            return redirect('admin/video/index')->with('success','操作成功');
+        }else{
+            return back() -> with('error','操作失败');
+        }
+    }
+
+    /**
+     * 解冻
+     * @param $vid
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getUnfreeze($vid)
+    {
+        $video = Video::find($vid);
+//        dd($video);
+        $res = $video -> update(['status'=>2]);;
+        if($res){
+            return redirect('admin/video/index')->with('success','操作成功');
+        }else{
+            return back() -> with('error','操作失败');
+        }
+    }
+
+    /**
+     * 设置为推荐
+     * @param $vid
+     * @return int|string
+     */
+    public function getRecommend($vid)
+    {
+        $video = Video::find($vid);
+        DB::beginTransaction();
+        $res = $video -> update(['status'=>4]);
+        $data = Video::join('video_detail','video.vid','=','video_detail.vid')
+            ->where('video.vid',$vid)
+            ->select('video.*','video_detail.desc')
+            ->get()->toArray()[0];
+        $data['tjstatus'] = 0;
+
+        $res2 = Tjvideo::create($data);
+        if($res && $res2){
+            return 'aaa';
+        }else{
+            return 2;
+        }
+    }
+
 }
