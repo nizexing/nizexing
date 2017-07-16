@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 
-        <div class="result_wrap" style="width:1024px;margin:60px 0px 0px 200px">
+        <div class="result_wrap" style="width:1024px;margin:60px 0px 0px 200px;margin-bottom:100px;">
             <!--面包屑导航 开始-->
             <div class="crumb_warp">
                 <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
@@ -38,11 +38,19 @@
 
                         })
                     </script>
-                    <div class="short_wrap">
-                        <a href="/admin/video/index"><i class="fa fa-plus"></i>新增推荐视频</a>
+                    <div class="short_wrap"><a href="javascript:;"><i class="fa fa-plus"></i>关键字查询</a>
                         <input type="text" value="@if(!empty($search['key'])){{$search['key']}}@endif" id="key">
                         <button onclick="search()">搜索</button>
                     </div>
+                    <div class="short_wrap">
+                        <a href="javascript:;"><i class="fa fa-plus"></i>各种推荐:</a>
+                        <a href="{{url('/admin/recommend/index/1')}}">栏目推荐</a>
+                        <a href="{{url('/admin/recommend/index/2')}}">轮播图推荐</a>
+                        <a href="{{url('/admin/recommend/index/3')}}">top推荐</a>
+                        <a href="{{url('/admin/recommend/index/4')}}">猴子推荐</a>
+
+                    </div>
+
                     <script>
                         function search(){
                             var key= $('#key').val();
@@ -72,7 +80,7 @@
                     @foreach($video as $k=>$v)
                     <tr>
 
-                        <td><input type="text" name="order" value="{{$v['order']}}"></td>
+                        <td><input type="text" name="order" id="{{$v['id']}}" style="width:40px" value="{{$v['order']}}"></td>
                         <td>{{$v['id']}}</td>
                         <td>
                             {{$v['vid']}}
@@ -90,11 +98,16 @@
                         </td>
                         <script>
 
-                            function del(tid){
-                                layer.confirm('是否确认删除？', {
+                            function del(id){
+                                layer.confirm('是否确认取消推荐？', {
                                     btn: ['确定','取消'] //按钮
                                 }, function(){
-                                    location.href = '{{url('/admin/video/delete/')}}/'+tid;
+                                    $.get('{{url('/admin/recommend/del')}}',{id:id},function(data){
+                                        layer.alert(data.msg);
+                                        if(data.status==200){
+                                            location.href = location.href;
+                                        }
+                                    })
 
                                 }, function(){
                                     return false;
@@ -105,17 +118,51 @@
 
                         <td>
 
-                            <a href="{{url('/admin/video/detail/'.$v['vid'])}}" id="detail" class="btn btn-sm btn-primary">详情管理</a>
+                            <a href="javascript:;"   class="btn btn-sm btn-primary xxoo" >更改推荐类型</a>
 
-                            <a href="javascript:;" onclick="del({{$v['vid']}})" id="delete" class="btn btn-sm btn-danger">删除</a>
+                            <a href="javascript:;" onclick="del({{$v['id']}})" id="delete" class="btn btn-sm btn-danger">取消推荐</a>
                         </td>
                     </tr>
                   @endforeach
                 </table>
 
             </div>
-{{--            {!! $video->appends($search)->render() !!}--}}
+            {!! $video->appends($search)->render() !!}
             
         </div>
+        <script>
+            $(function(){
+                $('input').change(function(){
+                    var order = $(this).val();
+                    var id = $(this).attr('id');
+                    $.get('{{url('/admin/recommend/order')}}',{id:id,order:order},function(data){
+                        alert(data.msg);
+                        if(data.status==200){
+                            location.href = location.href;
+                        }
+                    })
+                });
+                $('.xxoo').click(function(){
+                    layer.open({
+                        type: 1,
+                        title : '更改推荐类型',
+                        skin: 'layui-layer-demo', //样式类名
+                        closeBtn: 1, //不显示关闭按钮
+                        anim: 2,
+                        shadeClose: true, //开启遮罩关闭
+                        content: '<div id="abbb">' +
+                        '<a class="btn btn-info" href="{{url('admin/tjvideo/change/1')}}" >设为栏目推荐</a>'+
+                        '<a class="btn btn-info" href="{{url('admin/tjvideo/change/2')}}" >设为轮播图推荐</a>' +
+                        '<a class="btn btn-info" href="{{url('admin/tjvideo/change/3')}}" >设为top推荐</a>' +
+                        '</div> <style>' +
+                        '#abbb{' +
+                        'width:200px;height:220px;}' +
+                        '#abbb>a{' +
+                        'display:block;margin:0px 40px;margin-top:30px}</style>'
+
+                    });
+                })
+            })
+        </script>
 
 @endsection

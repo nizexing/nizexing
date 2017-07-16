@@ -124,8 +124,9 @@
 
 
     <!--底部 开始-->
-	<div class="bottom_box" style="margin:auto;width:auto;float:right;">
-		CopyRight © 2015. Powered By <a href="http://www.itxdl.cn">http://www.itxdl.cn</a>.
+	<div class="bottom_box">
+		<div style="float:right;margin-right:480px">
+		CopyRight © 2015. Powered By <a href="http://www.itxdl.cn">http://www.itxdl.cn</a>.</div>
 	</div>
 	<!--底部 结束-->
 

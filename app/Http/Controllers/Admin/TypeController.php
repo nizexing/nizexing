@@ -111,10 +111,10 @@ class TypeController extends Controller
     }
 
     /**
- *  排序
- * @param Request $request
- * @return array
- */
+     *  排序
+     * @param Request $request
+     * @return array
+     */
     public function getOrder(Request $request)
     {
 //        dd($request->all());

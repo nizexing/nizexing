@@ -118,8 +118,8 @@
                 $('input').change(function(){
                     var order = $(this).val();
                     var tid = $(this).attr('tid');
-                    $.get('/admin/type/order',{tid:tid,order:order},function(data){
-                       alert(data.msg);
+                    $.get('{{url('/admin/type/order')}}',{tid:tid,order:order},function(data){
+                       layer.alert(data.msg);
                        if(data.status==200){
                            location.href = location.href;
                        }
