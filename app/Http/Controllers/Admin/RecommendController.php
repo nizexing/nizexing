@@ -29,13 +29,24 @@ class RecommendController extends Controller
         }
         // 关键字查询
         if($request->has('key')){
-            $video = $video -> where('title','like',Input::get('key'));
+            $video = $video -> where('title','like','%'.Input::get('key').'%');
         }
-        $video = $video->select('tjvideo.*','type.tname')->paginate(8);
 
-        $search = '';
+       // 分类查询
+       if($request->has('tid')){
+            $tids = Type::where('pid','=',Input::get('tid'))->select('tid')->get()->toArray();
+//            dd($tids);
+           $video = $video -> whereIn('tjvideo.tid',$tids);
+       }
+
+        // 分页
+        $video = $video->orderBy('order')->select('tjvideo.*','type.tname')->paginate(8);
+       // 推荐状态数组
         $status = ['1'=>'栏目推荐','2'=>'轮播图推荐','3'=>'top推荐','4'=>'猴子推荐'];
-       return view('admin/recommend/index',compact('video','status','search'));
+        // 获取一级分类
+       $type = Type::where('pid',0) ->get();
+//       dd($type);
+       return view('admin/recommend/index',compact('video','status','search','type'));
    }
 
     /**
@@ -83,6 +94,25 @@ class RecommendController extends Controller
                 'status'=>403,
                 'msg'=>'取消失败'
             ];
+        }
+    }
+
+    /**
+     * 更改推荐类型
+     * @param Request $request
+     * @param $tjstatus
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getChange(Request $request,$tjstatus)
+    {
+
+        $res = Tjvideo::find(Input::get('id'))->update(['tjstatus'=>$tjstatus]);
+
+        if($res){
+            return back()->with('success','更改成功');
+        }else{
+            $request -> flash();
+            return back()->with('error','失败');
         }
     }
 

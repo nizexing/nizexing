@@ -42,19 +42,25 @@
                         <input type="text" value="@if(!empty($search['key'])){{$search['key']}}@endif" id="key">
                         <button onclick="search()">搜索</button>
                     </div>
-                    <div class="short_wrap">
+                    <div class="short_wrap padself">
+                        <a href="{{url('/admin/recommend/index/1')}}" ><i class="fa fa-plus"></i>栏目推荐:</a>
+                        @foreach($type as $k=>$v)
+                            <a href="{{url('/admin/recommend/index/2?tid='.$v['tid'])}}" class="btn btn-info">{{$v['tname']}}推荐</a>
+                        @endforeach
+                    </div>
+                    <div class="short_wrap padself">
                         <a href="javascript:;"><i class="fa fa-plus"></i>各种推荐:</a>
-                        <a href="{{url('/admin/recommend/index/1')}}">栏目推荐</a>
-                        <a href="{{url('/admin/recommend/index/2')}}">轮播图推荐</a>
-                        <a href="{{url('/admin/recommend/index/3')}}">top推荐</a>
-                        <a href="{{url('/admin/recommend/index/4')}}">猴子推荐</a>
-
+                        <a href="{{url('/admin/recommend/index/1')}}" class="btn btn-info">栏目推荐</a>
+                        <a href="{{url('/admin/recommend/index/2')}}" class="btn btn-info">轮播图推荐</a>
+                        <a href="{{url('/admin/recommend/index/3')}}" class="btn btn-info">top推荐</a>
+                        <a href="{{url('/admin/recommend/index/4')}}" class="btn btn-info">猴子推荐</a>
                     </div>
 
                     <script>
+                        // 关键字搜索
                         function search(){
                             var key= $('#key').val();
-                                location.href = "{{url('admin/video/index')}}?key="+key;
+                                location.href = "{{url('admin/recommend/index')}}?key="+key;
                             return false;
                         }
                     </script>
@@ -97,7 +103,7 @@
                             {{$status[$v['tjstatus']]}}
                         </td>
                         <script>
-
+                            // 取消推荐
                             function del(id){
                                 layer.confirm('是否确认取消推荐？', {
                                     btn: ['确定','取消'] //按钮
@@ -110,7 +116,7 @@
                                     })
 
                                 }, function(){
-                                    return false;
+
                                 });
                             }
                         </script>
@@ -118,7 +124,7 @@
 
                         <td>
 
-                            <a href="javascript:;"   class="btn btn-sm btn-primary xxoo" >更改推荐类型</a>
+                            <a href="javascript:;" data-id="{{$v['id']}}"  class="btn btn-sm btn-primary xxoo" >更改推荐类型</a>
 
                             <a href="javascript:;" onclick="del({{$v['id']}})" id="delete" class="btn btn-sm btn-danger">取消推荐</a>
                         </td>
@@ -132,7 +138,8 @@
         </div>
         <script>
             $(function(){
-                $('input').change(function(){
+                // 排序ajax
+                $('.list_tab input').change(function(){
                     var order = $(this).val();
                     var id = $(this).attr('id');
                     $.get('{{url('/admin/recommend/order')}}',{id:id,order:order},function(data){
@@ -142,6 +149,7 @@
                         }
                     })
                 });
+                // 更改推荐类型弹框
                 $('.xxoo').click(function(){
                     layer.open({
                         type: 1,
@@ -151,14 +159,16 @@
                         anim: 2,
                         shadeClose: true, //开启遮罩关闭
                         content: '<div id="abbb">' +
-                        '<a class="btn btn-info" href="{{url('admin/tjvideo/change/1')}}" >设为栏目推荐</a>'+
-                        '<a class="btn btn-info" href="{{url('admin/tjvideo/change/2')}}" >设为轮播图推荐</a>' +
-                        '<a class="btn btn-info" href="{{url('admin/tjvideo/change/3')}}" >设为top推荐</a>' +
+                        '<a class="btn btn-info" href="{{url('admin/recommend/change/1')}}?id='+$(this).attr('data-id')+'" >设为栏目推荐</a>'+
+                        '<a class="btn btn-info" href="{{url('admin/recommend/change/2')}}?id='+$(this).attr('data-id')+'" >设为轮播图推荐</a>' +
+                        '<a class="btn btn-info" href="{{url('admin/recommend/change/3')}}?id='+$(this).attr('data-id')+'" >设为top推荐</a>' +
+                        '<a class="btn btn-info" href="{{url('admin/recommend/change/4')}}?id='+$(this).attr('data-id')+'" >设为猴子推荐</a>' +
                         '</div> <style>' +
                         '#abbb{' +
-                        'width:200px;height:220px;}' +
+                        'width:200px;height:250px;}' +
                         '#abbb>a{' +
                         'display:block;margin:0px 40px;margin-top:30px}</style>'
+
 
                     });
                 })

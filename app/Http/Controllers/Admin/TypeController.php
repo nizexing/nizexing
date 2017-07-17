@@ -143,7 +143,7 @@ class TypeController extends Controller
 //        dd($tid);
         $type = Type::where('tid',$tid)->first();
 //        dd($type);
-        if($type['tid']==0){
+        if($type['pid']==0){
             $type['pname'] = '顶级分类';
         }else{
             $type['pname'] =  Type::where('tid',$type['pid'])->first()['attributes']['tname'];

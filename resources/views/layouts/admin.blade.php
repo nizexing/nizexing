@@ -12,7 +12,9 @@
     <script type="text/javascript" src="{{asset('/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('static/bootstrap-validator/bootstrapValidator.js')}}"></script>
     <script type="text/javascript" src="{{asset('static/bootstrap-validator/zh_CN.js')}}"></script>
+	@section('css')
 
+	@show
     <style type="text/css">
         ul li{
             float: left;
@@ -20,8 +22,11 @@
         }
         .pagination{
             float: right;
-            margin: 20px 20px 0px 0px;           
+            margin: 20px 20px 0px 0px;
         }
+		.padself{
+			padding:5px 0px;
+		}
 
     </style>
 </head>
@@ -29,7 +34,7 @@
 <!--头部 开始-->
 	<div class="top_box">
 		<div class="top_left">
-			<div class="logo">后台管理模板</div>
+			<div class="logo">后台管理</div>
 			<ul>
 				<li><a href="{{ asset('/admin/admin/index') }}" class="active">首页</a></li>
 				<!-- <li><a href="#">管理页</a></li> -->
@@ -94,8 +99,8 @@
             	<h3><i class="fa fa-fw fa-cog"></i>系统设置</h3>
                 <ul class="sub_menu">
 
-                    <li><a href="" target="_self"><i class="fa fa-fw fa-cubes"></i>网站配置</a></li>
-                    <li><a href="" target="_self"><i class="fa fa-fw fa-database"></i>备份还原</a></li>
+                    <li><a href="{{url('/admin/config/index')}}" target="_self"><i class="fa fa-fw fa-cubes"></i>网站配置</a></li>
+
                 </ul>
             </li>
            <!--  <li>
@@ -126,7 +131,7 @@
     <!--底部 开始-->
 	<div class="bottom_box">
 		<div style="float:right;margin-right:480px">
-		CopyRight © 2015. Powered By <a href="http://www.itxdl.cn">http://www.itxdl.cn</a>.</div>
+		{{Config('web.copyright')}}.</div>
 	</div>
 	<!--底部 结束-->
 
