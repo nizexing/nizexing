@@ -3,6 +3,10 @@
 
 @section("css")
     <link rel="stylesheet" href="{{asset('/static/css/info.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/style/css/layer.css')}}">
+    <link rel="stylesheet" href="{{asset('/bootstrap.min.css')}}">
+    <script type="text/javascript" src="{{asset('/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('static/layer-v3.0.3/layer/layer.js')}}"></script>
 @endsection
 
 @section("area-main")
@@ -16,12 +20,12 @@
                         <div id="block-title-banner">
                             <p>编辑资料</p>
                             <div>
-                                <a href="/member/">AcFun</a>
+                                <a href="{{url('/member/info')}}">AcFun</a>
                                 <span class="d">Profile</span></div>
                             <span class="clearfix"></span>
                         </div>
                         <div id="block-banner-right" class="block banner">
-                            <a href="#aphoto" class="tab active">
+                            <a href="{{url('/member/info')}}" class="tab active">
                                 <i class="icon"></i>编辑资料</a>
                         </div>
                         <div id="block-first" class="block">
@@ -34,10 +38,10 @@
                                 <div id="unit-basic" class="">
                                     <div class="l a">
                                         <a href="#area=change-avatar" class="thumb">
-                                            <img id="img-avatar-personal"  src="{{asset('/'.$user['photo'])}}" class="avatar"></a>
+                                            <img id="img-avatar-personal"  src="{{asset($user['photo'])}}" class="avatar"></a>
                                     </div>
                                     <div class="l b">
-                                        <a id="name-personal" href="/u/12001390.aspx" class="name">{{$user['name']}}</a>
+                                        <a id="name-personal" href="javascript:;" class="name">{{$user['name']}}</a>
                                         <style>
                                             .b a{font-size: 16px;
                                                 font-weight: bold;
@@ -59,11 +63,70 @@
                                 <p class="divider"></p>
                                 <div class="unit-tool">
                                     <div class="l">
-                                        <a id="btn-avatar-personal" href="#aphoto" class="btn info">
-                                            <i class="icon icon-user"></i>修改头像</a>
+                                        <a id="btn-avatar-personal" href="javascript:;" class="btn primary" onclick="$('#photo').click()">
+                                            <i class="icon icon-user"></i>修改头像
+                                            <input type="file" id="photo" class="hide"></a>
                                         <a id="btn-sign-personal" href="#aphoto" class="btn primary">
                                             <i class="icon icon-edit"></i>修改个性签名</a>
                                     </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            $("#photo").change(function () {
+
+//                                                uploadImage();
+                                            });
+                                        });
+
+//                                        function uploadImage() {
+////                            判断是否有选择上传文件
+//                                            var imgPath = $("#photo").val();
+//                                            if (imgPath == "") {
+//                                                alert("请选择上传图片！");
+//                                                return;
+//                                            }
+//                                            //判断上传文件的后缀名
+//                                            var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+//                                            if (strExtension != 'jpg' && strExtension != 'gif'
+//                                                && strExtension != 'png' && strExtension != 'bmp') {
+//                                                alert("请选择图片文件");
+//                                                return;
+//                                            }
+//
+//                                            var formData = new FormData($('#memform')[0]);
+//
+//
+//                                            $.ajax({
+//                                                type: "POST",
+//                                                url: "/member/upload",
+//                                                data: formData,
+//                                                async: true,
+//                                                cache: false,
+//                                                contentType: false,
+//                                                processData: false,
+//                                                success: function(data) {
+//
+//                                                    console.log(data);
+//                                                    if(data=='aabb'){
+//                                                        alert('上传失败');
+//                                                        return false;
+//                                                    }
+//                                                    alert('上传成功');
+//                                                    $('#pic').attr('src','/'+data);
+//                                                    $('#pic').show();
+//                                                    $('#upload_path').val('/'+data);
+////                                                    setTimeout(function(){
+////
+////                                                        location.href= 'www.baidu.com';
+////                                                    },500);
+//
+//
+//                                                },
+//                                                error: function(XMLHttpRequest, textStatus, errorThrown) {
+//                                                    alert("上传失败，请检查网络后重试");
+//                                                }
+//                                            });
+//                                        }
+                                    </script>
 
                                     <div class="r">
                                         <a id="btn-password-personal" href="/mem/f" class="btn info">
@@ -175,21 +238,8 @@
                                     </div>
 
                                     <p class="divider"></p>
-                                    <div class="unit">
-                                        <div class="l a">
-                                            <p class="subtitle">修改头像</p></div>
-                                        <div class="l b">
-                                            <input type="text" name="upload_path" id="upload_path" style="width:238px;">
-                                            <input    id="photo"  name="photo" value="" data-length="0,63" type="file" style="width:65px;"></div>
 
-                                        <span class="clearfix"></span>
-                                    </div>
-                                    <div class="unit">
-                                        <div class="l a"></div>
-                                        <div class="l b">
-                                            <img src="" id="pic" alt="" class="img img-responsive" style="display:none; width:200px;height:200px;">
-                                        </div>
-                                    </div>
+
                                     <div class="unit">
                                         <div class="l a">
                                             <p class="subtitle">修改个性签名</p></div>
@@ -204,64 +254,7 @@
                                     <span class="clearfix"></span>
                                 </div>
 
-                                    <script type="text/javascript">
-                                        $(function () {
-                                            $("#photo").change(function () {
 
-                                                uploadImage();
-                                            });
-                                        });
-
-                                        function uploadImage() {
-//                            判断是否有选择上传文件
-                                            var imgPath = $("#photo").val();
-                                            if (imgPath == "") {
-                                                alert("请选择上传图片！");
-                                                return;
-                                            }
-                                            //判断上传文件的后缀名
-                                            var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
-                                            if (strExtension != 'jpg' && strExtension != 'gif'
-                                                && strExtension != 'png' && strExtension != 'bmp') {
-                                                alert("请选择图片文件");
-                                                return;
-                                            }
-
-                                            var formData = new FormData($('#memform')[0]);
-
-
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "/member/upload",
-                                                data: formData,
-                                                async: true,
-                                                cache: false,
-                                                contentType: false,
-                                                processData: false,
-                                                success: function(data) {
-
-                                    console.log(data);
-                                    if(data=='aabb'){
-                                        alert('上传失败');
-                                        return false;
-                                    }
-                                    alert('上传成功');
-                                                    $('#pic').attr('src','/'+data);
-                                                    $('#pic').show();
-                                                    $('#upload_path').val('/'+data);
-//                                                    setTimeout(function(){
-//
-//                                                        location.href= 'www.baidu.com';
-//                                                    },500);
-
-
-                                                },
-                                                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                                    alert("上传失败，请检查网络后重试");
-                                                }
-                                            });
-                                        }
-                                        </script>
                                     {{-- <div class="unit">--}}
                                     {{--<div class="l a">--}}
                                     {{--<p class="subtitle">邮箱地址</p></div>--}}

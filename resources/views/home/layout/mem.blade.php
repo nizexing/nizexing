@@ -9,7 +9,7 @@
         <div id="block-user-left" data-active="active">
             {{--照片--}}
             <a href="{{asset('member/info')}}?#aphoto" class="thumb">
-                <img src="/{{$user['photo']}}" class="avatar" />
+                <img src="{{$user['photo']}}" class="avatar" />
                 <span class="cover">
                                     <i class="icon icon-user"></i>编辑资料</span>
             </a>

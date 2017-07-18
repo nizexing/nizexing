@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head xmlns="http://www.w3.org/1999/xhtml">
 
-    <script src="/static/js/route.min.js"></script>
+    <script src="{{asset('/static/js/route.min.js')}}"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="copyright" content="{{Config('web.copyright')}}">
     <meta name="keywords" content="{{Config('web.keys')}}">
@@ -61,29 +61,19 @@
         <div class="inner">
             <a id="guide-logo" href="/" title="天下漫友是一家"></a>
             <div id="area-user-guide">
-                <a id="a-app-guide" href="/app/" target="_blank" class="tool">
-                    <i class="icon icon-app-phone"></i>
-                    <p class="app-text">客户端</p>
-                    <div class="app-show">
-                        <img alt="" src="http://cdn.aixifan.com/dotnet/20130418/style/image/app-code.png" class="app-code" />
-                        <p class="app-tip">扫描下载最新版客户端</p>
-                        <img width="141" height="19" alt="" src="http://cdn.aixifan.com/dotnet/20130418/style/image/app-word.png" class="app-word" />
-                        <div class="tail"></div>
-                    </div>
+
+                <a id="a-avatar-guide" href="{{url('/member/info')}}" target="_blank" class="thumb">
+                    <img class="avatar img-circle" src="{{asset(session('user')['photo'])}}" width="30" height="30"/>
+                    <p class="info-hint hidden">0</p>
                 </a>
-                <a id="a-login-guide" href="/login/" target="_blank" class="tool">
-                    <i class="icon icon-user"></i>
-                    <p>登录/注册</p>
-                </a>
-                <a id="a-avatar-guide" href="/member/" target="_blank" class="thumb hidden">
-                    <img class="avatar" />
-                    <p class="info-hint hidden">0</p></a>
+
+
                 <a id="a-history-guide" href="/member/#area=history" target="_blank" class="tool">
                     <i class="icon icon-history"></i>
                     <p>看过</p>
                 </a>
                 <a id="a-post-guide" href="/member/#area=upload-video" target="_blank" class="tool">
-                    <i class="icon icon-upload"></i>
+                  <i class="icon icon-upload"></i>
                     <p>投稿</p>
                 </a>
                 <a id="a-favor-guide" href="/member/#area=favourite" target="_blank" class="tool">
@@ -92,40 +82,7 @@
                 </a>
                 <span class="clearfix"></span>
             </div>
-            <div id="win-info-guide" class="win hidden">
-                <div class="mainer">
-                    <div class="a">
-                        <div class="l">
-                            <a id="a-name-guide" href="/member/" target="_blank" title="前往我的个人中心" class="name"></a>
-                        </div>
-                        <div class="r">
-                            <a id="a-logout-guide" href="http://www.acfun.cn/logout.aspx" title="退出登录">
-                                <i class="icon icon-power-off"></i>退出登录</a>
-                        </div>
-                        <span class="clearfix"></span>
-                    </div>
-                    <div class="b"></div>
-                    <div class="c">
-                        <a href="/member/#area=mail" target="_blank">查看更多</a></div>
-                    <div class="tail"></div>
-                </div>
-            </div>
-            <div id="win-history-guide" class="win hidden">
-                <div class="mainer">
-                    <div class="b"></div>
-                    <div class="c">
-                        <a href="/member/#area=history" target="_blank">查看更多</a></div>
-                    <div class="tail"></div>
-                </div>
-            </div>
-            <div id="win-post-guide" class="win hidden">
-                <div class="mainer">
-                    <div class="b">
-                        <a href="/member/#area=upload-video" target="_blank">投视频</a>
-                        <a href="/member/#area=post-article" target="_blank">投文章</a></div>
-                    <div class="tail"></div>
-                </div>
-            </div>
+
         </div>
     </div>
     <div id="guide-middle">
@@ -143,15 +100,7 @@
                 <a href="/v/list1/index.htm" data-channel="anime">动画</a>
                 <a href="/v/list58/index.htm" data-channel="music">音乐</a>
                 <a href="/v/list123/index.htm" data-channel="lsgirl">舞蹈&middot;彼女</a>
-                <a href="/v/list59/index.htm" data-channel="game">游戏</a>
-                <a href="/v/list60/index.htm" data-channel="joy">娱乐</a>
-                <a href="/v/list70/index.htm" data-channel="tech">科技</a>
-                <a href="/v/list68/index.htm" data-channel="film" style="display: none !important;">影视</a>
-                <a href="/v/list69/index.htm" data-channel="sport">体育</a>
-                <a href="/v/list125/index.htm" data-channel="fishpond">鱼♂塘</a>
-                <a href="/v/list110/index.htm" data-channel="article">文章</a>
-                <a href="/album/index.htm" data-channel="album">合辑</a>
-                <a href="/rank/" target="_blank" data-channel="extra" class="last">更多</a>
+
                 <span class="clearfix"></span>
             </div>
             <div class="r">

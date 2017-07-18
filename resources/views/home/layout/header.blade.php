@@ -48,32 +48,29 @@
                     <div class="guide-item-con">
                         <p class="clearfix">
                             <a href="/member/" target="_blank" class="fl user-name"></a>
-                            <a href="/login/logout" class="fr icon icon-logout user-logout">退出</a>
+                            <a href="{{url('/login/logout')}}" class="fr icon icon-logout user-logout">退出</a>
                         </p>
                     </div>
                 </li>
                 @else
                     <li class="guide-item guide-user user-logined">
-                        <a href="/member/info" target="_blank" class="user-avatar item">
-                            <img src="{{url(asset(session('user')['photo']))}}" width="30" height="30"></a>
-
-
+                        <a href="{{url('/member/info')}}" target="_blank" class="user-avatar item">
+                            <img src="{{asset(session('user')['photo'])}}" width="30" height="30"></a>
                         <div class="guide-item-con">
                             <p class="clearfix">
-                                <a href="" target="_blank" class="fl user-name">{{url(asset(session('user')['name']))}}</a>
-                                <a href="http://www.acfun.cn/logout.aspx?returnUrl=http%3A%2F%2Fwww.acfun.cn%2F" class="fr icon icon-logout user-logout">退出</a></p>
-                            <div id="user-message" class="user-message">
-                                <ul id="user-message-con" data-count="2" data-url="http://www.acfun.cn/member/#area=profile">
-                                    <li>
-                                        <a class="unit" href="http://www.acfun.cn/member/#area=push" target="_blank">您有
-                                            <span class="pts">1</span>条新推送</a></li>
-                                    <li>
-                                        <a class="unit" href="http://www.acfun.cn/member/#area=profile" target="_blank">您有
-                                            <span class="pts">1</span>条新设置提醒</a></li>
-                                </ul>
-                            </div>
+                                <a href="" target="_blank" class="fl user-name">{{session('user')['name']}}</a>
+                                <a href="{{url('/login/logout')}}" class="fr icon icon-logout user-logout">退出</a></p>
                         </div>
                     </li>
+                    <script>
+                        $(function(){
+                            $('#header-guide>.user-logined').hover(function(){
+                               $(this).find('div').show();
+                            },function(){
+                                $(this).find('div').hide();
+                            });
+                        })
+                    </script>
                 @endif
 
                 <li class="guide-item guide-history">
@@ -230,7 +227,7 @@
     <!-- width image -->
     <div class="header-banner">
 
-        <a href="http://www.acfun.cn/a/ac3811915" style="background:url({{asset('/static/images/1498537936194.jpg')}})" title="{{Config('web.width-image-title')}}" target="_blank" class="banner-href"></a>
+        <a href="http://www.acfun.cn/a/ac3811915" style="background:url({{asset(Config('web.width_image'))}})" title="{{Config('web.width_image_title')}}" target="_blank" class="banner-href"></a>
 
     </div>
     <!-- width image end -->
