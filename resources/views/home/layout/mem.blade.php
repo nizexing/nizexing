@@ -9,17 +9,14 @@
         <div id="block-user-left" data-active="active">
             {{--照片--}}
             <a href="{{asset('member/info')}}?#aphoto" class="thumb">
-                <img src="{{$user['photo']}}" class="avatar" />
+                <img src="{{$user['photo']}}"  class="avatar" />
                 <span class="cover">
                                     <i class="icon icon-user"></i>编辑资料</span>
             </a>
             {{--名字--}}
             <div class="d">
                 <a href="javascript:;"  class="name" style="cursor:default;">{{$user['name']}}</a></div>
-            {{--签到--}}
-            <button id="btn-sign-user" data-checked="0" data-group="0" class="btn primary">
-                <i class="icon icon-check-circle"></i>签到
-            </button>
+
         </div>
         <div id="shadow-guide-left" class="hidden"></div>
         <div id="list-guide-left">

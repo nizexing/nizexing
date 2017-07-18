@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 
 class MemberController extends CommonController
@@ -85,7 +86,7 @@ class MemberController extends CommonController
     public function postUpload(Request $request)
     {
 //        dd(Input::all());
-        $file = Input::file("photo");
+        $file = Input::file("img");
        if(!$file) return 'aabb';
         if($file->isValid()){
             // 获得上传文件的后缀名
@@ -98,8 +99,17 @@ class MemberController extends CommonController
             $path = $file->move(public_path().'/'.Config('web.img_path'),$newName);
 
             //
-            $filePath = Config('web.img_path').'/'.$newName;
-            return $filePath;
+            $filePath = '/'.Config('web.img_path').'/'.$newName;
+            $res = User_detail::find(Input::get('uid'))->update(['photo'=>$filePath]);
+            if($res){
+                $user = Session::get('user');
+                $user['photo'] = $filePath;
+                Session::put('user',$user);
+                return $filePath;
+            }else{
+                return 'aabb';
+            }
+
         }
 
     }
@@ -114,9 +124,6 @@ class MemberController extends CommonController
             return redirect('/login/login');
         }
         $user = session('user');
-        dd($user);
-        session('user')['photo'] = 'uploads/image/211338010csan7q5.jpg';
-
 
 
         return view("home.mem.video",compact('user'));

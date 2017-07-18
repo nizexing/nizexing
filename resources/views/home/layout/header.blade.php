@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="copyright" content="{{Config('web.copyright')}}">
     <meta name="keywords" content="{{Config('web.keys')}}">
-    <meta name="description" content="Config('web.description')">
+    <meta name="description" content="{{Config('web.descript')}})">
 
     <title>{{Config('web.title')}}</title>
     <link href="./favicon.ico" rel="shortcut icon">
@@ -15,8 +15,8 @@
     @show
     <script src="{{asset('/static/js/jquery.min.js')}}"></script>
     <!--[if lt IE 9]>
-    <script src="/static/js/html5shiv.min.js"></script>
-    <script src="/static/js/jquery.min.js"></script>
+    <script src="{{asset('/static/js/html5shiv.min.js')}}"></script>
+    <script src="{{asset('/static/js/jquery.min.js')}}"></script>
     <![endif]-->
 
 
@@ -60,6 +60,7 @@
                             <p class="clearfix">
                                 <a href="" target="_blank" class="fl user-name">{{session('user')['name']}}</a>
                                 <a href="{{url('/login/logout')}}" class="fr icon icon-logout user-logout">退出</a></p>
+                            <a href="{{url('/member/info')}}" target="_blank" class="more">查看更多</a>
                         </div>
                     </li>
                     <script>

@@ -5,31 +5,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="copyright" content="{{Config('web.copyright')}}">
     <meta name="keywords" content="{{Config('web.keys')}}">
-    <meta name="description" content="Config('web.description')">
+    <meta name="description" content="{{Config('web.descript')}}">
 
     <title>{{Config('web.title')}}</title>
     <link href="./favicon.ico" rel="shortcut icon">
+
+    <link rel="stylesheet" href="{{asset('/static/css/core.css')}}" />
+
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" href="{{asset('/static/css/font-awesome-ie7.min.css')}}"></link>
+    <![endif]-->
+    <!--[if (gte IE 8)|!(IE)]>
+        <!-->
+    <link rel="stylesheet" href="{{asset('/static/css/font-awesome.min.css')}}" />
+    <!--<![endif]-->
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" href="{{asset('/static/css/css/style-ie7.css')}}"></link>
+    <![endif]-->
+    <!--[if (gte IE 8)|!(IE)]>
+        <!-->
+    <link rel="stylesheet" href="{{asset('/static/css/style.css')}}" />
+    <!--<![endif]-->
+
+    <link rel="stylesheet" media="screen and (min-width: 1440px)" href="{{asset('/static/css/wide.css')}}" />
+    <link rel="stylesheet" href="{{asset('/static/css/member.css')}}" />
+    <link id="style-theme-member" rel="stylesheet" href="{{asset('/static/css/theme.css')}}" />
     <script src="{{asset("/static/js/jquery.min.js")}}"></script>
-    <link rel="stylesheet" href="/static/css/core.css" />
-
-    <!--[if lte IE 7]>
-    <link rel="stylesheet" href="/static/css/font-awesome-ie7.min.css"></link>
-    <![endif]-->
-    <!--[if (gte IE 8)|!(IE)]>
-        <!-->
-    <link rel="stylesheet" href="/static/css/font-awesome.min.css" />
-    <!--<![endif]-->
-    <!--[if lte IE 7]>
-    <link rel="stylesheet" href="/static/css/css/style-ie7.css"></link>
-    <![endif]-->
-    <!--[if (gte IE 8)|!(IE)]>
-        <!-->
-    <link rel="stylesheet" href="/static/css/style.css" />
-    <!--<![endif]-->
-
-    <link rel="stylesheet" media="screen and (min-width: 1440px)" href="/static/css/wide.css" />
-    <link rel="stylesheet" href="/static/css/member.css" />
-    <link id="style-theme-member" rel="stylesheet" href="/static/css/theme.css" />
 </head>
 
 @section("css")
@@ -82,7 +83,43 @@
                 </a>
                 <span class="clearfix"></span>
             </div>
+            <div id="win-info-guide" class="win hidden" style="opacity: 1; top: 46px;">
+                <div class="mainer">
+                    <div class="a">
+                        <div class="l">
+                            <a id="a-name-guide" href="{{url('/member/info')}}" target="_blank" title="前往我的个人中心" class="name">{{session('user')['username']}}</a></div>
+                        <div class="r">
+                            <a id="a-logout-guide" href="{{url('/login/logout')}}" title="退出登录">
+                                <i class="icon icon-power-off"></i>退出登录</a>
+                        </div>
+                        <span class="clearfix"></span>
+                    </div>
 
+                    <div class="c">
+                        <a href="{{url('/member/info')}}" target="_blank">查看更多</a></div>
+                    <div class="tail"></div>
+                </div>
+            </div>
+            <script>
+//                $('#a-avatar-guide').mouseover(function(){
+//                    $('#win-info-guide').removeClass('hidden');
+//                });
+                $(function(){
+                    $('#a-avatar-guide>.img-circle').mouseover(function(){
+
+                        $('#win-info-guide').removeClass('hidden');
+                    });
+                    $('#win-info-guide').hover(function(){
+
+                        $('#win-info-guide').removeClass('hidden');
+                    },function(){
+                        var a = setTimeout(function(){
+                            $('#win-info-guide').addClass('hidden');
+                        },800);
+                    });
+
+                });
+            </script>
         </div>
     </div>
     <div id="guide-middle">
@@ -137,77 +174,7 @@
                 <a href="/v/list140/index.htm">演唱会</a>
                 <span class="clearfix"></span>
             </div>
-            <div class="unit channel-game hidden c2 sc2 wc2 swc2">
-                <a href="/v/list83/index.htm">游戏集锦</a>
-                <a href="/v/list145/index.htm">电子竞技</a>
-                <a href="/v/list84/index.htm">主机单机</a>
-                <a href="/v/list85/index.htm">英雄联盟</a>
-                <a href="/v/list170/index.htm">守望先锋</a>
-                <a href="/v/list165/index.htm">桌游卡牌</a>
-                <a href="/v/list72/index.htm">Mugen</a>
-                <a href="/v/list175/index.htm">游戏直播</a>
-                <a href="/gamecenter" data-id="2" class="gamePortal">游戏中心</a>
-                <span class="clearfix"></span>
-            </div>
-            <div class="unit channel-joy hidden c2 sc2 wc2 swc2">
-                <a href="/v/list86/index.htm">生活娱乐</a>
-                <a href="/v/list87/index.htm">鬼畜调教</a>
-                <a href="/v/list88/index.htm">萌宠</a>
-                <a href="/v/list89/index.htm">美食</a>
-                <a href="/v/list98/index.htm">综艺</a>
-                <a href="/v/list174/index.htm">娱乐直播</a>
-                <span class="clearfix"></span>
-            </div>
-            <div class="unit channel-tech hidden c2 sc2 wc2 swc2">
-                <a href="/v/list90/index.htm">科学技术</a>
-                <a href="/v/list151/index.htm">教程</a>
-                <a href="/v/list91/index.htm">数码</a>
-                <a href="/v/list122/index.htm">汽车</a>
-                <a href="/v/list149/index.htm">广告</a>
-                <span class="clearfix"></span>
-            </div>
-            <div class="unit channel-sport hidden c3 sc3 wc3 swc2">
-                <a href="/v/list152/index.htm">综合体育</a>
-                <a href="/v/list94/index.htm">足球</a>
-                <a href="/v/list95/index.htm">篮球</a>
-                <a href="/v/list153/index.htm">搏击</a>
-                <a href="/v/list154/index.htm">11区体育</a>
-                <a href="/v/list93/index.htm">惊奇体育</a>
-                <span class="clearfix"></span>
-            </div>
-            <div class="unit channel-lsgirl hidden c3 sc3 wc3 swc2">
-                <a href="/v/list134/index.htm">宅舞</a>
-                <a href="/v/list135/index.htm">综合舞蹈</a>
-                <a href="/v/list129/index.htm">爱豆</a>
-                <a href="/v/list130/index.htm">手作</a>
-                <a href="/v/list127/index.htm">造型</a>
-                <span class="clearfix"></span>
-            </div>
-            <div class="unit channel-fishpond hidden c3 sc3 wc3 swc2">
-                <!--var arr=[ [92, '军事'], [131, '历史'], [132, '焦点']]-->
-                <a href="/v/list131/index.htm">历史</a>
-                <span class="clearfix"></span>
-            </div>
-            <div class="unit channel-film hidden c3 sc3 wc2 swc2">
-                <a href="/v/list96/index.htm">电影</a>
-                <a href="/v/list162/index.htm">日剧</a>
-                <a href="/v/list163/index.htm">美剧</a>
-                <a href="/v/list141/index.htm">国产剧</a>
-                <a href="/v/list121/index.htm">网络剧</a>
-                <a href="/v/list142/index.htm">韩剧</a>
-                <a href="/v/list99/index.htm">布袋&middot;特摄</a>
-                <a href="/v/list100/index.htm">纪录片</a>
-                <a href="/v/list143/index.htm">其他</a>
-                <span class="clearfix"></span>
-            </div>
-            <div class="unit channel-article hidden c3 sc3 wc3 swc3">
-                <a href="/v/list110/index.htm">文章综合</a>
-                <a href="/v/list73/index.htm">工作&middot;情感</a>
-                <a href="/v/list74/index.htm">动漫文化</a>
-                <a href="/v/list75/index.htm">漫画&middot;小说</a>
-                <a href="/v/list164/index.htm">游戏</a>
-                <span class="clearfix"></span>
-            </div>
+
             <div class="unit channel-album hidden c3 sc3 wc3 swc3">
                 <a href="/a/aa5003806">AcFun专题-视频</a>
                 <a href="/a/aa5003830">AcFun专题-文章</a>

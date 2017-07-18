@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="{{asset('/static/css/info.css')}}">
     <link rel="stylesheet" href="{{asset('admin/style/css/layer.css')}}">
     <link rel="stylesheet" href="{{asset('/bootstrap.min.css')}}">
+
+@endsection
+@section("js")
     <script type="text/javascript" src="{{asset('/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('static/layer-v3.0.3/layer/layer.js')}}"></script>
 @endsection
@@ -60,12 +63,13 @@
                                     </div>
                                     <span class="clearfix"></span>
                                 </div>
+                                <input type="file" id="photo" class="hide   ">
                                 <p class="divider"></p>
                                 <div class="unit-tool">
                                     <div class="l">
                                         <a id="btn-avatar-personal" href="javascript:;" class="btn primary" onclick="$('#photo').click()">
                                             <i class="icon icon-user"></i>修改头像
-                                            <input type="file" id="photo" class="hide"></a>
+                                            </a>
                                         <a id="btn-sign-personal" href="#aphoto" class="btn primary">
                                             <i class="icon icon-edit"></i>修改个性签名</a>
                                     </div>
@@ -73,59 +77,63 @@
                                         $(function () {
                                             $("#photo").change(function () {
 
-//                                                uploadImage();
+                                                uploadImage();
                                             });
                                         });
 
-//                                        function uploadImage() {
-////                            判断是否有选择上传文件
-//                                            var imgPath = $("#photo").val();
-//                                            if (imgPath == "") {
-//                                                alert("请选择上传图片！");
-//                                                return;
-//                                            }
-//                                            //判断上传文件的后缀名
-//                                            var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
-//                                            if (strExtension != 'jpg' && strExtension != 'gif'
-//                                                && strExtension != 'png' && strExtension != 'bmp') {
-//                                                alert("请选择图片文件");
-//                                                return;
-//                                            }
+                                        function uploadImage() {
+//                            判断是否有选择上传文件
+                                            var imgPath = $("#photo").val();
+                                            if (imgPath == "") {
+                                                alert("请选择上传图片！");
+                                                return;
+                                            }
+                                            //判断上传文件的后缀名
+                                            var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+                                            if (strExtension != 'jpg'
+                                                && strExtension != 'png' && strExtension != 'bmp') {
+                                                alert("请选择图片文件");
+                                                return;
+                                            }
+
+                                            var formData = new FormData();
+
+                                            formData.append('img',$('#photo')[0].files[0]);
+                                            formData.append('uid','{{session('user')['uid']}}');
+                                            formData.append('_token','{{csrf_token()}}');
+
+
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/member/upload",
+                                                data: formData,
+                                                async: true,
+                                                cache: false,
+                                                contentType: false,
+                                                processData: false,
+                                                success: function(data) {
+
+                                                    if(data=='aabb'){
+                                                        alert('上传失败');
+                                                        return false;
+                                                    }
+                                                    alert('上传成功');
+                                                    $('#img-avatar-personal').attr('src',data);
+                                                    $('#area-main-left img').attr('src',data);
+                                                    $('#a-avatar-guide img').attr('src',data);
+
+//                                                    setTimeout(function(){
 //
-//                                            var formData = new FormData($('#memform')[0]);
-//
-//
-//                                            $.ajax({
-//                                                type: "POST",
-//                                                url: "/member/upload",
-//                                                data: formData,
-//                                                async: true,
-//                                                cache: false,
-//                                                contentType: false,
-//                                                processData: false,
-//                                                success: function(data) {
-//
-//                                                    console.log(data);
-//                                                    if(data=='aabb'){
-//                                                        alert('上传失败');
-//                                                        return false;
-//                                                    }
-//                                                    alert('上传成功');
-//                                                    $('#pic').attr('src','/'+data);
-//                                                    $('#pic').show();
-//                                                    $('#upload_path').val('/'+data);
-////                                                    setTimeout(function(){
-////
-////                                                        location.href= 'www.baidu.com';
-////                                                    },500);
-//
-//
-//                                                },
-//                                                error: function(XMLHttpRequest, textStatus, errorThrown) {
-//                                                    alert("上传失败，请检查网络后重试");
-//                                                }
-//                                            });
-//                                        }
+//                                                        location.href= 'www.baidu.com';
+//                                                    },500);
+
+
+                                                },
+                                                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                                    alert("上传失败，请检查网络后重试");
+                                                }
+                                            });
+                                        }
                                     </script>
 
                                     <div class="r">
