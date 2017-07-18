@@ -15,6 +15,13 @@ class PlayController extends Controller
    public function play($vid)
    {    
 
+        //增加视频点击量
+        $video=DB::table('video')->where('vid',$vid);
+        //增加点击量
+        $video['click']=$video['click']+1;
+        //将点击量写入视频表中
+        DB::table('video')->where('vid',$vid)->update('click',$video['video']);
+
         // 上传人
         $user=DB::table('user')->where('uid',$vid)->first();
 

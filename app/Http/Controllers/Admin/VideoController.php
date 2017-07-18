@@ -19,6 +19,12 @@ class VideoController extends Controller
      */
     public function getIndex(Request $request)
     {
+
+        if(!session('user'))
+    {
+        return redirect('/admin/login/login')->with('error','请先登录!');
+    }
+        
         $search = $request -> all();
 
         $video = Type::join('video','type.tid','=','video.tid')

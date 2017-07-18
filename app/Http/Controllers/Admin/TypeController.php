@@ -22,6 +22,12 @@ class TypeController extends Controller
      */
       public function getIndex($tid=0)
       {
+          if(!session('user'))
+      {
+        return redirect('/admin/login/login')->with('error','请先登录!');
+      }
+
+
           // 若没有传入 tid 则查询根分类下的
           if($tid==0){
               $type = Type::orderBy('order')->where('pid',0)->get()->toArray();

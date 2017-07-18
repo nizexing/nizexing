@@ -12,6 +12,11 @@ class UserController extends Controller
      //用户管理
    public function getUser()
    {    
+      if(!session('user'))
+    {
+        return redirect('/admin/login/login')->with('error','请先登录!');
+    }
+
         //获取所有用户
         $user = DB::table('user')->paginate(5);
 
@@ -198,6 +203,9 @@ class UserController extends Controller
         }
     } 
 
+
+
+
     //修改指定用户密码显示密码修改表单
     public function getEditpsw($use)
     {
@@ -213,7 +221,6 @@ class UserController extends Controller
         $data=$request->except(['_token']);
         
         $user=DB::table('admin')->where('id',$data['id'])->first();
-
 
         if($user['password']==$data['oldpassword'] && $data['newpassword']==$data['newpasswords'])
         {
@@ -247,6 +254,10 @@ class UserController extends Controller
         }
 
     }
+
+
+   
+
 
 }
 

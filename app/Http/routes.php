@@ -31,6 +31,8 @@ Route::controller('admin/type','Admin\TypeController');
 Route::controller('admin/video','Admin\VideoController');
 // 网站管理路由
 Route::controller('admin/config','Admin\ConfigController');
+//排行榜管理路由
+Route::controller('/rank','Admin\RankController');
 
 
 // 前台路由

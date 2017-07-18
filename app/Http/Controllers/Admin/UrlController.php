@@ -13,6 +13,11 @@ class UrlController extends Controller
  //获取友情链接
    public function getUrl()
    {
+      if(!session('user'))
+    {
+        return redirect('/admin/login/login')->with('error','请先登录!');
+    }
+
         $data=DB::table('url')->paginate(5);
 
         return view('admin.url',compact('data'));
