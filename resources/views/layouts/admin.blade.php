@@ -62,6 +62,15 @@
 
                 </ul>
             </li>
+             <li>
+            	<h3><i class="fa fa-fw fa-clipboard"></i>管理员</h3>
+                <ul class="sub_menu">
+
+                    <li><a href="{{url('/admin/admin/admin')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>浏览管理员</a></li>
+                    <li><a href="{{url('/admin/admin/url')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加管理员</a></li>
+
+                </ul>
+            </li>
 			<li>
 				<h3><i class="fa fa-fw fa-clipboard"></i>分类操作</h3>
 				<ul class="sub_menu">
@@ -76,6 +85,7 @@
 					<li><a href="{{url('/admin/video/add')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>添加视频</a></li>
 					<li><a href="{{url('/admin/video/index')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>视频列表</a></li>
 
+
 				</ul>
 			</li>
 			<li>
@@ -86,18 +96,25 @@
 			</li>
 			<li>
 
+
+
 				<h3><i class="fa fa-fw fa-clipboard"></i>友情链接管理</h3>
 				<ul class="sub_menu">
 					<li><a href="{{url('/admin/url/url')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>友情链接</a></li>
 					<li><a href="{{url('/admin/url/inserturl')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加链接</a></li>
-
-
-
+				</ul>
+			</li>			
+			<li>
+				<h3><i class="fa fa-fw fa-clipboard"></i>排行榜</h3>
+				<ul class="sub_menu">
+					<li><a href="{{url('/rank/rank')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>总排行榜</a></li>
+				<!-- 	<li><a href="{{url('/admin/url/inserturl')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加链接</a></li> -->
 				</ul>
 			</li>
             <li>
             	<h3><i class="fa fa-fw fa-cog"></i>系统设置</h3>
                 <ul class="sub_menu">
+
 
                     <li><a href="{{url('/admin/config/index')}}" target="_self"><i class="fa fa-fw fa-cubes"></i>网站配置</a></li>
 

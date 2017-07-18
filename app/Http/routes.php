@@ -33,6 +33,8 @@ Route::controller('admin/video','Admin\VideoController');
 Route::controller('admin/recommend','Admin\RecommendController');
 // 网站管理路由
 Route::controller('admin/config','Admin\ConfigController');
+//排行榜管理路由
+Route::controller('/rank','Admin\RankController');
 
 
 // 前台路由
