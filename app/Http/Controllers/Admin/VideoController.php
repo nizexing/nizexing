@@ -23,6 +23,7 @@ class VideoController extends Controller
     public function getIndex(Request $request)
     {
 
+
         $search = $request -> all();
 
         $video = Video::join('type','type.tid','=','video.tid')

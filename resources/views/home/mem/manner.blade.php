@@ -100,7 +100,8 @@
                             var nu = $(this).index();
                             $('.block-manage').eq(nu).show();
                         },function(){
-
+                            var nu = $(this).index();
+                            $('.block-manage').eq(nu).hide();
                         });
                     })
 

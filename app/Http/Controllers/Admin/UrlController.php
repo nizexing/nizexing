@@ -13,14 +13,14 @@ class UrlController extends Controller
  //获取友情链接
    public function getUrl()
    {
-      if(!session('user'))
+      if(!session('admin'))
     {
         return redirect('/admin/login/login')->with('error','请先登录!');
     }
 
         $data=DB::table('url')->paginate(5);
 
-        return view('admin.url',compact('data'));
+        return view('admin.url.url',compact('data'));
    }
 
    //显示修改链接表单
@@ -28,7 +28,7 @@ class UrlController extends Controller
    {    
         $data=DB::table('url')->where('id',$id)->first();
 
-        return view('admin.editurl',compact('data'));
+        return view('admin.url.editurl',compact('data'));
    }
 
    //接收修改表单数据
@@ -76,6 +76,7 @@ class UrlController extends Controller
    {
         //获取数据
         $id=$_GET['id'];
+
         $status=$_GET['status'];
 
         if($status)
@@ -97,7 +98,7 @@ class UrlController extends Controller
    //显示添加链接的表单
    public function getInserturl()
    {
-        return view('admin.inserturl');
+        return view('admin.url.inserturl');
    }
 
    //接收数据并修改,返回展示页

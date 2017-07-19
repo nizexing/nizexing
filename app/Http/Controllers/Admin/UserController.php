@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use DB;
+use Hash;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -12,7 +13,7 @@ class UserController extends Controller
      //用户管理
    public function getUser()
    {    
-      if(!session('user'))
+      if(!session('admin'))
     {
         return redirect('/admin/login/login')->with('error','请先登录!');
     }
@@ -20,7 +21,7 @@ class UserController extends Controller
         //获取所有用户
         $user = DB::table('user')->paginate(5);
 
-        return view('admin.user',compact('user'));
+        return view('admin.user.user',compact('user'));
    }
 
     //用户详情列表
@@ -37,7 +38,7 @@ class UserController extends Controller
 
         $reg=array_merge($data,$user);
 
-        return view('admin.detail',compact('reg'));
+        return view('admin.user.detail',compact('reg'));
    }
 
    //删除指定用户所有数据
@@ -57,9 +58,14 @@ class UserController extends Controller
    {    
         $a=$request->except(['_token']);
 
-        $b=DB::table('user')->where('uid',$a['uid'])->update(['tel'=>$a['tel'],'name'=>$a['name']]);
+        $b=DB::table('user')->where('uid',$a['uid'])
+                            ->update(['tel'=>$a['tel'],'name'=>$a['name']]);
 
-        $c=DB::table('user_detail')->where('uid',$a['uid'])->update(['sign'=>$a['sign'],'birth'=>$a['birth'],'email'=>$a['email'],'sex'=>$a['sex']]);
+        $c=DB::table('user_detail')->where('uid',$a['uid'])
+                                   ->update(['sign'=>$a['sign'],
+                                            'birth'=>$a['birth'],
+                                            'email'=>$a['email'],
+                                              'sex'=>$a['sex']]);
 
         return redirect('/admin/user/user');
    }
@@ -68,7 +74,7 @@ class UserController extends Controller
    public function getInsert()
    {    
         //显示添加表单
-        return view('admin.insert');
+        return view('admin.user.insert');
    }
 
 
@@ -78,19 +84,21 @@ class UserController extends Controller
    {   
         //设置规则
         $role=array(
-                'username'=>'required|max:10', //必填
-                'email'=>'required|email',
-                'tel'=>'required|max:11'
+                'username'=>'required|max:10', 
+                'password'=>'required',
+                   'email'=>'required|email',
+                     'tel'=>'required|max:11'
             );
 
         //设置错误提示信息
         $errormassge=array(
                 'username.required'=>'用户名必填!',
-                'username.max'=>'用户名最大长度为10',
-                'email.required'=>'邮箱必填!',
-                'email.email'=>'邮箱不符合规则!',
-                'tel.required'=>'电话号码必填!',
-                'tel.max'=>'电话长度为11位!',
+                'password.required'=>'密码必填!',
+                     'username.max'=>'用户名最大长度为10',
+                   'email.required'=>'邮箱必填!',
+                      'email.email'=>'邮箱不符合规则!',
+                     'tel.required'=>'电话号码必填!',
+                          'tel.max'=>'电话长度为11位!',
             );
 
         //判断是否有文件上传
@@ -105,6 +113,9 @@ class UserController extends Controller
                 return back()->with('errora','该账号已被使用!');
 
             }else{
+
+
+
                     $data['birth']=$data['year'].'-'.$data['month'].'-'.$data['day'];
 
                     $data['birth']=strtotime($data['birth']);
@@ -114,6 +125,9 @@ class UserController extends Controller
                     unset($data['month']);
 
                     unset($data['day']);
+
+                    //注册时间
+                    $data['regtime']=time();
 
                     $file= $request -> photo;
 
@@ -129,11 +143,24 @@ class UserController extends Controller
                     //头像地址
                     $url='/uploads/image/'.$a.$hz;
 
+                    //将$data['password']加密哈希
+                    $data['password']=Hash::make($data['password']);
+                    
+                  
                     //将部分数据存入user表
-                    $num=DB::table('user')->insertGetId(['username'=>$data['username'],'password'=>$data['password'],'tel'=>$data['tel'],'name'=>$data['name']]);
+                    $num=DB::table('user')->insertGetId(['username'=>$data['username'],
+                                                         'password'=>$data['password'],
+                                                          'regtime'=>$data['regtime'],
+                                                              'tel'=>$data['tel'],
+                                                             'name'=>$data['name']]);
 
                     //将部分数据存入user_detail表
-                    DB::table('user_detail')->insert(['uid'=>$num,'sex'=>$data['sex'],'email'=>$data['email'],'birth'=>$data['birth'],'sign'=>$data['sign'],'photo'=>$url]);
+                    DB::table('user_detail')->insert(['uid'=>$num,
+                                                      'sex'=>$data['sex'],
+                                                    'email'=>$data['email'],
+                                                    'birth'=>$data['birth'],
+                                                     'sign'=>$data['sign'],
+                                                    'photo'=>$url]);
 
                     //完成后跳转至用户列表
                     return redirect('/admin/user/user');
@@ -154,13 +181,22 @@ class UserController extends Controller
         // $data['agemin']; 最小年龄
         // $data['agemax']; 最大年龄
         
+         //什么都不输入返回用户列表页
+        if($data['keys']=='' && $data['agemax']=='' && $data['agemin']=='')
+        {
+           return back();
+        }
+
+
         //如果只输入用户名或电话
 
         if(!empty($data['keys']) && $data['agemin']=='' && $data['agemax']=='')
         {   
-          $user=DB::table('user')->where('username',$data['keys'])->orwhere('tel',$data['keys'])->paginate(5);
+          $user=DB::table('user')->where('username',$data['keys'])
+                                 ->orwhere('tel',$data['keys'])
+                                 ->paginate(5);
 
-            return view('admin.user',compact('user'));
+            return view('admin.user.user',compact('user'));
         }
 
         //如果只输入年龄
@@ -169,22 +205,36 @@ class UserController extends Controller
             //最大年龄
             if( $data['agemin']=='' && $data['agemax']!='')
             {
-              $user=DB::table('user_detail')->join('user','user_detail.uid','=','user.uid')->whereBetween('age',[0,$data['agemax']])->paginate(5);
+              $user=DB::table('user_detail')->join('user','user_detail.uid','=','user.uid')                            ->whereBetween('age',[0,$data['agemax']])
+                                            ->paginate(5);
             }
 
             //最小年龄
             if($data['agemax']=='' && $data['agemin']!='')
             {
-               $user=DB::table('user_detail')->join('user','user_detail.uid','=','user.uid')->whereBetween('age',[$data['agemin'],100])->paginate(5);
+              $user=DB::table('user_detail')->join('user','user_detail.uid','=','user.uid')                            ->whereBetween('age',[$data['agemin'],100])
+                                            ->paginate(5);
             }
           
-            return view('admin.user',compact('user'));
+            //年龄区间
+            if($data['agemax']!='' && $data['agemin']!='')
+            {
+              $user=DB::table('user_detail')->join('user','user_detail.uid','=','user.uid')                            ->whereBetween('age',[$data['agemin'],$data['agemax']])
+                                            ->paginate(5);
+            }
+
+            return view('admin.user.user',compact('user'));
         }
       
         // 全都输入
         if($data['keys']!='' && $data['agemax']!='' && $data['agemin']!='')
         {
-           $user=DB::table('user_detail')->join('user','user_detail.uid','=','user.uid')->whereBetween('age',[$data['agemin'],$data['agemax']])->where('username',$data['keys'])->orwhere('tel',$data['keys'])->get();
+           $user=DB::table('user_detail')
+                               ->join('user','user_detail.uid','=','user.uid')
+                               ->whereBetween('age',[$data['agemin'],$data['agemax']])
+                               ->where('username',$data['keys'])
+                               ->orwhere('tel',$data['keys'])
+                               ->get();
 
            if(empty($user))
            {
@@ -192,15 +242,11 @@ class UserController extends Controller
 
            }else{
 
-              return view('admin.user',compact('user'));
+              return view('admin.user.user',compact('user'));
            }
         }
 
-        //什么都不输入返回用户列表页
-        if($data['keys']=='' && $data['agemax']=='' && $data['agemin']=='')
-        {
-           return back();
-        }
+       
     } 
 
 
@@ -211,7 +257,7 @@ class UserController extends Controller
     {
         $user=DB::table('admin')->where('adminname',$use)->first();
 
-        return view('admin.editpsw',compact('user'));
+        return view('admin.user.editpsw',compact('user'));
     }
 
 
@@ -222,9 +268,16 @@ class UserController extends Controller
         
         $user=DB::table('admin')->where('id',$data['id'])->first();
 
-        if($user['password']==$data['oldpassword'] && $data['newpassword']==$data['newpasswords'])
-        {
-          DB::table('admin')->where('id',$data['id'])->update(['password'=>$data['newpassword']]);
+        if(   
+              $user['password']==$data['oldpassword'] && 
+              $data['newpassword']==$data['newpasswords'])
+          {
+
+          //加密$data['newpasswords']哈希
+          $data['newpassword']=Hash::make($data['newpassword']);
+
+          DB::table('admin')->where('id',$data['id'])
+                            ->update(['password'=>$data['newpassword']]);
 
           session('user',null);
 
@@ -237,27 +290,29 @@ class UserController extends Controller
 
     }
 
+
+    //接收ajax
     public function getOld()
     {
       $data=$_GET;
       
       $user=DB::table('admin')->where('id',$data['id'])->first();
 
+
+      //解析哈希密码
+      $hashpassword=Hash::Check($data['oldpassword'],$user['password']);
+
       if($data['oldpassword']=='')
         {
           echo '旧密码能为空!';
         }
 
-      if(!empty($data['oldpassword']) &&$data['oldpassword'] != $user['password'])
+      if(!empty($data['oldpassword']) && $hashpassword==flase)
         {
           echo '旧密码不正确,请确重新输入!';
         }
 
     }
-
-
-   
-
 
 }
 

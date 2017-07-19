@@ -19,6 +19,17 @@
           <input type="text" class="form-control" id="inputSuccess1" style="width:250px"
           value="{{$reg['username']}}" disabled name="username">
         </div>
+          <div class="form-group has-success">
+          <label class="control-label" for="inputSuccess1">VIP:</label>
+            <span>
+                 @if($reg['vip']==1)
+                    VIP用户
+                @else 
+                    非VIP用户
+                @endif   
+
+            </span>
+        </div>
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">头像</label>
           <img src="{{$reg['photo']}}" alt="" class="img-thumbnail" style="width:140px;height:100px">
@@ -58,19 +69,7 @@
           <input type="text" class="form-control" id="inputSuccess1" style="width:400px"
           value="{{$reg['email']}}" name="email">
         </div>
-         <div class="form-group has-success">
-          <label class="control-label" for="inputSuccess1">VIP:</label>
-            <span>
-                 @if($reg['vip']==1)
-                    VIP用户
-                @else 
-                    非VIP用户
-                @endif   
-
-            </span>
-          
-
-        </div>
+       
 
         <div class="form-group has-success" style="margin-bottom: 40px">
         <label class="control-label" for="inputSuccess1">性别</label>

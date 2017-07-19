@@ -19,8 +19,8 @@
         {{ csrf_field() }}
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">用户名</label>
-          @if(session('errors'))
-          <p style="color:red;size:12px">{{ session('errors') }}</p>
+          @if(session('errora'))
+          <p style="color:red;size:12px">{{ session('errora') }}</p>
           @endif
           <input type="text" class="form-control" id="inputSuccess1" style="width:250px"
           value="{{ old('username') }}" name="username">

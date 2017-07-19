@@ -22,7 +22,7 @@ class TypeController extends Controller
      */
       public function getIndex($tid=0)
       {
-          if(!session('user'))
+          if(!session('admin'))
       {
         return redirect('/admin/login/login')->with('error','请先登录!');
       }

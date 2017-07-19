@@ -42,9 +42,9 @@
 		</div>
 		<div class="top_right">
 			<ul>
-				<li>管理员：{{ session('user') }}</li>
-				<li><a href="/admin/user/editpsw/{{ session('user') }}" target="_self">修改密码</a></li>
-				<li><a href="/admin/login/quit/{{ session('user') }}">退出</a></li>
+				<li>管理员：{{ session('admin') }}</li>
+				<li><a href="/admin/user/editpsw/{{ session('admin') }}" target="_self">修改密码</a></li>
+				<li><a href="/admin/login/quit/{{ session('admin') }}">退出</a></li>
 			</ul>
 		</div>
 	</div>
@@ -66,9 +66,8 @@
             	<h3><i class="fa fa-fw fa-clipboard"></i>管理员</h3>
                 <ul class="sub_menu">
 
-                    <li><a href="{{url('/admin/admin/admin')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>浏览管理员</a></li>
-                    <li><a href="{{url('/admin/admin/url')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加管理员</a></li>
-
+                    <li style="font-size:12px"><a href="{{url('/admin/admin/admin')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>浏览管理员</a></li>
+                    <li style="font-size:12px"><a href="{{url('/admin/admin/admininsert')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加管理员</a></li>
                 </ul>
             </li>
 			<li>
@@ -117,6 +116,7 @@
 
 
                     <li><a href="{{url('/admin/config/index')}}" target="_self"><i class="fa fa-fw fa-cubes"></i>网站配置</a></li>
+                    <li><a href="{{url('/admin/admin/shiyan')}}" target="_self"><i class="fa fa-fw fa-cubes"></i>实验</a></li>
 
                 </ul>
             </li>

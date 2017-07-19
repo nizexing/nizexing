@@ -52,15 +52,19 @@
             <ol id="header-guide" class="fr header-guide">
                 <li class="guide-item guide-user"> <a href="http://www.acfun.cn/member/" target="_blank" class="user-avatar item"> <img src="/home/picture/avatar.jpg" width="30" height="30" /></a> <a href="http://www.acfun.cn/login/" target="_blank" class="item user-login">
                 @if($user['username'])
-                   <img src="{{url(asset(session('user')['photo']))}}" width="30" height="30" style="border-radius: 50%"></a>
+
+                   <img src="{{$photo}}" width="30" height="30" style="border-radius: 50%"></a>
+
                 @else
+
                     <a href="{{ url('/login/login') }}">登录</a>/<a href="{{ url('/reg/zhuce') }}">注册</a> 
+                    
                 @endif    
                 </a> <span class="user-message-count hidden"></span>
                     <div class="guide-item-con">
                         <p class="clearfix"> 
                         <a href="http://www.acfun.cn/member/" target="_blank" class="fl user-name"></a> 
-                        <a href="http://www.acfun.cn/logout.aspx" class="fr icon icon-logout user-logout">退出</a></p>
+                        <a href="'/login/logout'" class="fr icon icon-logout user-logout">退出</a></p>
                         <div id="user-message" class="user-message"></div>
                         <a href="http://www.acfun.cn/member/#area=mail" target="_blank" class="more">查看更多</a>
                     </div> </li>

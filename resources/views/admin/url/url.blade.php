@@ -58,9 +58,12 @@
                     var a=$(this).val();
                     //状态值
                     var b=$(this).attr('num');
+            
                     //发送AJAX
                     $.get('/admin/url/status',{'id':a,'status':b},function(msg){
+                       
                         alert('该链接将从首页撤下!');
+
                         location.href=location.href;
                     });
                 });
@@ -70,9 +73,12 @@
                     var a=$(this).val();
                     //状态值
                     var b=$(this).attr('num');
+
                     //发送AJAX
                     $.get('/admin/url/status',{'id':a,'status':b},function(msg){
+                                
                           alert('该链接将被推荐至首页!');
+
                         location.href=location.href;
 
                     });

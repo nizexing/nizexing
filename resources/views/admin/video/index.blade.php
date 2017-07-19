@@ -11,9 +11,7 @@
 
             <!--结果集标题与导航组件 开始-->
             <div class="result_wrap">
-
-                <div class="result_content">
-                    <div class="result_title">
+                        <div class="result_title">
 
                         @if(session('errors'))
                             <ul style="list-style:list;" id="info" class="list-group">
@@ -30,6 +28,8 @@
                         @endif
 
                     </div>
+                <div class="result_content">
+                    
                     <script>
                         $(function(){
                             setTimeout(function(){

@@ -26,17 +26,21 @@
         </div>        
         <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">链接LOGO</label>
-          <img src="{{ $data['img'] }}" alt="" style="width: 100px;height:100px">
-           <input type="file" name="img" class="photo" value="">
+          <img src="{{ $data['img'] }}" alt="" style="width: 100px;height:100px" class="img">
+           <input type="file" name="img" class="photo" value="" required>
         </div>
-        <button type="submit" class="btn btn-success" style="margin-bottom: 70px">确认修改</button> 
+        <button type="submit" class="btn btn-success" style="margin-bottom: 70px" id="but">确认修改</button> 
 
         <button type="button" class="btn btn-success" style="margin-bottom: 70px" id="button">返回列表</button> 
 </form>
   <script>
+
   $('#button').click(function(){
+
     history.go(-1);
+
   });
+
   </script>
 
 
