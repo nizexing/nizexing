@@ -23,15 +23,11 @@ class VideoController extends Controller
     public function getIndex(Request $request)
     {
 
-        if(!session('user'))
-    {
-        return redirect('/admin/login/login')->with('error','请先登录!');
-    }
-        
         $search = $request -> all();
 
-        $video = Type::join('video','type.tid','=','video.tid')
+        $video = Video::join('type','type.tid','=','video.tid')
             -> join('user','video.uid','=','user.uid');
+
         if($request->has('key')){
             // 有关键字的话
             $key = $request->only('key');
@@ -55,6 +51,7 @@ class VideoController extends Controller
         }
 
         $video = $video->select('video.*','user.name','type.tname')->paginate(8);
+//        dd($video);
         // 定义video.status视频的状态
         $status = ['0'=>'未知','1'=>'审核中','2'=>'审核通过','3'=>'冻结','4'=>'推荐'];
 
@@ -80,7 +77,7 @@ class VideoController extends Controller
     }
 
     /**
-     *  插入一条视频
+     *  在视频表中插入一条视频
      * @param Request $request
      */
     public function postDoadd(Request $request)
@@ -91,7 +88,7 @@ class VideoController extends Controller
         $validator =  \Validator::make($data,[
             'type' => 'required',
             'tid' => 'required',
-            'title' => 'required|between:2,8',
+            'title' => 'required|between:2,50',
             'timg' => 'required',
             'label' => 'required|max:255',
             'desc' => 'required|max:200',
@@ -99,7 +96,7 @@ class VideoController extends Controller
             'type.required'=>'分类必选',
             'tid.required'=>'二级分类必选',
             'title.required'=>'标题必填',
-            'title.between'=>'标题位数为6-8位',
+            'title.between'=>'标题位数为2-50位',
             'timg.required'=>'图片必须上传',
             'label.required'=>'标签必填',
             'label.max'=>'标签不能超过255个字符',
@@ -166,10 +163,10 @@ class VideoController extends Controller
                 $newName = date('YmdHis').mt_rand(1000,9999).'.'.$extension;
 
                 // 移动到public/video下
-                $path = $file->move(public_path().'/'.Config('web.video-path'),$newName);
+                $path = $file->move(public_path().'/'.Config('web.video_path'),$newName);
 
                 //
-                $filePath = '/'.Config('web.video-path').'/'.$newName;
+                $filePath = '/'.Config('web.video_path').'/'.$newName;
                 return $filePath;
             }else{
                 return 2;

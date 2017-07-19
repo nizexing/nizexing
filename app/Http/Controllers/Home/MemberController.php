@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Home;
 
 
 
+use App\Http\Model\Type;
 use App\Http\Model\User_detail;
 use App\Http\Model\User;
 
 
+use App\Http\Model\Video;
 use Barryvdh\Debugbar\Middleware\Debugbar;
 
 use Illuminate\Http\Request;
@@ -19,10 +21,18 @@ use Illuminate\Support\Facades\Session;
 
 
 class MemberController extends CommonController
-
-
 {
+    public function __construct()
+    {
+        parent::__construct();
+        if(!session('user')){
+            return redirect('/login/login');
+        }
+        $user = session('user');
 
+        view() -> share('user',$user);
+
+    }
     /**
      * 用户个人中心页
      * 显示数据
@@ -120,15 +130,233 @@ class MemberController extends CommonController
      */
     public function getVideo()
     {
-        if(!session('user')){
-            return redirect('/login/login');
-        }
         $user = session('user');
-
-
         return view("home.mem.video",compact('user'));
     }
 
+    /**
+     *  ajax上传图片
+     * @return string
+     */
+    public function postImage()
+    {
+        $file = Input::file("image");
+        if(!$file) return 'aabb';
+        if($file->isValid()){
+            // 获得上传文件的后缀名
+            $extension = $file -> getClientOriginalExtension();
+//            return $extension;
+            // 获得新的名字
+            $newName = date('YmdHis').mt_rand(1000,9999).'.'.$extension;
 
+            // 移动到public下
+            $path = $file->move(public_path().'/'.Config('web.img_path'),$newName);
+
+            //
+            $filePath = '/'.Config('web.img_path').'/'.$newName;
+            return $filePath;
+        }
+    }
+
+
+    /**
+     *  uploadify 上传视频video
+     * @return string
+     */
+    public function postVideoupload()
+    {
+
+//          dd(Input::all());
+        $file = Input::file("Filedata");
+
+        if(!$file) return 'aabb';
+        if($file->isValid()){
+            // 获得上传文件的后缀名
+            $extension = $file -> getClientOriginalExtension();
+//            return $extension;
+            $fileTypes = array('mp4','mkv','avi','swf','wmv');
+            if (in_array($extension,$fileTypes)){
+                // 获得新的名字
+                $newName = date('YmdHis').mt_rand(1000,9999).'.'.$extension;
+
+                // 移动到public/video下
+                $path = $file->move(public_path().'/'.Config('web.video_path'),$newName);
+
+                //
+                $filePath = '/'.Config('web.video_path').'/'.$newName;
+                return $filePath;
+            }else{
+                return 2;
+            }
+
+        }else{
+            return 2;
+        }
+    }
+
+    /**
+     *  表中插入一条视频
+     * @param Request $request
+     */
+    public function postUvid(Request $request)
+    {
+
+        $data = $request -> all();
+        // 验证 表单信息
+        $validator =  \Validator::make($data,[
+            'type' => 'required',
+            'tid' => 'required',
+            'title' => 'required|between:2,8',
+            'timg' => 'required',
+            'label' => 'required|max:255',
+            'desc' => 'required|max:200',
+        ],[
+            'type.required'=>'分类必选',
+            'tid.required'=>'二级分类必选',
+            'title.required'=>'标题必填',
+            'title.between'=>'标题位数为6-8位',
+            'timg.required'=>'图片必须上传',
+            'label.required'=>'标签必填',
+            'label.max'=>'标签不能超过255个字符',
+            'desc.required'=>'描述必填',
+            'desc.required'=>'描述不能超过200个字符',
+        ]);
+        if ($validator->fails()) {
+            return redirect('admin/video/add')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // 获取主表的信息
+        $video = $request ->only('tid','label','title');
+        $video['img'] = $data['timg'];
+        $video['upload_time'] = time();
+        $video['status'] = 1;
+        $video['comment'] = 0;
+        $video['click'] = 0;
+        if(!$request->has('uid')){
+            $video['uid'] = 0;
+        }
+        // 副表信息
+        $video_detail = $request -> only('desc','video');
+
+        //开启事务
+        DB::beginTransaction();
+
+        $res1 = Video::insertGetId($video);
+        if($res1){
+            $video_detail['vid'] = $res1;
+            $res2 = Video_detail::insert($video_detail);
+        }
+        // 判断
+        if($res1&&!empty($res2)&&$res2){
+            DB::commit();
+            return redirect('admin/video/index')->with('success','添加成功');
+        }else{
+            DB::rollBack();
+            return redirect('admin/video/add')->with('error','添加失败');
+        }
+
+
+    }
+
+    /**
+     * 过往投稿
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getManner()
+    {
+
+        $video = Video::join('video_detail','video_detail.vid','=','video.vid')
+            ->join('type','type.tid','=','video.tid')
+            ->select('video.*','video_detail.*','type.tname')
+            ->where('uid',session('user')['uid'])
+            ->orderBy('upload_time','desc')-> get();
+//        dd($video);
+        return view('home.mem.manner',compact('video'));
+    }
+
+    /**
+     * ajax 发送数据 查询各分类的数据
+     * @param Request $request
+     */
+    public function postData(Request $request)
+    {
+
+        // 接收参数
+        $uid = Input::get('uid');
+        $tid = Input::get('tid');
+
+        // 查询tid分类的数据
+        $video = Video::join('video_detail','video_detail.vid','=','video.vid')
+            ->join('type','type.tid','=','video.tid')
+            ->select('video.*','video_detail.*','type.tname')
+            ->where('uid',$uid);
+        // 判断tid 若为0 (所有分区) 不加限制条件
+        if($tid==0){
+
+        }else{
+            //tid  不为0 查询一级分类下的分类
+            $tids = Type::where('pid',$tid)->select('tid')->get()->toArray();
+            foreach($tids as $k=>$v){
+                $tids[$k] = $v['tid'];
+            }
+            // whereIn tid 所属分类的视频
+            $video = $video
+                ->whereIn('video.tid',$tids);
+        }
+
+        $video = $video
+            ->orderBy('upload_time','desc')-> get();
+
+        if(count($video)==0){
+            return '<p class="alert">尚未有任何投稿。</p>';
+        }else{
+            // 拼接 html 代码
+            $str = '<div data-tid="0" data-uid="'.$uid.'" class="item block">';
+            foreach($video as $k=>$v){
+                $str .= '<div class="inner" style="overflow:hidden;">
+                                <p class="hint-list-index">'.($k+1).'</p>
+                                <div class="l">
+                                    <a target="_blank" href="javascript:;" class="thumb thumb-preview">
+                                        <img data-aid="'.$v['vid'].'" src="'.$v['img'].'" class="preview">
+                                        <div class="cover"></div>
+                                   </a>
+                          </div>';
+                $str .= '  <div class="r">
+                                    <p class="block-title">';
+                $str .= '<a href="v'.$v['tid'].'/index"  target="_blank" class="channel">'.$v['tname'].'</a>
+                                        <a data-aid="3812968" target="_blank" href="" title="" style="" class="title">'.$v['title'].'</a>
+
+                                        </p>';
+
+                $str .= '<div class="info">发布于
+                                        <span class="time">'.date('m月d日(星期w) H时i分',$v['upload_time']).'</span>&nbsp;&nbsp;/&nbsp;&nbsp;播放:
+                                        <span class="views pts">'.$v['click'].'</span>&nbsp;&nbsp;评论:
+
+                                        <span class="favors pts">'.$v['comment'].'</span></div>
+                                    <p class="desc">'.$v['desc'].'</p>
+                                    <div class="area-tag">';
+                $str .= '<a class="tag" href="/search/#query=dsf" target="_blank"></a></div>
+                    </div>
+                <span class="clearfix"></span>
+                </div>';
+
+            }
+            $str .= '</div>';
+            return $str;
+
+        }
+        return $video;
+    }
+
+    public function getDel($vid)
+    {
+        echo $vid;
+    }
 
 }
+
+
+
+

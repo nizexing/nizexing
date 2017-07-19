@@ -73,10 +73,10 @@ class TypeController extends Controller
               $newName = date('YmdHis').mt_rand(1000,9999).'.'.$extension;
 
               // 移动到public下
-              $path = $file->move(public_path().'/'.Config('web.img-path'),$newName);
+              $path = $file->move(public_path().'/'.Config('web.img_path'),$newName);
 
               //
-              $filePath = '/'.Config('web.img-path').'/'.$newName;
+              $filePath = '/'.Config('web.img_path').'/'.$newName;
               return $filePath;
           }
       }

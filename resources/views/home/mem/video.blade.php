@@ -9,7 +9,15 @@
     <script type="text/javascript" src="{{asset('/bootstrap.min.js')}}"></script>
     <script src="{{asset('static/js/jquery.uploadify.min.js')}}" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="{{asset('static/css/uploadify.css')}}">
-
+    <style>
+        #file_upload{
+            margin-left:0px;
+        }
+        .modal-footer *{
+            float:right;
+            margin-left:20px;
+        }
+    </style>
 @endsection
 
 
@@ -22,17 +30,16 @@
         {{--<script src="http://cdn.aixifan.com/dotnet/20130418/script/member/upload-video.min.js?v=1.1.77"></script>--}}
         <div class="container" style="width:720px;">
             <div id="block-banner-right" class="block banner">
-                <a href="#area=upload-video" class="tab active">
+                <a href="{{url('member/video')}}" class="tab active">
                     <i class="icon"></i>视频投稿</a>
-                <a href="#area=post-history" class="tab">
+
+                <a href="{{url('member/manner')}}" class="tab">
                     <i class="icon"></i>过往投稿</a>
-                <a href="#area=post-manage" class="tab">
-                    <i class="icon"></i>视频管理</a>
             </div>
             <!--#go-old-->
             <!-- a.go-old 返回旧版-->
-            <div id="uploadVideo" onsubmit="return false" data-focus="auto" data-save="uploadVideo" class="upload cfix form" style="width:720px;margin:0px;">
-                <form class="form-horizontal" id="createForm" method="POST" action="{{url('admin/video/doadd')}}" >
+            <div id="uploadVideo" data-focus="auto" data-save="uploadVideo" class="upload cfix form" style="width:720px;margin:0px;">
+                <form class="form-horizontal" id="createForm" method="POST" action="{{url('member/uvid')}}" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="modal-body">
                         <div class="form-group demo2do-form-group">
@@ -57,21 +64,17 @@
                                 <input type="text" name="title" class="form-control ">
                             </div>
                         </div>
-                        <div class="form-group demo2do-form-group">
-                            <label class="col-xs-3 control-label">上传人：</label>
-                            <div class="col-xs-8">
-                                <input type="text" disabled name="name" value="官方" class="form-control ">
-                            </div>
-                        </div>
+
                         <div class="form-group demo2do-form-group">
                             <label class="col-xs-3 control-label">缩略图：</label>
                             <div class="col-xs-8" id="moduleParentDiv">
-                                <input type="file"name="img" id="img">
+                                <button class="btn btn-primary" onclick="$('#img').click()">选择图片</button>
+                                <input type="file" name="image" class="hide" id="img">
                             </div>
                         </div>
                         <div class="form-group demo2do-form-group" id="tr">
                             <label class="col-xs-3 control-label"></label>
-                            <input type="text" class="hide" name="timg" id="upload_path">
+                            <input type="hidden" name="img" value="" id="upload_path">
                             <div class="col-xs-8">
                                 <img src="" alt=""width="300" class="hide"  height="200" id="pic">
                             </div>
@@ -93,9 +96,9 @@
                             <div class="col-xs-8">
                                 <input type="hidden" name="video" id="video" value="">
                                 <input id="file_upload" name="file_upload" type="file" multiple="true">
-                                <a href="javascript:$('#file_upload').uploadify('upload', '*')">开始上传</a>
+                                <a href="javascript:$('#file_upload').uploadify('upload', '*')" class="btn btn-primary">开始上传</a>
 
-                                <a href="javascript:$('#file_upload').uploadify('stop')">停止上传</a>
+                                <a href="javascript:$('#file_upload').uploadify('stop')"class="btn btn-info">停止上传</a>
                             </div>
                             <script type="text/javascript">
 
@@ -105,13 +108,13 @@
                                             '_token'     : '{{csrf_token()}}'
                                         },
                                         'swf'      : '/admin/uploadify.swf',
-                                        'uploader' : '/admin/video/upload',
+                                        'uploader' : '/member/videoupload',
                                         'height' : '30',
                                         'width' : '120',
                                         'auto'  : false,
 
                                         // 上传文件的大小限制
-                                        'fileSizeLimit' : '2GB',
+                                        'fildeSizeLimit' : '2GB',
                                         // 这个属性值必须设置fileTypeExts属性后才有效，默认ALLfile
                                         'fileTypeDesc' : '请选择.mvk .mp4 .swf .avi .wmv文件',
                                         // 设置可以选择的文件的类型
@@ -125,7 +128,7 @@
                                         // 设置上传进度显示方式，默认percentage显示上传百分比，speed显示上传速度
                                         'progressData' : 'speed',
                                         // 是否自动将已完成任务从队列中删除，如果设置为false则会一直保留此任务显示。默认true
-                                        'removeCompleted' : true,
+                                        'removeCompleted' : false,
                                         'cancelImg': '{{asset('/static/images/uploadify-cancel.png')}}',
 
 
@@ -171,8 +174,9 @@
 
                     </div>
                     <div class="modal-footer">
-                        <input type="submit"  class="btn btn-success btn-shadow btn-shadow-success demo2do-btn" value="添加">
+
                         <button type="button" class="btn btn-default btn-shadow btn-shadow-default demo2do-btn" data-dismiss="modal">取消</button>
+                        <input type="submit"  class="btn btn-success btn-shadow btn-shadow-success demo2do-btn" value="添加">
                     </div>
                 </form>
             </div>
@@ -180,8 +184,7 @@
     </div>
         <script type="text/javascript">
             $(function () {
-
-                $("#photo").change(function () {
+                $("#img").change(function () {
 
                     uploadImage();
                 });
@@ -189,7 +192,7 @@
 
             function uploadImage() {
 //                            判断是否有选择上传文件
-                var imgPath = $("#photo").val();
+                var imgPath = $("#img").val();
                 if (imgPath == "") {
                     alert("请选择上传图片！");
                     return;
@@ -202,28 +205,28 @@
                     return;
                 }
 
-                var formData = new FormData($('#memform')[0]);
-//                                            alert(formData);
+                var formData = new FormData($('#createForm')[0]);
+
+
                 $.ajax({
                     type: "POST",
-                    url: "/member/upload",
+                    url: "/member/image",
                     data: formData,
                     async: true,
                     cache: false,
                     contentType: false,
                     processData: false,
                     success: function(data) {
-                        console.log(data);
+
+                        if(data=='aabb'){
+                            alert('上传失败');
+                            return false;
+                        }
                         alert("上传成功");
-                        $('#pic').attr('src','{{asset("/")}}'+data);
-                        $('#pic').show();
+                        $('#pic').attr('src',data);
+                        $('#pic').removeClass('hide');
                         $('#upload_path').val(data);
-//                                                    setTimeout(function(){
 //
-//                                                        location.href= 'www.baidu.com';
-//                                                    },500);
-
-
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         alert("上传失败，请检查网络后重试");
@@ -236,7 +239,7 @@
             abc = {!! json_encode($type2) !!}
                                 console.log(abc);
 
-            console.log(tt.html());
+//            console.log(tt.html());
             tt.change(function(){
                 for(var i=0;i<abc.length;i++){
                     if($('#stype').val()=='-250'){
@@ -321,5 +324,5 @@
 
 
         </script>
-
+    </div>
 @endsection

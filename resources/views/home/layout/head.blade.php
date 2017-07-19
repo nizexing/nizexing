@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head xmlns="http://www.w3.org/1999/xhtml">
 
-    <script src="{{asset('/static/js/route.min.js')}}"></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="copyright" content="{{Config('web.copyright')}}">
     <meta name="keywords" content="{{Config('web.keys')}}">
@@ -10,7 +10,7 @@
     <title>{{Config('web.title')}}</title>
     <link href="./favicon.ico" rel="shortcut icon">
 
-    <link rel="stylesheet" href="{{asset('/static/css/core.css')}}" />
+    <link rel="stylesheet" href="{{asset('/static/css/core_1.css')}}" />
 
     <!--[if lte IE 7]>
     <link rel="stylesheet" href="{{asset('/static/css/font-awesome-ie7.min.css')}}"></link>
@@ -44,6 +44,10 @@
     <div class="item success" style="line-height:24px;left: 0px;opacity: 1; transition: left 200ms ease, opacity 200ms ease;">
         <i class="icon icon-check-square-o" style="width:12px;height:12px">
         </i>{{ session("success") }}
+    </div>
+    <div class="item error" style="line-height:24px;left: 0px;opacity: 1; transition: left 200ms ease, opacity 200ms ease;">
+        <i class="icon icon-check-square-o" style="width:12px;height:12px">
+        </i>{{ session("error") }}
     </div>
 </div>
 @endif

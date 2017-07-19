@@ -22,14 +22,14 @@
         <div id="list-guide-left">
             <div class="part-guide-left">
                 <div class="banner">
-                    <a href="{{asset('member/collect')}}" class="tab fixed">
+                    <a href="{{url('member/collect')}}" class="tab fixed">
                         <i class="icon icon-folder-open"></i>收藏夹</a>
                     <span id="hint-favourite-left" class="hidden">0</span></div>
 
             </div>
             <div class="part-guide-left">
                 <div class="banner">
-                    <a href="{{asset('member/history')}}" class="tab fixed">
+                    <a href="{{url('member/history')}}" class="tab fixed">
                         <i class="icon icon-history"></i>历史记录</a>
                 </div>
             </div>
@@ -40,22 +40,27 @@
                         <i class="icon icon-upload"></i>投稿&middot;管理</p>
                 </div>
                 <div class="mainer">
-                    <a href="{{asset('member/video')}}" class="tab">
+                    <a href="{{url('member/video')}}" class="tab">
                         <i class="icon"></i>视频投稿</a>
 
-                    <a href="{{asset('member/video/list')}}" class="tab">
+                    <a href="{{url('member/manner')}}" class="tab">
                         <i class="icon"></i>视频管理</a>
                 </div>
             </div>
             <script>
                 $(function(){
                     var gggg = $('#collect1');
-                    gggg.toggle(function(){
-//                        alert(1);
-                        $('.part-guide-left>.mainer').hide();
-                    },function(){
-                        $('.part-guide-left>.mainer').show();
+                    var i=0;
+                    gggg.click(function(){
+                        if(i%2==0){
+                            $('.part-guide-left>.mainer:animated').stop();
+                            $('.part-guide-left>.mainer').hide();
+                        }else{
+                            $('.part-guide-left>.mainer').show();
+                        }
+                        i++;
                     });
+//
                 })
             </script>
 
