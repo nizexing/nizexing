@@ -14,7 +14,7 @@ class RankController extends Controller
    {
 
 
-    if(!session('user'))
+    if(!session('admin'))
     {
         return redirect('/admin/login/login')->with('error','请先登录!');
     }
@@ -28,9 +28,7 @@ class RankController extends Controller
    }
 
   
-
-
-   //日点击量排行
+   //点击量排行
    public function getClick($tid)
    {
      $type=self::type();
@@ -45,7 +43,13 @@ class RankController extends Controller
 
      if($tid=='w')
      {
-        $data=DB::table('rank')->join('user','rank.uid','=','user.uid')->join('type','rank.tid','=','type.tid')->orderBy('wclick','desc')->select('id','tname','name','vid','title','img','wclick')->skip(0)->take(20)->paginate(10);
+        $data=DB::table('rank')->join('user','rank.uid','=','user.uid')
+                               ->join('type','rank.tid','=','type.tid')
+                               ->orderBy('wclick','desc')
+                               ->select('id','tname','name','vid','title','img','wclick')
+                               ->skip(0)
+                               ->take(20)
+                               ->paginate(10);
         
          return view('admin.rank.wclick',compact('data','type'));
 
@@ -54,7 +58,13 @@ class RankController extends Controller
 
      if($tid=='m')
      {
-        $data=DB::table('rank')->join('user','rank.uid','=','user.uid')->join('type','rank.tid','=','type.tid')->orderBy('mclick','desc')->select('id','tname','name','vid','title','img','mclick')->skip(0)->take(20)->paginate(10);
+        $data=DB::table('rank')->join('user','rank.uid','=','user.uid')
+                               ->join('type','rank.tid','=','type.tid')
+                               ->orderBy('mclick','desc')
+                               ->select('id','tname','name','vid','title','img','mclick')
+                               ->skip(0)
+                               ->take(20)
+                               ->paginate(10);
         
          return view('admin.rank.mclick',compact('data','type'));
      }
@@ -67,8 +77,11 @@ class RankController extends Controller
    {
 
      //多表联查获取相关数据
-     $a=DB::table('video')->join('user','user.uid','=','video.uid')->join('video_detail','video.vid','=','video_detail.vid')->join('type','video.tid','=','type.tid')->get();
-     // dump($a);
+     $a=DB::table('video')->join('user','user.uid','=','video.uid')
+                          ->join('video_detail','video.vid','=','video_detail.vid')
+                          ->join('type','video.tid','=','type.tid')
+                          ->get();
+     // dd($a);
     //开启事物
     DB::beginTransaction();
 
@@ -78,20 +91,24 @@ class RankController extends Controller
     //将视频最新的排行情况录入排行榜表中
     foreach($a as $k=>$v)
     {
-        $num=DB::insert('insert into rank(vid,tid,title,img,uid,comment,dclick,wclick,mclick,click) values(?,?,?,?,?,?,?,?,?,?)',
-            [$v['vid'],$v['tid'],$v['title'],
-            $v['img'],$v['uid'],$v['comment'],$v['dclick'],
-            $v['wclick'],$v['mclick'],$v['click']]);
+        $num=DB::insert('insert into rank(
+            vid,tid,title,img,uid,comment,dclick,wclick,mclick,click) values(?,?,?,?,?,?,?,?,?,?)',
+              [$v['vid'],$v['tid'],$v['title'],
+               $v['img'],$v['uid'],$v['comment'],$v['dclick'],
+               $v['wclick'],$v['mclick'],$v['click']]);
     }
 
     //判断是否插入成功,否则回滚或确认事物
     if($num)
     {
         DB::commit();
+
         return redirect('/rank/rank')->with('error','更新成功!');
+
     }else{
 
         DB::rouBack();
+
         return redirect('/rank/rank')->with('error','更新失败!');
     }
 
@@ -114,6 +131,7 @@ class RankController extends Controller
         $type=self::type();
 
         foreach ($str as $k => $v) {
+          
             $arr[]=$v['tid'];
         }
 

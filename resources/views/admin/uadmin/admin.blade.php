@@ -4,7 +4,7 @@
         <div class="result_wrap" style="width:1024px;margin:60px 0px 0px 200px">
             @if(!session('error'))
             <div class="result_content">
-            <h1>用户列表</h1>
+            <h1>管理员列表</h1>
                 <table class="list_tab">
                     <tr>                     
                         <th>ID</th>
@@ -17,15 +17,15 @@
                     </tr>
                     @foreach($admin as $k=>$v)
                     <tr>
-                        <td>{{$v['id']}}</td>
+                        <td>{{$v['admin_id']}}</td>
                         <td>{{$v['adminname']}}</td>
                         <td>{{$v['password']}}</td>
                         <td>{{$v['tel']}}</td>
                         <td>{{$v['email']}}</td>
-                        <td>{{$v['jiaose']}}</td>
+                        <td>{{$v['jname']}}</td>
                         <td>
-                            <a href="" class="list">详情</a>
-                            <a href="" class="list">删除</a>
+                            <a href="/admin/admin/admindetail/{{$v['admin_id']}}" class="list">详情</a>
+                            <a href="/admin/admin/admindelete/{{$v['admin_id']}}" class="list">删除</a>
                         </td>
                     </tr>
                   @endforeach

@@ -7,12 +7,13 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Session;
+use Hash;
 class LoginController extends Controller
 { 
   //显示登录页
   public function getLogin()
   {
-    return view('admin.login');
+    return view('admin.login.login');
   }
 
 
@@ -53,23 +54,28 @@ class LoginController extends Controller
 
             }else
             {
+
+              //判断哈希密码
+              $hashPassword=Hash::check($a['password'],$b['password']);
+
+
               //账号存在判断密码
-              if($a['password'] != $b['password'] && $a['yanzm'] == session('code'))
+              if($hashPassword==false)
               {
                 return back()->with('error','该账号密码错误!');
 
               }else
 
-              if($a['yanzm'] != session('code') && $a['password'] == $b['password'])
+              if($a['yanzm'] != session('code') && $hashPassword==true)
               {
                 return back()->with('error','您输入的验证码错误!');
 
               }else
 
               //全都通过登录首页
-              if($a['password']==$b['password'] && $a['yanzm']==session('code'))
+              if($hashPassword==true && $a['yanzm']==session('code'))
               {
-                Session(['user'=>$b['adminname']]);
+                Session(['admin'=>$b['adminname']]);
 
                 return redirect('/admin/admin/index');
               }
@@ -83,7 +89,7 @@ class LoginController extends Controller
     public function getQuit($user)
     { 
       // 清除session中的用户数据
-      Session(['user'=>null]);
+      Session(['admin'=>null]);
       //返回登录页
       return redirect('/admin/login/login');
     }

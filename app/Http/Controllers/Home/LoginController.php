@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Mail;
 use Session;
+use Hash;
 class LoginController extends Controller
 {
 //    登录
@@ -31,6 +32,9 @@ class LoginController extends Controller
        //如果用户名登录
        $c=DB::table('user')->where('username',$a['tel'])->first();
 
+       $hashb=Hash::check($a['password'],$b['password']);
+       $hashc=Hash::check($a['password'],$c['password']);
+
       //验证账号或电话号码是否存在
        if($b==null && $a['tel'] != $c['username'])
        {
@@ -43,31 +47,30 @@ class LoginController extends Controller
        }
      
 
-
        //验证密码是否正确
-       if($a['tel'] == $b['tel'] && $a['password'] != $b['password'] && $c==null)
+       if($a['tel'] == $b['tel'] && $hashb==false && $c==null)
        {
            return back()->with('error','该账号密码错误');
        }
 
-        if($a['tel'] == $c['username'] && $a['password'] != $c['password'] && $b==null)
+        if($a['tel'] == $c['username'] && $hashc==false && $b==null)
        {
            return back()->with('error','该账号密码错误');
        }
 
        //验证码输入是否正确
-       if($a['tel'] == $b['tel'] && $a['password'] == $b['password'] && $a['code'] != session('code') && $c==null)
+       if($a['tel'] == $b['tel'] && $hashb==true && $a['code'] != session('code') && $c==null)
        {
            return back()->with('error','输入的验证码错误');
        }
 
-       if($a['tel'] == $c['username'] && $a['password'] == $c['password'] && $a['code'] != session('code') && $b==null)
+       if($a['tel'] == $c['username'] && $hashc==true && $a['code'] != session('code') && $b==null)
        {
            return back()->with('error','输入的验证码错误');
        }
 
        // 全都正确跳转至首页
-      if($a['tel'] == $b['tel'] && $a['password'] == $b['password'] && $c==null && $a['code']==session('code'))
+      if($a['tel'] == $b['tel'] && $hashb==true && $c==null && $a['code']==session('code'))
       {   
           $tel=DB::table('user')->where('tel',$a['tel'])->get()[0];
 
@@ -80,7 +83,7 @@ class LoginController extends Controller
           return redirect('/index');
       }
 
-       if($a['tel'] == $c['username'] && $a['password'] == $c['password'] && $b==null && $a['code']==session('code'))
+       if($a['tel'] == $c['username'] && $hashc==true && $b==null && $a['code']==session('code'))
       {    
           $tel=DB::table('user')->where('username',$a['tel'])->get()[0];
 
@@ -193,6 +196,15 @@ class LoginController extends Controller
         echo '该账号不存在!请输入正确的账号!';
       }
 
+    }
+
+
+    //退出登录
+    public function getLogout()
+    { 
+        Session(['user'=>null]);
+
+        return back();
     }
 
 }

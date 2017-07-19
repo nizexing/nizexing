@@ -22,7 +22,10 @@ class RegController extends Controller
 
         $regtime=time();
 
-         DB::table('user')->insert(['tel'=>$data['tel'],'username'=>$data['name'],'password'=>$data['password'],'regtime'=>$regtime]);
+         DB::table('user')->insert(['tel'=>$data['tel'],
+                               'username'=>$data['name'],
+                               'password'=>$data['password'],
+                                'regtime'=>$regtime]);
 
          return redirect('/login/login');
 

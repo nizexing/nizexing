@@ -42,11 +42,18 @@
 </form>
 
       <script type="text/javascript">
+
          $('#old').blur(function() {
            var old=$(this).val();
 
             $.get('/admin/user/old',{'oldpassword':old,'_token':'{{csrf_token()}}','id':"{{ $user['id'] }}"},function(msg){
-                  $('.old').text(msg);
+                  
+              alert(msg);
+
+
+
+
+
             });
          });
 

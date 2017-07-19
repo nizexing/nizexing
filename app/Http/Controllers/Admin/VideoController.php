@@ -23,7 +23,7 @@ class VideoController extends Controller
     public function getIndex(Request $request)
     {
 
-        if(!session('user'))
+        if(!session('admin'))
     {
         return redirect('/admin/login/login')->with('error','请先登录!');
     }
