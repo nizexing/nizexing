@@ -52,7 +52,8 @@ class PlayController extends Controller
         
         //获取评论内容
         $content=DB::table('comment')->where('vid',$vid)->get();
-
+        //评论总数
+       $contents=count($content);
 
         $photo=session('user')['photo'];
 
@@ -61,7 +62,7 @@ class PlayController extends Controller
 
   		$num=count($store);
 
-        return view('home.play.play',compact('data','massge','user','detail','content','photo','num'));
+        return view('home.play.play',compact('data','massge','user','detail','content','photo','num','contents'));
    }
 
    //收藏

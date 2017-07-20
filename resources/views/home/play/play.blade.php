@@ -32,10 +32,10 @@
 </head>
 <body>
 
-<div id="header" class="header">
+<div id="header" class="header" style="height: 0px">
     <nav id="nav" class="wp nav">
         <div class="clearfix wp nav-parent">
-            <ul class="fl">
+            <ul class="fl" style="height: 70px">
                 <h1 class="fl logo"> <a href="http://www.acfun.cn"> <img src="/home/picture/logo.png" width="88" height="27" /></a> </h1>
                 <li data-category="105" data-cid="0"> <a href="/v/list144/index.htm">番剧</a></li>
                 <li data-category="14" data-cid="1"> <a href="/v/list1/index.htm">动画</a></li>
@@ -196,31 +196,33 @@
                 <a href="/u/12138573.aspx" target="_blank" class="avatar-wrap"> <img src="/home/picture/avatar.jpg" class="avatar" /></a>
                 <a href="/u/12138573.aspx" target="_blank" class="name-wrap">{{ $user['username'] }}</a>
                 <span class="sp6">{{ $data['upload'] }}</span>
-                <!--坑爹的百分点-->
-                <span data-uname="{{ $user['username'] }}" data-type="投稿" data-oid="3812129" data-proof="视屏标题" class="sp7">举报视频</span>
+
             </div>
             <div class="fr">
                 <a href="/member/#area=admin;aid=3812129" target="_blank" class="barrage-management">弹幕管理</a>
             </div>
         </div>
     </section>
+    <div style="margin:0px 0px 210px 220px">
+<div id="a1"></div>
+ <script type="text/javascript" src="/ckplayer/ckplayer.js" charset="utf-8"></script>
+                                <script type="text/javascript">
+                                    // cdplayer  播放视频
+                                    var flashvars={
+                                        f:"{{ $massge['video'] }}",
+                                        c:0
+                                    };
+                                    var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
+                                    CKobject.embedSWF('/ckplayer/ckplayer.swf','a1','ckplayer_a1','600','400',flashvars,params);
+                                </script>
 
-
- <!-- 视屏开始 -->
-    <section class="clearfix wp area player">
-        <div id="player">
-            <video autobuffer controls ended>
-                <source src="/uploads/video/2.ogg" type="video/ogg">
-            <video>
         </div>
-    </section>
-<!-- 视屏结束 -->
 
 
     <section class="clearfix wp area crumb" style="margin-top: -195px">
-        <span class="view fl"> <span class="sp1">播放</span> <span class="sp2">...</span></span>
-        <span class="danmu fl"> <span class="sp1">弹幕</span> <span class="sp2">...</span></span>
-        <span id="bd_comm" class="comm fl"> <span class="sp1">评论</span> <span class="sp2">...</span></span>
+        <span class="view fl"> <span class="sp1">播放</span> <span class="sp2">{{$data['click']}}</span></span>
+
+        <span id="bd_comm" class="comm fl"> <span class="sp1">评论</span> <span class="sp2">{{$contents}}</span></span>
         <span class="shu fl"></span>
         <span id="shoucang" data-status="0" class="collection fl">
      <div class="fl ico">
@@ -260,17 +262,10 @@
 
 
         <span id="bd_phoneshow" class="phone fl">
-     <div class="fl ico">
-      <div class="img"></div>
-     </div> <span class="sp4">手机流畅</span><br />
-     <div class="qrcode-download">
-      <img src="/home/picture/erweima.png" />
-      <p>扫描下载最新版客户端</p>
-     </div> </span>
+
+      </span>
         <span data-status="0" class="banana fl">
-    <!--  <div class="fl ico">
-      <div class="img"></div>
-     </div> <span class="sp3 fl">投蕉</span> <br /> <span class="sp4">0</span> -->
+
      <div class="div-banana">
       <span data-num="1" class="bananaer fl"></span>
       <span data-num="2" class="bananaer fl"></span>
@@ -289,10 +284,7 @@
       </div>
      </div> </span>
         <div id="bdshare" class="share_box fr"></div>
-        <div class="share-more fr">
-            分享
-            <span class="icon fr"></span>
-        </div>
+
     </section>
     <div class="introduction">
         <section class="clearfix wp area">
@@ -308,15 +300,7 @@
                     <span class="open">展开详情</span>
                     <span class="close">关闭详情</span>
                 </div>
-               <!--  <div id="bd_tag" class="tag">
-                    <span class="tag-single fl"> <a href="/search/#query=演奏" data-tid="760" target="_blank" class="fl">演奏</a></span>
-                    <span class="tag-single fl"> <a href="/search/#query=丽江手鼓" data-tid="1260108" target="_blank" class="fl">丽江手鼓</a></span>
-                    <span class="tag-single fl"> <a href="/search/#query=非洲鼓" data-tid="192719" target="_blank" class="fl">非洲鼓</a></span>
-                    <span class="tag-single fl"> <a href="/search/#query=结果" data-tid="16678" target="_blank" class="fl">结果</a></span>
-                    <span class="tag-single fl"> <a href="/search/#query=凯文先生" data-tid="1260092" target="_blank" class="fl">凯文先生</a></span>
-                    <a href="javascript:void(0)" data-status="0" class="fl add">+添加</a>
-                    <input placeholder="请输入标签" class="tagInp" />
-                </div> -->
+ 
                 <div id="temp-tag-view" class="hidden">
                     <span class="tag-single fl"> <a href="/search/#query=[name]" data-tid="[tid]" target="_blank" class="fl">[name]</a> <span title="删除标签" data-tid="[tid]" class="icon icon-delete1 fl"></span> </span>
                 </div>
@@ -334,14 +318,10 @@
                             <div class="bubble-2 fl"></div>
                         </div>
                         <div class="eating"></div> </a>
-                    <a href="/u/12138573.aspx" target="_blank" id="bd_upname" class="a2">
+                   
                         <div class="title">
                             {{ $user['username'] }}
-                        </div></a>
-                    <div class="tool">
-                        <span id="bd_follow" data-status="0" data-name="{{ $user['username'] }}" data-userid="12138573" class="fl flow">+&nbsp;关注</span>
-                        <a href="/member/#area=mail-new;username={{ $user['username'] }};" target="_blank" id="bd_letter" class="fl letter">私信</a>
-                    </div>
+                        </div>
                 </div>
                 <div class="bottom">
                     <div class="desc">
@@ -412,7 +392,7 @@
                         <i class="icon _icon-commentLeft"></i>
                         <p class="tab _fixed">评论区</p>        
             
-                        <p id="btn-refresh" class="tab more"> <i class="icon _icon-refresh"></i> </p>
+                        
                     </div>
 
 
@@ -437,10 +417,10 @@
             <div id="c-78399892" class="item-comment   item-comment-first " data-fullcid="78395691,78396292,78397393,78397396,78397596,78399892" data-qid="78397596" data-layer="21">
              <div class="area-comment-left"> 
              <a class="thumb" target="_blank" href="http://www.acfun.cn/u/490814.aspx#home">
-  <!--            <img class="avatar" src="http://cdn.aixifan.com/dotnet/20120923/style/image/avatar.jpg" data-name="jsakjj"> -->
-             <img class="avatar-bg" src="{{ $v['photo'] }}" style="width: 48px"></a> </div> 
+
+             <img class="avatar-bg" src="{{ $v['photo'] }}" style="width: 48px;height: 50px"></a> </div> 
              <div class="area-comment-right"> 
-             <div class="author-comment last" data-uid="490814"> 
+             <div class="author-comment last" data-uid="490814" > 
              <span class="index-comment">{{$v['uname']}}</span> 
              <a class="name " data-uid="490814" target="_blank" href="http://www.acfun.cn/u/490814.aspx#home"></a> 
              <span class="time_">发表于 {{ date('Y-m-d H:i:s',$v['ctime']) }}</span><p class="floor-comment">6</p> </div>

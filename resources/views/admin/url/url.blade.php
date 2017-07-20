@@ -64,7 +64,7 @@
                        
                         alert('该链接将从首页撤下!');
 
-                        location.href=location.href;
+                            histroy.(0);
                     });
                 });
 
@@ -79,7 +79,7 @@
                                 
                           alert('该链接将被推荐至首页!');
 
-                        location.href=location.href;
+                            histroy.(0);
 
                     });
                 });
