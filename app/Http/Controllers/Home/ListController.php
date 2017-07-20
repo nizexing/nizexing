@@ -46,6 +46,6 @@ class ListController extends CommonController
         // 热门视屏
 //        $hotvideo =
         // 显示 页面
-        return view("home.list.list", ['video'=>$video,'vtype'=>$vtype,'types'=>$types]);
+        return view("home.list.list", ['video'=>$video,'vtype'=>$vtype,'types'=>$types,'tid'=>$tid]);
     }
 }

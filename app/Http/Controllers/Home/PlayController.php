@@ -9,12 +9,11 @@ use Session;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class PlayController extends Controller
+class PlayController extends CommonController
 {
 
    public function play($vid)
-   {    
-
+   {
         //增加视频点击量
         $video=DB::table('video')->where('vid',$vid)->get()[0];
 

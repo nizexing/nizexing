@@ -144,13 +144,10 @@
                         @endif>
 
 
-                  <a  href="/index/{{$v['tid']}}">{{$v['tname']}}</a></li>
+                  <a  href="/v/{{$v['tid']}}/index">{{$v['tname']}}</a></li>
                 @endforeach
 
-                <li class="nav-rank">
-                    <a href="{{asset('rank')}}" target="_blank">
-                        <i class="icon icon-rank"></i>全站排行榜</a>
-                </li>
+
             </ul>
         </div>
 

@@ -10,7 +10,7 @@
 
                                 <div id="list-channel-favourite">
                                     <div class="l">
-                                        <button data-tid="0" class="btn active primary">
+                                        <button data-tid="all" class="btn active primary">
                                             <i class="icon icon-list"></i>所有分区</button>
                                     </div>
                                     <div class="r group">
@@ -23,41 +23,77 @@
                                     <span class="clearfix"></span>
                                 </div>
                                 <div id="list-favourite-favourite">
-                                    <div data-aid="3812129" class="item block">
+                                    @if(!empty($video[0]))
+                                    @foreach($video as $k=>$v)
+                                    <div data-vid="{{$v['vid']}}" data-id="{{$v['id']}}" class="item block">
                                         <div class="inner">
                                             <div class="l">
-                                                <a href="/v/ac3812129" target="_blank" class="thumb thumb-preview">
-                                                    <img data-aid="3812129" src="http://imgs.aixifan.com/content/2017_06_27/1498537345.jpg" class="preview"></a>
+                                                <a href="{{url('play/'.$v['vid'])}}" target="_blank" class="thumb thumb-preview">
+                                                    <img data-aid="3812129" src="{{asset($v['img'])}}" class="preview"></a>
 
                                             </div>
                                             <div class="r" style="float:left;margin-left:10px;overflow:hidden;width:500px;">
                                                 <p class="block-title">
-                                                    <a href="/v/list137/index.htm" target="_blank" title="点击访问演奏频道" class="channel">演奏</a>
-                                                    <a href="/v/ac3812129" data-aid="3812129" target="_blank" class="title">凯文先生《结果》非洲鼓丽江手鼓音乐演奏表演</a></p>
+                                                    <a href="{{url('v/'.$v['vid'].'/index')}}" target="_blank" title="点击访问{{$v['tname']}}频道" class="channel">{{$v['tname']}}</a>
+                                                    <a href="{{url('play/'.$v['vid'])}}" data-vid="{{$v['vid']}}" target="_blank" class="title">{{$v['title']}}</a></p>
                                                 <div class="area-info">
-                                                    <a href="/member/user.aspx?uid=12138573" target="_blank" class="name">凯文先生在路上</a>&nbsp;&nbsp;/&nbsp;&nbsp;发布于
-                                                    <span class="time pts">6月27日(星期二) 12时24分</span>&nbsp;&nbsp;/&nbsp;&nbsp;播放:
-                                                    <span class="views pts">1,557</span>&nbsp;&nbsp;评论:
-                                                    <span class="comments pts">0</span>&nbsp;&nbsp;收藏:
-                                                    <span class="favors pts">8</span></div>
-                                                <p class="desc">感谢亲们点赞，转发，评论&nbsp;凯文每天将在点赞，转发，评论的小伙伴中随机抽出幸运小伙伴送一副凯文的亲笔签名鼓棒。&nbsp;</p>
+                                                    <a href="javascript:;" target="_blank" class="name">{{$v['name']}}</a>&nbsp;&nbsp;/&nbsp;&nbsp;发布于
+                                                    <span class="time pts">{{date('m月d日(星期w) H时i分',$v['upload_time'])}}</span>&nbsp;&nbsp;/&nbsp;&nbsp;播放:
+                                                    <span class="views pts">{{$v['click']}}</span>&nbsp;&nbsp;评论:
+                                                    <span class="comments pts">{{$v['comment']}}</span>&nbsp;&nbsp;收藏:
+                                                    <span class="favors pts">{{$v['collect']}}</span></div>
+                                                <p class="desc">{{$v['desc']}}</p>
                                                 <div class="area-tag">
-                                                    <a class="tag" href="/search/#query=%E5%87%AF%E6%96%87%E5%85%88%E7%94%9F" target="_blank">凯文先生</a>
-                                                   
+                                                    <a class="tag" href="javascript:;" target="_blank">{{$v['label']}}</a>
+
                                                 </div>
                                             </div>
                                             <div class="block-manage" style="float:right">
-                                                <button title="删除收藏" class="btn danger mini btn-delete">
+                                                <button title="删除收藏" data-id="{{$v['id']}}" class="btn danger mini btn-delete">
                                                     <i class="icon icon-times-circle-o"></i>删除收藏</button>
                                             </div>
 
                                             <span class="clearfix"></span>
                                         </div>
                                     </div>
+                                    @endforeach
+                                        <div id="pager" class="area-pager ">
+                                            {!! $video->render() !!}
+                                        </div>
+                                    @else
+                                        <p class="alert"><i class="icon icon-info-circle"></i>尚未有任何收藏项目。</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+@endsection
+
+@section('js')
+    <script>
+        $(function(){
+            $('#pager ul>li>*').addClass('pager pager-forces');
+            $('#pager ul>li[class=active]').find('span').addClass('active');
+        })
+//        var  page = $('#pager>ul>li>.active').html();
+        $(function(){
+            $('#list-channel-favourite button').click(function(){
+                var  tid = $(this).attr('data-tid');
+                location.href = '{{url('member/collect')}}?tid='+tid;
+            });
+            $('#list-favourite-favourite .inner>.block-manage>button').click(function(){
+                var id = $(this).attr('data-id');
+                $.get('{{url('member/collectdel')}}'+'/'+id,function(data){
+                    if(data.status==200){
+                        $('#list-favourite-favourite>.item[data-vid='+id+']').hide();
+                    }
+                    layer.msg(data.msg);
+
+                });
+            });
+        })
+    </script>
 
 @endsection

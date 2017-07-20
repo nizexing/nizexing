@@ -75,5 +75,8 @@
     </div>
 
 @show
+@section('area')
+
+@show
 
 @include("home.layout.foot")

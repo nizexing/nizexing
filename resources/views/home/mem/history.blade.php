@@ -27,7 +27,7 @@
                             <div class="mainer">
                                 <p class="alert alert-info">
                                     <button id="btn-clear-history" title="点击清空所有历史记录" class="btn danger r">
-                                        <i class="icon icon-times-circle-o"></i>清空历史记录</button>下方列表中记录着您近期的浏览或评论历史记录。
+                                        <i class="icon icon-times-circle-o"></i>清空历史记录</button>下方列表中记录着您近期的浏览历史记录。
                                     <br>您可以点击右侧按钮以清空所有历史记录。
                                     <span class="clearfix"></span></p>
 
@@ -51,7 +51,7 @@
                                                     <a href="{{url('/v/'.$v['tid']).'/index'}}" title="点击访问{{$v['tname']}}频道" target="_blank" class="channel">{{$v['tname']}}</a>
                                                     <a target="_blank" href="{{url('play')}}/{{$v['vid']}}" class="title">{{$v['title']}}</a></p>
                                                 <div class="area-info">
-                                                    <a target="_blank" href="javascript:;" class="name "></a>/ 发布于
+                                                    <a target="_blank" href="javascript:;" class="name ">{{$v['name']}}</a>/ 发布于
                                                     <span class="time pts">{{date('m月d日(星期w) H时i分',$v['upload_time'])}}</span></div>
                                                 <p class="hint-time-history">浏览于 {{date('m月d日(星期w) H时i分',$v['looktime'])}}</p>
                                                 <button title="删除历史记录" data-id="{{$v['id']}}" class="btn danger mini btn-delete">
