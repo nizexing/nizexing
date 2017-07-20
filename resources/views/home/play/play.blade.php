@@ -15,10 +15,11 @@
     <link rel="stylesheet" href="/home/css/core.min.css" />
     <link rel="stylesheet" href="/home/css/detail.min.css" />
     <link rel="stylesheet" href="/home/css/comm.min.css" />
+    <script></script>
 
-    <link rel="stylesheet" href="/home/js/bootstrap.min.js">
     <link rel="stylesheet" href="/home/js/bootstrap.min.css">
-    <link rel="stylesheet" href="/home/js/jquery.min.js">
+     <script type="text/javascript" src="{{asset('admin/style/js/jquery.js')}}"></script>
+     <script type="text/javascript" src="{{asset('home/js/bootstrap.min.js')}}"></script>
 
 
 
@@ -50,10 +51,10 @@
                 <li data-category="25" data-cid="0"> <a href="/album/index.htm">合辑</a></li>
             </ul>
             <ol id="header-guide" class="fr header-guide">
-                <li class="guide-item guide-user"> <a href="http://www.acfun.cn/member/" target="_blank" class="user-avatar item"> <img src="/home/picture/avatar.jpg" width="30" height="30" /></a> <a href="http://www.acfun.cn/login/" target="_blank" class="item user-login">
+                <li class="guide-item guide-user"> <a href="http://www.acfun.cn/member/" target="_blank" class="user-avatar item"> <img src="/home/picture/avatar.jpg" width="30" height="30" /></a> 
                 @if($user['username'])
 
-                   <img src="{{$photo}}" width="30" height="30" style="border-radius: 50%"></a>
+                   <img src="{{$photo}}" width="30" height="30" style="border-radius: 50%">
 
                 @else
 
@@ -72,7 +73,8 @@
                     <div class="guide-item-con">
                         <ul></ul>
                         <a href="http://www.acfun.cn/member/#area=history" target="_blank" class="more">查看更多</a>
-                    </div> <script id="temp-history" type="text/template">< li > <a href = "[url]"target = "_blank" > [title] < /a><p>浏览于[time]</p > </li>/</script></li>
+                    </div> <script id="temp-history" type="text/template">< li > <a href = "[url]"target = "_blank" > [title] < /a><p>浏览于[time]</p > </li>
+                    /</script></li>
                 <li class="guide-item guide-upload"> <a href="http://www.acfun.cn/member/#area=upload-video" target="_blank" class="icon icon-upload item"></a>
                     <div class="guide-item-con">
                         <ul>
@@ -220,22 +222,47 @@
         <span class="danmu fl"> <span class="sp1">弹幕</span> <span class="sp2">...</span></span>
         <span id="bd_comm" class="comm fl"> <span class="sp1">评论</span> <span class="sp2">...</span></span>
         <span class="shu fl"></span>
-        <span id="bd_collection" data-status="0" class="collection fl">
+        <span id="shoucang" data-status="0" class="collection fl">
      <div class="fl ico">
       <div class="img"></div>
-     </div> <span class="sp3 fl">收藏</span> <br /> <span class="sp4">0</span></span>
+     </div> <span class="sp3 fl" id="shoucang">收藏</span> <br /> <span class="sp4" id="num">{{$num}}</span></span>
+
+            <script>
+            $('#shoucang').click(function(){
+                var num=$('#num').text();
+
+                $.get('/store',{'vid':{{$data['vid']}}},function(msg){
+
+                    if(msg){
+                        alert('您已经收藏过了!');
+                    }else{
+
+                         num=parseInt(num)+1;
+                        // alert(num);
+                        $('#num').text(num);
+                        
+                        alert('收藏视频成功!');
+                    }
+
+
+                });
+            });
+
+            </script>
+
+
         <span id="bd_phoneshow" class="phone fl">
      <div class="fl ico">
       <div class="img"></div>
-     </div> <span class="sp4">手机更流畅</span><br />
+     </div> <span class="sp4">手机流畅</span><br />
      <div class="qrcode-download">
       <img src="/home/picture/erweima.png" />
       <p>扫描下载最新版客户端</p>
      </div> </span>
         <span data-status="0" class="banana fl">
-     <div class="fl ico">
+    <!--  <div class="fl ico">
       <div class="img"></div>
-     </div> <span class="sp3 fl">投蕉</span> <br /> <span class="sp4">0</span>
+     </div> <span class="sp3 fl">投蕉</span> <br /> <span class="sp4">0</span> -->
      <div class="div-banana">
       <span data-num="1" class="bananaer fl"></span>
       <span data-num="2" class="bananaer fl"></span>
