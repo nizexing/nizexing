@@ -306,7 +306,7 @@
                                    
                                     <span class="clearfix"></span>
                                 </div>
- <p class="aa" style="font-size: 12px;margin: -45px -115px 0px 0px;width: 110px;float: right;">请输入11位电话号码</p>
+                                <p class="aa" style="font-size: 12px;margin: -45px -115px 0px 0px;width: 110px;float: right;">请输入11位电话号码</p>
                                 <div class="area">
                                     <i class="inp-icon icon icon-user"></i>
                                     <input name="name" placeholder="请输入昵称" required="required" class="nickname">
@@ -487,7 +487,7 @@
                            {
                                 var a=$('.aa').css('color');
 
-                                var b=$('.bb').css('color');
+                                // var b=$('.bb').css('color');
 
                                 var c=$('.cc').css('color');
 
@@ -495,7 +495,7 @@
 
                                 var e=$('.ee').css('color');
 
-                                if(a==b && b==c && c==d && d==e)
+                                if(a==c && c==d && d==e)
                                 {
                                     alert('注册成功,马上跳转......');
 

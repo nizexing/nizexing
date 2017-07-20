@@ -70,19 +70,28 @@
 
             <script>
             $('#shoucang').click(function(){
-                var num=$('#num').text();
+
+                
 
                 $.get('/store',{'vid':'{{$data['vid']}}'},function(msg){
 
-                    if(msg){
+                
+                    if(msg=='1'){
+
                         alert('您已经收藏过了!');
-                    }else{
+
+                    }
+                    if(msg=='0'){
+
+                         var num=$('#num').text();
 
                          num=parseInt(num)+1;
-                        // alert(num);
-                        $('#num').text(num);
 
-                        alert('收藏视频成功!');
+                         $('#num').text(num);
+                 
+                        
+                         alert('收藏视频成功!');
+
                     }
 
 
@@ -249,7 +258,7 @@
                     </div>
 
 
-            <!-- 有问题要改 -->
+      <!-- !!!!!! -->
                     <script>
                     $('#submit').click(function(){
                         if(!session('user')){
@@ -355,4 +364,6 @@
 @section('js')
     <script src="{{asset('/home/js/bootstrap.min.js')}}"></script>
 
+
 @endsection
+

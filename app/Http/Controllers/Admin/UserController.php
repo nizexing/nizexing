@@ -265,7 +265,7 @@ class UserController extends Controller
     public function postEditpsws(Request $request)
     {
         $data=$request->except(['_token']);
-        
+
         $user=DB::table('admin')->where('id',$data['id'])->first();
 
         if(   

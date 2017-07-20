@@ -309,6 +309,9 @@
                                 <div class="area">
                                     <i class="inp-icon icon icon-user"></i>
                                     <input name="email" placeholder="请输入注册时的邮箱" class="email">
+                                    @if(session('error'))
+                                        <p>{{session('error')}}</p>
+                                    @endif
                                     <span class="clearfix"></span>
                                 </div>
                         </div>
