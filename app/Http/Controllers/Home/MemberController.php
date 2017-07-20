@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 
 
 use App\Http\Model\Type;
+use App\Http\Model\User_brower;
 use App\Http\Model\User_detail;
 use App\Http\Model\User;
 
@@ -41,12 +42,8 @@ class MemberController extends CommonController
      */
     public function getInfo()
     {
-        if(session('user')){
-            $user = session('user');
-            return view("home.mem.mem",compact('user'));
-        }else{
-            return redirect('/login/login');
-        }
+
+        return redirect('/login/login');
 
     }
 
@@ -350,9 +347,48 @@ class MemberController extends CommonController
         return $video;
     }
 
-    public function getDel($vid)
+
+    public function getCollect()
     {
-        echo $vid;
+
+        return view('home.mem.shoucang');
+    }
+
+    /**
+     *  显示历史页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getHistory()
+    {
+        $video = User_brower::join('video','video.vid','=','user_brower.vid')
+            ->join('type','type.tid','=','video.tid')
+            ->join('user','user.uid','=','user_brower.uid')
+            ->where('user_brower.uid',session('user')['uid'])
+            ->orderBy('user_brower.looktime','desc')
+            ->paginate(5);
+//        dd($video);
+        return view('home.mem.history',compact('video'));
+    }
+
+    public function getDel($id)
+    {
+        if($id == 'all'){
+            $res = User_brower::where('uid',session('user')['uid'])->delete();
+        }else{
+            $res = User_brower::destroy($id);
+        }
+
+        if($res){
+            return [
+                'status'=>200,
+                'msg'=>'删除成功',
+            ];
+        }else{
+            return [
+                'status'=>403,
+                'msg'=>'删除失败',
+            ];
+        }
     }
 
 }
