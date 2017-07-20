@@ -14,14 +14,20 @@ class pinlunController extends Controller
    {     
    	if(session('user')){
 
+
    			//获得评论内容
             $a=$request->except('_token');
 
             $time=time();
 
             $photo=session('user')['photo'];
-
-            DB::table('comment')->insert(['uid'=>$user,'vid'=>$data,'content'=>$a['content'],'							 ctime'=>$time,'photo'=>$photo,'uname'=>$uname]);
+            
+            DB::table('comment')->insert(['uid'=>$user,
+                                          'vid'=>$data,
+                                      'content'=>$a['content'],
+                                        'ctime'=>$time,
+                                        'photo'=>$photo,
+                                        'uname'=>$uname]);
 
             
             return back();

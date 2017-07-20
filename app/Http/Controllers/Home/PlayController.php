@@ -21,6 +21,17 @@ class PlayController extends Controller
         //增加点击量
         $video['click']=$video['click']+1;
 
+        //浏览记录
+        $user=session('user');
+        if($user==null){
+        	return redirect('/login/login');
+        }else{
+        	$looktime=time();
+        	DB::table('user_brower')->insert(['uid'=>$user['uid'],
+        									  'vid'=>$vid,
+        								 'looktime'=>$looktime]);
+        }
+
 
         //将点击量写入视频表中
         DB::table('video')->where('vid',$vid)->update(['click'=>$video['click']]);
@@ -45,13 +56,43 @@ class PlayController extends Controller
 
         $photo=session('user')['photo'];
 
-  
-        return view('home.play.play',compact('data','massge','user','detail','content','photo'));
+  		//获得收藏数
+  		$store=DB::table('user_store')->where('vid',$data['vid'])->get();
+  		$num=count($store);
+
+        return view('home.play.play',compact('data','massge','user','detail','content','photo','num'));
 
 
    }
 
+   //收藏
+   public function store()
+   {
+   		if(session('user'))
+   		{
+   			$userid=session('user')['uid'];
+
+	   		$vid=$_GET['vid'];
+
+	   		$storetime=time();
 
 
+	   		$uid=DB::table('user_store')->where('uid',$userid)->where('vid',$vid)->get();
+
+	   		
+	   			if($uid){
+	   				echo 1;
+	   			}else{
+	   				DB::table('user_store')->insert(['uid'=>$userid,'vid'=>$vid,'storetime'=>$storetime]);
+
+	   				echo 0;
+	   			}
+	   		
+   		}else{
+
+   			return redirect('/login/login');
+   		}
+
+   }
 
 }

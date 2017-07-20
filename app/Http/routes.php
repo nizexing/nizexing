@@ -61,3 +61,5 @@ Route::get('/play/{vid}','Home\PlayController@play');
 Route::controller('/pinlun','Home\pinlunController');
 // 个人中心路由
 Route::controller('/member','Home\MemberController');
+//收藏
+Route::get('/store','Home\PlayController@store');
