@@ -19,7 +19,7 @@ class RankController extends Controller
         return redirect('/admin/login/login')->with('error','请先登录!');
     }
 
-     $data=DB::table('rank')->join('type','rank.tid','=','type.tid')->join('user','rank.uid','=','user.uid')->orderBy('click','desc')->skip(0)->take(20)->paginate(10);
+     $data=DB::table('rank')->join('type','rank.tid','=','type.tid')->join('user','rank.uid','=','user.uid')->orderBy('click','desc')->skip(0)->take(20)->paginate(5);
 
      $type=self::type();
 
@@ -35,7 +35,7 @@ class RankController extends Controller
 
      if($tid=='d')
      {
-        $data=DB::table('rank')->join('user','rank.uid','=','user.uid')->join('type','rank.tid','=','type.tid')->orderBy('dclick','desc')->select('id','tname','name','vid','title','img','dclick')->skip(0)->take(20)->paginate(10);
+        $data=DB::table('rank')->join('user','rank.uid','=','user.uid')->join('type','rank.tid','=','type.tid')->orderBy('dclick','desc')->select('id','tname','name','vid','title','img','dclick')->skip(0)->take(20)->paginate(5);
         
          return view('admin.rank.dclick',compact('data','type'));
      }
@@ -49,7 +49,7 @@ class RankController extends Controller
                                ->select('id','tname','name','vid','title','img','wclick')
                                ->skip(0)
                                ->take(20)
-                               ->paginate(10);
+                               ->paginate(5);
         
          return view('admin.rank.wclick',compact('data','type'));
 
@@ -64,7 +64,7 @@ class RankController extends Controller
                                ->select('id','tname','name','vid','title','img','mclick')
                                ->skip(0)
                                ->take(20)
-                               ->paginate(10);
+                               ->paginate(5);
         
          return view('admin.rank.mclick',compact('data','type'));
      }

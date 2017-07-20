@@ -86,7 +86,7 @@ class LoginController extends Controller
        if($a['tel'] == $c['username'] && $hashc==true && $b==null && $a['code']==session('code'))
       {    
           $tel=DB::table('user')->where('username',$a['tel'])->get()[0];
-
+          
           // 获取详情
           $detail=DB::table('user_detail')->where('uid',$tel['uid'])->first();
 
@@ -109,13 +109,18 @@ class LoginController extends Controller
     public function postData(Request $request)
     {
       $data=$request->except('_token');
-      // dd($data);
+ 
       
       // 通过账号获得用户信息
       $user=DB::table('user')->where('username',$data['user'])->first();
 
       //通过uid查询注册邮箱
       $users=DB::table('user_detail')->where('uid',$user['uid'])->first();
+      
+      if($users['email']==null){
+        return back()->with('error','该邮箱不存在!');
+      }
+
 
       //取出邮箱
       $email=$users['email'];
@@ -140,11 +145,14 @@ class LoginController extends Controller
 
         });
 
-        echo '邮件已发送,请去邮箱点击验证链接,修改密码!!!谢谢!';
 
-      }else{
 
-        return back()->with('error','邮箱不正确!');
+
+        header("refresh:5;url=http://www.nnn.com/login/login");
+          print('邮件已发送,请去邮箱点击验证链接,修改密码!!!谢谢!<br>五秒后自动跳转........');
+
+
+
 
       }
     }
@@ -177,9 +185,9 @@ class LoginController extends Controller
     { 
       $a=$request->except('_token');
 
-      $b=$a['password'];
+      $b=Hash::make($a['password']);
 
-      DB::update('update user set password='.$b.' where username=?',[$a['user']]);
+      $num=DB::table('user')->where('username',$a['user'])->update(['password'=>$b]);
 
       return redirect('/login/login');
     } 

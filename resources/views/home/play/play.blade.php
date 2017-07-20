@@ -229,19 +229,27 @@
 
             <script>
             $('#shoucang').click(function(){
-                var num=$('#num').text();
+
+                
 
                 $.get('/store',{'vid':{{$data['vid']}}},function(msg){
 
-                    if(msg){
+                
+                    if(msg=='1'){
+
                         alert('您已经收藏过了!');
-                    }else{
+
+                    }
+                    if(msg=='0'){
+
+                         var num=$('#num').text();
 
                          num=parseInt(num)+1;
-                        // alert(num);
-                        $('#num').text(num);
+
+                         $('#num').text(num);
+                 
                         
-                        alert('收藏视频成功!');
+                         alert('收藏视频成功!');
                     }
 
 
@@ -408,7 +416,7 @@
                     </div>
 
 
-            <!-- 有问题要改 -->
+      <!-- !!!!!! -->
                     <script>
                     $('#submit').click(function(){
                         if(!session('user')){
@@ -543,10 +551,7 @@
                     <p> <a href="http://www.acfun.cn/feedback/" target="_blank">意见反馈</a> <a href="http://www.acfun.cn/report/" target="_blank">举报</a> <a href="http://www.acfun.cn/about/help" target="_blank" class="mr0">帮助中心</a> <br /> <a href="http://www.acfun.cn/info/#page=disclaimer" target="_blank">免责声明</a> <a href="http://www.acfun.cn/info/#page=agreement" target="_blank">用户协议</a></p>
                 </div>
             </div>
-            <div class="fr no-select footer-avatar-ac">
-                <img src="" width="70" height="61" />
-                <span class="num"></span>
-            </div>
+          
         </div>
         <div class="clearfix footer-link">
             <div class="item-link1">

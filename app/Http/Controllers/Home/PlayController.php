@@ -15,7 +15,7 @@ class PlayController extends Controller
    public function play($vid)
    {    
 
-        //增加视频点击量
+        //获取视频
         $video=DB::table('video')->where('vid',$vid)->get()[0];
 
         //增加点击量
@@ -58,11 +58,10 @@ class PlayController extends Controller
 
   		//获得收藏数
   		$store=DB::table('user_store')->where('vid',$data['vid'])->get();
+
   		$num=count($store);
 
         return view('home.play.play',compact('data','massge','user','detail','content','photo','num'));
-
-
    }
 
    //收藏
@@ -79,13 +78,22 @@ class PlayController extends Controller
 
 	   		$uid=DB::table('user_store')->where('uid',$userid)->where('vid',$vid)->get();
 
-	   		
-	   			if($uid){
-	   				echo 1;
+	   			if($uid!=[]){
+
+	   				return 1;
+	   			
 	   			}else{
+
 	   				DB::table('user_store')->insert(['uid'=>$userid,'vid'=>$vid,'storetime'=>$storetime]);
 
-	   				echo 0;
+	   				$num=DB::table('video')->where('vid',$vid)->get();
+
+	   				$num=$num[0]['collect']+1;
+
+	   				DB::table('video')->where('vid',$vid)->update(['collect'=>$num]);
+
+
+	   				return 0;
 	   			}
 	   		
    		}else{
