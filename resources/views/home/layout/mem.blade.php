@@ -5,6 +5,7 @@
 
 
 @section("area-main")
+
     <div id="area-main-left" class="l">
         <div id="block-user-left" data-active="active">
             {{--照片--}}

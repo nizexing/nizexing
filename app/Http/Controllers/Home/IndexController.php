@@ -34,16 +34,15 @@ class IndexController extends CommonController
         // 获取 各种推荐
         // top 推荐 6 + 猴子推荐 5
 //        $top = self::_get('Tjvideo',6,3);
-        $top = Tjvideo::where('tjstatus',3)->take(6)->get()->all();
+        $top = Tjvideo::where('tjstatus',3)->orderBy('order','desc') ->take(6)->get()->all();
         $top = self::name($top);
-//        dd($top);
-        $top = self::name($top);
-        
-        $monkey = Tjvideo::where('tjstatus',4)->take(5)->get();
+
+
+        $monkey = Tjvideo::where('tjstatus',4)->orderBy('order','desc') ->take(5)->get();
         $monkey = self::name($monkey);
 //        echo time();
         // 轮播图推荐 6
-        $lunbo = Tjvideo::where("tjstatus",2)->take(6)->get();
+        $lunbo = Tjvideo::where("tjstatus",2)->orderBy('order','desc') ->take(6)->get();
         $lunbo = self::name($lunbo);
         // 遍历分类 获取 栏目推荐
         $type = $this -> type;
@@ -57,7 +56,7 @@ class IndexController extends CommonController
                $tmp[] = $vv['tid'];
             }
 //            dump($tmp);
-            $video = Tjvideo::whereIn('tid',$tmp)->where('tjstatus',1)->take(12)->get()->toArray();
+            $video = Tjvideo::whereIn('tid',$tmp)->where('tjstatus',1)->orderBy('order','desc') ->take(12)->get()->toArray();
             $video = self::name($video);
             $tjvideo[$v['tid']] = $video;
            
@@ -81,7 +80,7 @@ class IndexController extends CommonController
         foreach($top as $k=>$v){
             $tmp[] = $v['uid'];
         }
-        $user = User::where('uid',$tmp)->get();
+        $user = User::whereIn('uid',$tmp)->get()->toArray();
         foreach($user as $k=>$v){
             foreach($top as $key=>$value){
                 if($v['uid']==$value['uid']){
@@ -120,20 +119,19 @@ class IndexController extends CommonController
         }
         // whereIn tid 所属分类的视频
 //        $video = $video->whereIn('video.tid',$tids);
-        dd($tids);
         //
 
         // 获取 各种推荐
         // top 推荐 6 + 猴子推荐 5
-        $top = Tjvideo::where('tjstatus',3)->take(6)->get()->all();
+        $top = Tjvideo::where('tjstatus',3)->whereIn('video.tid',$tids)->take(6)->get()->all();
         $top = self::name($top);
+        dd($top);
 
-
-        $monkey = Tjvideo::where('tjstatus',4)->take(5)->get();
+        $monkey = Tjvideo::where('tjstatus',4)->whereIn('video.tid',$tids)->take(5)->get();
         $monkey = self::name($monkey);
 //        echo time();
         // 轮播图推荐 6
-        $lunbo = Tjvideo::where("tjstatus",2)->take(6)->get();
+        $lunbo = Tjvideo::where("tjstatus",2)->whereIn('video.tid',$tids)->take(6)->get();
         $lunbo = self::name($lunbo);
         // 遍历分类 获取 栏目推荐
         $type = $this -> type;

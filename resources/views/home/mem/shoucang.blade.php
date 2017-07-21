@@ -1,5 +1,8 @@
 @extends("home.layout.mem")
 
+@section('css')
+    <link rel="stylesheet" href="{{asset('/home/css/layer.css')}}">
+@endsection
 @section("area-main")
    @parent
                 <div id="area-main-right" class="r">
@@ -72,6 +75,7 @@
 @endsection
 
 @section('js')
+    <script type="text/javascript" src="{{asset('static/layer-v3.0.3/layer/layer.js')}}"></script>
     <script>
         $(function(){
             $('#pager ul>li>*').addClass('pager pager-forces');
@@ -87,7 +91,7 @@
                 var id = $(this).attr('data-id');
                 $.get('{{url('member/collectdel')}}'+'/'+id,function(data){
                     if(data.status==200){
-                        $('#list-favourite-favourite>.item[data-vid='+id+']').hide();
+                        $('#list-favourite-favourite>.item[data-id='+id+']').hide();
                     }
                     layer.msg(data.msg);
 

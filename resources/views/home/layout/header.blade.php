@@ -75,32 +75,21 @@
                 @endif
 
                 <li class="guide-item guide-history">
-                    <a href="{{url('/member/history')}}" target="_blank" class="icon icon-history item"></a>
+                    <a href="{{url('/member/history')}}" title="历史记录" target="_blank" class="icon icon-history item"></a>
 
+                </li>
                 <li class="guide-item guide-upload">
-                    <a href="{{url(asset('/member/video'))}}" target="_blank" class="icon icon-upload item"></a>
-                    <div class="guide-item-con">
-                        <ul>
-                            <li>
-                                <a href="javascript:;" target="_blank">投视频</a></li>
-                            <li>
-                                <a href="javascript:;" target="_blank">投文章</a></li>
-                        </ul>
-                    </div>
+                    <a href="{{url('/member/video')}}" title="投稿视频" target="_blank" class="icon icon-upload item"></a>
+
                 </li>
                 <li class="guide-item">
-                    <a href="javascript:;" target="_blank" class="icon icon-collect item"></a>
+                    <a href="{{url('/member/collect')}}" title="收藏视频" target="_blank" class="icon icon-collect item"></a>
                 </li>
             </ul>
-            <div class="fr download-app">
-                <a href="javascript:;" target="_blank">
-                    <i class="icon icon-app-phone"></i>
-                    <span>下载客户端</span></a>
 
-            </div>
             <div id="search-box" class="fr search-box">
-                <form id="search-form" method="get" action="/list/">
-                    <input id="search-text" type="text" placeholder="【阅后即瞎】这段相声把纽约黑手党老大听哭了" data-url="http://www.acfun.cn/v/ac3810827" value="" autocomplete="off">
+                <form id="search-form" method="get" action="{{url('/search')}}">
+                    <input id="search-text" type="text" placeholder="" name="key"  value="" autocomplete="off">
                     <button id="search-btn" class="search-btn">
                         <i class="icon icon-search"></i>
                         <span>搜索</span></button>
@@ -118,11 +107,7 @@
                 </form>
             </div>
 
-            <div class="gameIcon">
-                <a href="javascript:;" data-id="0" class="fr gamePortal">
-                    <i class="icon icon-youxi"></i>
-                    <span>游戏中心</span></a>
-            </div>
+
         </div>
     </div>
 
@@ -225,7 +210,7 @@
     <!-- width image -->
     <div class="header-banner">
 
-        <a href="http://www.acfun.cn/a/ac3811915" style="background:url({{asset(Config('web.width_image'))}})" title="{{Config('web.width_image_title')}}" target="_blank" class="banner-href"></a>
+        <a href="javascript:;" style="background:url({{asset(Config('web.width_image'))}})" title="{{Config('web.width_image_title')}}" target="_blank" class="banner-href"></a>
 
     </div>
     <!-- width image end -->

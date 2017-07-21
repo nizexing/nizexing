@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <head xmlns="http://www.w3.org/1999/xhtml">
-
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="copyright" content="{{Config('web.copyright')}}">
     <meta name="keywords" content="{{Config('web.keys')}}">
@@ -73,15 +71,15 @@
                 </a>
 
 
-                <a id="a-history-guide" href="/member/#area=history" target="_blank" class="tool">
+                <a id="a-history-guide" href="{{url('/member/history')}}" title="历史记录" target="_blank" class="tool">
                     <i class="icon icon-history"></i>
                     <p>看过</p>
                 </a>
-                <a id="a-post-guide" href="/member/#area=upload-video" target="_blank" class="tool">
+                <a id="a-post-guide" href="{{url('/member/video')}}" title="投稿视频" target="_blank" class="tool">
                   <i class="icon icon-upload"></i>
                     <p>投稿</p>
                 </a>
-                <a id="a-favor-guide" href="/member/#area=favourite" target="_blank" class="tool">
+                <a id="a-favor-guide" href="{{url('/member/collect')}}" title="收藏视频" target="_blank" class="tool">
                     <i class="icon icon-folder-open"></i>
                     <p>收藏</p>
                 </a>
@@ -136,64 +134,69 @@
     <div id="guide-bar">
         <div class="inner">
             <div class="l">
-                <a href="/" title="天下漫友是一家" class="first only">首页</a>
-                <a href="/v/list144/index.htm" class="only">番剧</a>
-                <a href="/v/list1/index.htm" data-channel="anime">动画</a>
-                <a href="/v/list58/index.htm" data-channel="music">音乐</a>
-                <a href="/v/list123/index.htm" data-channel="lsgirl">舞蹈&middot;彼女</a>
+                <a href="{{url('/index')}}" title="天下漫友是一家" class="first only">首页</a>
+                @foreach($type as $v)
+                        <a  href="/v/{{$v['tid']}}/index" tid="{{$v['tid']}}">{{$v['tname']}}</a>
+                @endforeach
 
                 <span class="clearfix"></span>
             </div>
+            <style>
+                #guide #guide-bar .l a {
+                    text-decoration: none;
+                }
+            </style>
             <div class="r">
-                <form id="area-search-guide" target="_blank" method="get" action="/search/">
-                    <input name="query" type="text" placeholder="请输入搜索词" autocomplete="off" x-webkit-speech="" class="ipt-search" />
+                <form id="area-search-guide" target="_blank" method="get" action="{{url('/search')}}">
+                    <input name="key" type="text" placeholder="请输入搜索词" autocomplete="off" x-webkit-speech="" class="ipt-search" />
                     <i class="icon icon-search"></i>
-                    <input type="submit" value="搜 索" title="搜索" class="btn-search" />
+                    <input type="submit" value="搜 索" title="搜索" class="btn-search" style="background:url({{asset('home/images/111.png')}}) 0 0 no-repeat;"/>
                     <span class="clearfix"></span>
                     <ul class="menu menu-search"></ul>
                 </form>
             </div>
-            <span class="clearfix"></span>
+
         </div>
     </div>
     <div id="sub-guide">
         <div id="sub-guide-inner">
-            <div class="unit channel-anime hidden c1 sc2 wc1 swc1">
-                <a href="/v/list106/index.htm">动画短片</a>
-                <a href="/v/list107/index.htm">MAD&middot;AMV</a>
-                <a href="/v/list108/index.htm">MMD&middot;3D</a>
-                <a href="/v/list133/index.htm">2.5次元</a>
-                <a href="/v/list67/index.htm">新番连载</a>
-                <a href="/v/list120/index.htm">国产动画</a>
-                <a href="/v/list109/index.htm">旧番补档</a>
-                <a href="/v/list159/index.htm">动画资讯</a>
-                <span class="clearfix"></span>
-            </div>
-            <div class="unit channel-music hidden c2 sc2 wc1 swc1">
-                <a href="/v/list136/index.htm">原创&middot;翻唱</a>
-                <a href="/v/list137/index.htm">演奏</a>
-                <a href="/v/list103/index.htm">Vocaloid</a>
-                <a href="/v/list138/index.htm">日系音乐</a>
-                <a href="/v/list139/index.htm">综合音乐</a>
-                <a href="/v/list140/index.htm">演唱会</a>
-                <span class="clearfix"></span>
-            </div>
 
-            <div class="unit channel-album hidden c3 sc3 wc3 swc3">
-                <a href="/a/aa5003806">AcFun专题-视频</a>
-                <a href="/a/aa5003830">AcFun专题-文章</a>
-                <span class="clearfix"></span>
-            </div>
-            <div class="unit channel-extra hidden c3 sc3 wc3 swc3">
-                <a href="/rank/" target="_blank">排行榜</a>
-                <a href="https://www.douyu.com/" target="_blank">斗鱼直播</a>
-                <a href="/map/" target="_blank">地图</a>
-                <a href="http://h.nimingban.com" target="_blank">匿名版</a>
-                <span class="clearfix"></span>
-            </div>
+            {{--  二级分类  --}}
+            @foreach($type2 as $k1=>$v1)
+                @if(!empty($v1))
+                    <div class="unit channel-anime c1 sc2 wc1 swc1" style="display:block;" tid="{{$v1[0]['pid']}}">
+
+                        @foreach($v1 as $k2=>$v2)
+                                <a href="{{url('/list/'.$v2['tid'])}}" tid="{{$v2['tid']}}">
+                                    {{$v2['tname']}}
+                                </a>
+                        @endforeach
+                        <span class="clearfix"></span>
+                    </div>
+
+                @endif
+            @endforeach
+            {{-- 二级分类  --}}
+
+
         </div>
     </div>
 </div>
+<script>
+    $(function(){
+
+        $('#guide #guide-bar .l a').mouseover(function(){
+            var tid = $(this).attr('tid');
+            $('#sub-guide-inner>div').hide();
+            $('#sub-guide').addClass('active');
+            $('#sub-guide-inner>div[tid='+tid+']').show();
+        });
+        $('#guide').mouseleave(function(){
+            var tid = $(this).attr('tid');
+            $('#sub-guide-inner>div').hide();
+        });
+    });
+</script>
 
 <div id="header">
     <div id="header-inner" class="inner">
@@ -202,14 +205,7 @@
             <div class="mainer"></div>
         </div>
     </div>
-    <div id="btn-top-shortcut" class="hidden">
-        <a id="feedback" href="/feedback/" target="_blank" class="item feedback">
-            <i class="icon icon-paper-plane"></i>
-            <p class="hint">意见反馈</p></a>
-        <div id="to-top" class="item top">
-            <i class="icon icon-chevron-up"></i>
-            <p class="hint">返回顶部</p></div>
-    </div>
+
 
 
 </div><div id="mainer">

@@ -107,7 +107,7 @@
 
                 $.get('{{url('member/del/all')}}',function(data){
                     if(data.status==200){
-                        $('#list-history').html('<p class="alert">尚未有任何历史</p>');
+                       location.href = location.pathname;
                     }
                     layer.msg(data.msg);
 

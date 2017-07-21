@@ -47,41 +47,7 @@
             <span class="clearfix"></span>
         </div>
         <div class="bottom-footer">
-            <ul id="explain">
-                <li>
-                    <p class="report">
-                        <span class="reportImg"></span>
-                        <a href="http://www.12377.cn/" target="_blank">中国互联网举报中心</a></p>
-                    <p class="inter">
-                        <span class="reportImg"></span>
-                        <span>网络文化经营单位</span></p>
-                    <p class="public">
-                        <span class="reportImg"></span>
-                        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032340" target="_blank">京公网安备 11010502032340号</a></p>
-                </li>
-                <li>
-                    <p>
-                        <span>京ICP备15067359号</span></p>
-                    <p>
-                        <a href="http://www.bjjubao.org/" target="_blank">北京互联网举报中心</a></p>
-                    <p>
-                        <a href="http://www.bjwhzf.gov.cn/accuse.do" target="_blank">北京12318文化市场举报热线</a></p>
-                </li>
-                <li>
-                    <p>
-                        <span>节目制作经营许可证（京）字第05158号</span></p>
-                    <p>
-                        <a href="http://www.bj.cyberpolice.cn/index.jsp" target="_blank">网络110报警服务</a></p>
-                </li>
-                <li>
-                    <p>
-                        <a href="//www.miitbeian.gov.cn/" target="_blank">京ICP证161323号</a></p>
-                    <p>
-                        <a href="/about/qualification" target="_blank">京网文[2016]0948-099号</a></p>
-                    <p class="hidden"></p>
-                </li>
-                <div style="clear:both"></div>
-            </ul>
+
             <a id="a-logo-footer" href="/"></a>
             <p>{{Config('web.copyright')}}  保留所有权利</p>
             <p id="hint-time-released" data-time="2017.7.3 14:50:12" class="hidden">Released at 2017.7.3 14:50:12.</p></div>

@@ -26,14 +26,11 @@ class MemberController extends CommonController
 {
     public function __construct()
     {
-        parent::__construct();
-        if(!session('user')){
-            return redirect('/login/login');
-        }
+
         $user = session('user');
 
         view() -> share('user',$user);
-
+        parent::__construct();
     }
     /**
      * 用户个人中心页
@@ -43,7 +40,6 @@ class MemberController extends CommonController
      */
     public function getInfo()
     {
-
         return view('home.mem.mem');
     }
 
@@ -373,9 +369,15 @@ class MemberController extends CommonController
         $video = $video->where('user_store.uid',session('user')['uid'])
             ->orderBy('user_store.storetime','desc')
             ->paginate(5);
+
         return view('home.mem.shoucang',compact('video'));
     }
 
+    /**
+     * 删除收藏
+     * @param $id
+     * @return array
+     */
     public function getCollectdel($id)
     {
 
