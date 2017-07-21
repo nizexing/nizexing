@@ -302,13 +302,13 @@
                                 <div class="area">
                                     <i class="inp-icon icon icon-mobile"></i>
                                     <input name="user" type="text" placeholder="请输入注册时的账号"  value="" class="user"> 
-                                   <p class="massage" style="width: 150px;color: red;margin:0px 0px 0px 0px"></p>
+                                   <p class="massage" style="width: 180px;color: red;margin:0px 0px 0px 0px"></p>
                                     <span class="clearfix"></span>
                                 </div>
                                 <p class="aa" style="font-size: 12px;margin: -45px -115px 0px 0px;width: 110px;float: right;"></p>
                                 <div class="area">
                                     <i class="inp-icon icon icon-user"></i>
-                                    <input name="email" placeholder="请输入注册时的邮箱" class="email">
+                                    <input name="email" placeholder="请输入注册时的邮箱" class="email" required>
                                     @if(session('error'))
                                         <p>{{session('error')}}</p>
                                     @endif
@@ -324,10 +324,14 @@
                         $('.user').blur(function(){
 
                             var user=$(this).val();
-                            $.get('/login/user',{'user':user},function(msg){
+                            if(user==''){
+                                $('.massage').text('账号不能为空!');
+                            }else{
+                                $.get('/login/user',{'user':user},function(msg){
 
                                 $('.massage').text(msg);
                             });
+                            }
 
                         });
                       
