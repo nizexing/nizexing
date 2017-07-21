@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Home;
 
 
 use App\Http\Model\Type;
+use App\Http\Model\User_brower;
 use App\Http\Model\User_detail;
 use App\Http\Model\User;
 
 
+use App\Http\Model\User_store;
 use App\Http\Model\Video;
 use Barryvdh\Debugbar\Middleware\Debugbar;
 
@@ -24,14 +26,11 @@ class MemberController extends CommonController
 {
     public function __construct()
     {
-        parent::__construct();
-        if(!session('user')){
-            return redirect('/login/login');
-        }
+
         $user = session('user');
 
         view() -> share('user',$user);
-
+        parent::__construct();
     }
     /**
      * 用户个人中心页
@@ -41,13 +40,7 @@ class MemberController extends CommonController
      */
     public function getInfo()
     {
-        if(session('user')){
-            $user = session('user');
-            return view("home.mem.mem",compact('user'));
-        }else{
-            return redirect('/login/login');
-        }
-
+        return view('home.mem.mem');
     }
 
     /**
@@ -64,10 +57,8 @@ class MemberController extends CommonController
         $data2 = $request -> except("uid","_token","province","city",'photo');
         $data2["address"] = $data['province'].'-'.$data['city'];
 
-        $data2['photo'] = $data2['upload_path'];
-        $data2['photo'] = trim($data2['photo'],'/');
 
-        unset($data2['upload_path']);
+
         foreach($data2 as $k=>$v){
             if($v==''){
                 unset($data2[$k]);
@@ -130,8 +121,8 @@ class MemberController extends CommonController
      */
     public function getVideo()
     {
-        $user = session('user');
-        return view("home.mem.video",compact('user'));
+
+        return view("home.mem.video");
     }
 
     /**
@@ -350,9 +341,102 @@ class MemberController extends CommonController
         return $video;
     }
 
-    public function getDel($vid)
+    /**
+     *  显示收藏页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getCollect(Request $request)
     {
-        echo $vid;
+
+        $video = User_store::join('video','video.vid','=','user_store.vid')
+            ->join('type','type.tid','=','video.tid')
+            ->join('user','user.uid','=','user_store.uid')
+            ->join('video_detail','video.vid','=','video_detail.vid');
+        // tid 分类有的话
+        if(Input::get('tid')){
+            $tid = Input::get('tid');
+            if($tid != "all"){
+                $tids = Type::where('pid',Input::get('tid'))->select('tid')->get()->toArray();
+                foreach($tids as $k=>$v){
+                    $tids[$k] = $v['tid'];
+                }
+                // whereIn tid 所属分类的视频
+                $video = $video
+                    ->whereIn('video.tid',$tids);
+            }
+
+        }
+        $video = $video->where('user_store.uid',session('user')['uid'])
+            ->orderBy('user_store.storetime','desc')
+            ->paginate(5);
+
+        return view('home.mem.shoucang',compact('video'));
+    }
+
+    /**
+     * 删除收藏
+     * @param $id
+     * @return array
+     */
+    public function getCollectdel($id)
+    {
+
+            $res = User_store::destroy($id);
+
+
+        if($res){
+            return [
+                'status'=>200,
+                'msg'=>'删除成功',
+            ];
+        }else{
+            return [
+                'status'=>403,
+                'msg'=>'删除失败',
+            ];
+        }
+    }
+
+    /**
+     *  显示历史页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getHistory()
+    {
+        $video = User_brower::join('video','video.vid','=','user_brower.vid')
+            ->join('type','type.tid','=','video.tid')
+            ->join('user','user.uid','=','user_brower.uid')
+            ->where('user_brower.uid',session('user')['uid'])
+            ->orderBy('user_brower.looktime','desc')
+            ->paginate(5);
+
+        return view('home.mem.history',compact('video'));
+    }
+
+    /**
+     * 历史记录删除
+     * @param $id
+     * @return array
+     */
+    public function getDel($id)
+    {
+        if($id == 'all'){
+            $res = User_brower::where('uid',session('user')['uid'])->delete();
+        }else{
+            $res = User_brower::destroy($id);
+        }
+
+        if($res){
+            return [
+                'status'=>200,
+                'msg'=>'删除成功',
+            ];
+        }else{
+            return [
+                'status'=>403,
+                'msg'=>'删除失败',
+            ];
+        }
     }
 
 }

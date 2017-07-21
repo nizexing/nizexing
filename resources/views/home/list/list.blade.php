@@ -21,39 +21,16 @@
                             <a href="{{url('/v/'.$vtype['pid'].'/index')}}" data-cid="123">本区推荐</a></li>
                        {{--本级分类--}}
                         @foreach($types as $k=>$v)
-                        <li class="active">
+                        <li class="@if($v['tid']==$tid)
+                                active
+@endif">
                             <a href="{{url('/list/'.$v['tid'])}}" data-cid="135">{{$v['tname']}}</a></li>
                         @endforeach
                     </ul>
                 </div>
             </div>
         </nav>
-        <section id="list-label" class="wp no-select">
-            <div class="top-title">
-            <span>
-                <i class="icon icon-label"></i>热门标签
-                <b class="notes">点击可以查看标签下本区内容</b></span>
-            </div>
-            <div class="labels">
-                <a href="javascript:;" data-tag="" class="active">全部</a>
-                <a href="javascript:;" data-tag="24398">汉服</a>
-                <a href="javascript:;" data-tag="533">原创</a>
-                <a href="javascript:;" data-tag="1038455">breaking街舞</a>
-                <a href="javascript:;" data-tag="4879">古风</a>
-                <a href="javascript:;" data-tag="3377">街舞</a>
-                <a href="javascript:;" data-tag="140383">韩舞</a>
-                <a href="javascript:;" data-tag="7481">日韩</a>
-                <a href="javascript:;" data-tag="394407">1M</a>
-                <a href="javascript:;" data-tag="115884">LOCKING</a>
-                <a href="javascript:;" data-tag="201533">古典舞</a>
-                <a href="javascript:;" data-tag="141599">街头文化</a>
-                <a href="javascript:;" data-tag="15994">JAZZ</a>
-                <a href="javascript:;" data-tag="5766">中国风</a>
-                <a href="javascript:;" data-tag="107923">popping</a>
-                <a href="javascript:;" data-tag="2489">HIPHOP</a>
-                <a href="javascript:;" data-tag="112892">编舞</a>
-                <a href="javascript:;" data-tag="15443">机械舞</a></div>
-        </section>
+
         <section class="wp clearfix column-box third-height">
             <div class="column-left">
                 <header class="clearfix">
@@ -61,7 +38,7 @@
                         <a href="javascript:;" data-nav="0" class="no-select active">最新发布</a>
                         <a href="javascript:;" data-nav="1" class="no-select">播放最多</a>
                         <a href="javascript:;" data-nav="2" class="no-select">评论最多</a>
-                        <a href="javascript:;" data-nav="3" class="no-select">弹幕最多</a></div>
+                    </div>
 
                     <span id="third-view" class="fr">
                     <a title="点击切换为双列显示" data-th="th-large" class="th-large">

@@ -34,9 +34,10 @@ class CommonController extends Controller
        view() -> share('type',$type);
        view() -> share('type2',$type2);
 
-
-
        $this -> type = $type;
+
+
+       // 页尾 友情链接  
    }
 
 }

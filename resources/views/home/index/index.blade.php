@@ -3,7 +3,6 @@
 @section('css')
     <link rel="stylesheet" href="{{asset('/static/css/core.min.css')}}">
     <link rel="stylesheet" href="{{asset('/static/css/index.min.css')}}">
-
 @endsection
 @section("main")
     <!-- main start -->
@@ -31,101 +30,26 @@
                 <ul m-id="302" m-name="小图综合推荐" m-type="2" class="slider-small">
 
                     @foreach($top as $k=>$v)
-                    <li style="float:left;">
-                        <a href="{{ url('/play/'.$v['vid']) }}" target="_blank">
-                            <img src="{{asset($v['img'])}}" width="216" height="120" /></a>>
-                    </li>
+
+                        <li>
+                            <a href="{{ url('/play/'.$v['vid']) }}" target="_blank">
+                                <img src="{{asset($v['img'])}}" width="216" height="120">
+                                <div class="mask-gradient mask">
+                                    <b>{{$v['title']}}</b>
+                                    <p class="text-overflow">
+                                        <span>UP: {{$v['name']}}</span>
+                                        <span class="clearfix">
+                                            <i class="icon icon-view-player">{{$v['click']}}</i>
+                                            <i class="icon icon-danmu">{{$v['comment']}}</i></span>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
                     @endforeach
                 </ul>
             </div>
             <div class="area-ad-right"></div>
         </section>
-        {{--<section b-id="2" b-name="【2】猴子推荐" b-type="2" class="wp area area-monkey">--}}
-            {{--<header class="clearfix area-header">--}}
-                {{--<h3 class="fl area-title has-subtitle">--}}
-                    {{--<img src="/static/picture/1.gif"  width="40" height="40" class="fl" />--}}
-                    {{--<b>猴子推荐</b>--}}
-                    {{--<p>十分好评快来看啦</p>--}}
-                {{--</h3>--}}
-            {{--</header>--}}
-            {{--<div class="clearfix column-box area-main">--}}
-                {{--<div class="column-left">--}}
-                    {{--<div m-id="4" m-name="猴子推荐" m-type="3" class="clearfix crop-margin">--}}
-                        {{--<figure class="fl block-box block-video  no-animate">--}}
-                            {{--<a href="/v/ac3799822" data-did="5323427" target="_blank" class="block-img has-danmu">--}}
-                                {{--<img src="/static/picture/1.png" data-original="http://imgs.aixifan.com/content/2017_06_22/1498114087.jpg?imageView2/1/w/320/h/180" width="100%" height="100%" />--}}
-                                {{--<time>2:51</time></a>--}}
-                            {{--<figcaption class="block-title">--}}
-                                {{--<b>--}}
-                                    {{--<a href="/v/ac3799822" target="_blank" title="神展开！技术宅VS杀手的误会&#13;UP:超级赵山河&#13;发布于2017-06-22 14:57:12&#160;/&#160;点击:9759&#160;/&#160;评论:38">神展开！技术宅VS杀手的误会</a></b>--}}
-                                {{--<p class="clearfix">--}}
-                                        {{--<span class="up fl text-overflow">--}}
-                                            {{--<a href="http://www.acfun.cn/u/11702364.aspx" target="_blank" title="超级赵山河">UP: 超级赵山河</a></span>--}}
-                                    {{--<span class="fr">5 天前</span></p>--}}
-                            {{--</figcaption>--}}
-                        {{--</figure>--}}
-                        {{--<figure class="fl block-box block-video  no-animate">--}}
-                            {{--<a href="/v/ac3808955" data-did="5341131" target="_blank" class="block-img has-danmu">--}}
-                                {{--<img src="/static/picture/1.png" data-original="http://imgs.aixifan.com/content/2017_06_26/1498443057.gif?imageView2/1/w/320/h/180" width="100%" height="100%" />--}}
-                                {{--<time>5:37</time></a>--}}
-                            {{--<figcaption class="block-title">--}}
-                                {{--<b>--}}
-                                    {{--<a href="/v/ac3808955" target="_blank" title="速看奈克瑟斯奥特曼前传&#13;UP:修车工阿宾&#13;发布于2017-06-26 10:13:22&#160;/&#160;点击:24308&#160;/&#160;评论:16">速看奈克瑟斯奥特曼前传</a></b>--}}
-                                {{--<p class="clearfix">--}}
-                                        {{--<span class="up fl text-overflow">--}}
-                                            {{--<a href="http://www.acfun.cn/u/11450541.aspx" target="_blank" title="修车工阿宾">UP: 修车工阿宾</a></span>--}}
-                                    {{--<span class="fr">1 天前</span></p>--}}
-                            {{--</figcaption>--}}
-                        {{--</figure>--}}
-                        {{--<figure class="fl block-box block-video  no-animate">--}}
-                            {{--<a href="/v/ac3807500" data-did="5338295" target="_blank" class="block-img has-danmu">--}}
-                                {{--<img src="/static/picture/1.png" data-original="http://imgs.aixifan.com/cms/2017_06_27/1498527687403.jpg?imageView2/1/w/320/h/180" width="100%" height="100%" />--}}
-                                {{--<time>11:54</time></a>--}}
-                            {{--<figcaption class="block-title">--}}
-                                {{--<b>--}}
-                                    {{--<a href="/v/ac3807500" target="_blank" title="午时已到 沃斯卡亚回转寿司&#13;UP:天天卡牌&#13;发布于2017-06-25 15:26:01&#160;/&#160;点击:68754&#160;/&#160;评论:69">午时已到 沃斯卡亚回转寿司</a></b>--}}
-                                {{--<p class="clearfix">--}}
-                                        {{--<span class="up fl text-overflow">--}}
-                                            {{--<a href="http://www.acfun.cn/u/1059146.aspx" target="_blank" title="天天卡牌">UP: 天天卡牌</a></span>--}}
-                                    {{--<span class="fr">2 天前</span></p>--}}
-                            {{--</figcaption>--}}
-                        {{--</figure>--}}
-                        {{--<figure class="fl block-box block-video  no-animate">--}}
-                            {{--<a href="/v/ac3808647" data-did="5340485" target="_blank" class="block-img has-danmu">--}}
-                                {{--<img src="/static/picture/1.png" data-original="http://imgs.aixifan.com/content/2017_06_25/1498410181.JPG?imageView2/1/w/320/h/180" width="100%" height="100%" />--}}
-                                {{--<time>39:42</time></a>--}}
-                            {{--<figcaption class="block-title">--}}
-                                {{--<b>--}}
-                                    {{--<a href="/v/ac3808647" target="_blank" title="锻刀大赛 S04E06阿克雷芬娜&#13;UP:_巡城马&#13;发布于2017-06-26 02:29:49&#160;/&#160;点击:10659&#160;/&#160;评论:8">锻刀大赛 S04E06阿克雷芬娜</a></b>--}}
-                                {{--<p class="clearfix">--}}
-                                        {{--<span class="up fl text-overflow">--}}
-                                            {{--<a href="http://www.acfun.cn/u/4320172.aspx" target="_blank" title="_巡城马">UP: _巡城马</a></span>--}}
-                                    {{--<span class="fr">2 天前</span></p>--}}
-                            {{--</figcaption>--}}
-                        {{--</figure>--}}
-                        {{--<figure class="fl block-box block-video  no-animate">--}}
-                            {{--<a href="/v/ac3807803" data-did="5338344" target="_blank" class="block-img has-danmu">--}}
-                                {{--<img src="/static/picture/1.png" data-original="http://imgs.aixifan.com/content/2017_06_25/1498365703.gif?imageView2/1/w/320/h/180" width="100%" height="100%" />--}}
-                                {{--<time>15:30</time></a>--}}
-                            {{--<figcaption class="block-title">--}}
-                                {{--<b>--}}
-                                    {{--<a href="/v/ac3807803" target="_blank" title="《不义联盟2》全人物大招演示&#13;UP:ND无双鬼&#13;发布于2017-06-25 18:09:18&#160;/&#160;点击:113788&#160;/&#160;评论:91">《不义联盟2》全人物大招演示</a></b>--}}
-                                {{--<p class="clearfix">--}}
-                                        {{--<span class="up fl text-overflow">--}}
-                                            {{--<a href="http://www.acfun.cn/u/1400654.aspx" target="_blank" title="ND无双鬼">UP: ND无双鬼</a></span>--}}
-                                    {{--<span class="fr">2 天前</span></p>--}}
-                            {{--</figcaption>--}}
-                        {{--</figure>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="column-right">--}}
-                    {{--<div m-id="5" m-name="活动位" m-type="5" class="pic-box">--}}
-                        {{--<a href="#" target="_blank">--}}
-                            {{--<img src="/static/picture/1498533574666.png"width="260" height="128" /></a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</section>--}}
 
 
         @foreach($type as $k=>$v)
@@ -136,9 +60,9 @@
                     <!-- 双图广告 -->
                         <div b-id="9" b-name="【10】双图广告" b-type="8" class="area area-ad">
                             <div class="wp clearfix">
-                                <a href="/a/aa5014441" target="_blank" m-id="40" class="fl">
+                                <a href="" target="_blank" m-id="40" class="fl">
                                     <img src="{{asset($adver[0]['img'])}}"  /></a>
-                                <a href="/a/aa5006067" target="_blank" m-id="41" class="fr">
+                                <a href="" target="_blank" m-id="41" class="fr">
                                     <img src="{{asset($adver[1]['img'])}}"/></a>
                             </div>
                         </div>
@@ -154,11 +78,7 @@
                                         <b>
                                             <a href="javascript:;" target="_blank">{{$v['tname']}}</a></b>
                                     </h3>
-                                    <div id="area-change-btn60" class="fl no-select area-change-btn">
-                            <span>
-                                <i class="icon icon-loading"></i>
-                                <em>换一批</em></span>
-                                        <!--.point 弹幕飙升最快的视频会出现在这里--></div>
+
                                     <a href="/list/{{$v['tid']}}" target="_blank" class="fr area-more">
                                         <span>更多</span>
                                         <i class="icon icon-arrow-slim-right"></i>
@@ -182,7 +102,7 @@
                                     <div m-id="14" m-name="大图视频推荐" m-type="7" class="fl module module-video-big">
                                         <a href="{{url('/play/'.$tjvideo[$v['tid']][0]['vid'])}}" target="_blank"  class="mask-video has-danmu">
                                             <img src="{{$tjvideo[$v['tid']][0]['img']}}"  width="340" height="240" />
-                                            {{--<time>4:45</time>--}}
+
                                             <span class="mask-video-icon">
                                     <i class="icon icon-triangle-right"></i>
                                 </span>
@@ -202,7 +122,7 @@
                                                 <figure class="fl block-box block-video @if($value['upload_time']<(time()-3600*24*7)) is-recommend @endif">
                                                     <a href="{{url('/play/'.$value['vid'])}}" data-did="5344456" target="_blank" class="block-img has-danmu">
                                                         <img src="{{asset($value['img'])}}" width="100%" height="100%" />
-                                                        <time>2:14</time>
+
                                                         <i>@if($value['upload_time']<(time()-3600*24*7))推荐 @endif</i>
                                                     </a>
                                                     <figcaption class="block-title">
@@ -213,7 +133,7 @@
                                                         </b>
                                                         <p class="clearfix">
                                                             <span class="icon icon-view-player">{{$value['click']}}</span>
-                                                            <span class="icon icon-danmu">$value['comment']</span></p>
+                                                            <span class="icon icon-danmu">{{$value['comment']}}</span></p>
                                                     </figcaption>
                                                 </figure>
                                             @endif
@@ -229,18 +149,17 @@
                                     <header class="clearfix module-header">
                                         <div class="fl module-title">
                                             <b>
-                                                <a href="{{url('/rank/'.$v['tid'])}}" target="_blank" title="{{$v['tname']}}排行榜">
+                                                <a href="javascript:;" target="_blank" title="{{$v['tname']}}排行榜">
                                                     {{$v['tname']}}排行榜
                                                 </a>
                                             </b>
                                         </div>
-                                        <div class="fr module-tab">
-                                            <a href="javascript:;" data-nav="1" class="active">日榜</a>
-                                            <a href="javascript:;" data-nav="2">周榜</a></div>
+
                                     </header>
                                     <div m-id="17" m-name="排行榜" m-type="17" class="module-main">
                                         <div class="module-con">
                                             <ul data-con="1">
+
                                                 <li class="has-img">
                                         <span>
                                             <i>1</i>
@@ -297,36 +216,7 @@
                                             <i>4</i>
                                         </span>
                                                     <a href="/v/ac3810558" title="名著村版《深夜食堂》你一定没看过&#13;UP:大蝈小酱&#13;发布于2017-06-26 19:16:01&#160;/&#160;点击：11.8万&#160;/&#160;评论：66" target="_blank">名著村版《深夜食堂》你一定没看过</a></li>
-                                                <li>
-                                        <span>
-                                            <i>5</i>
-                                        </span>
-                                                    <a href="/v/ac3810763" title="撩妹神技，屡试不爽！！！&#13;UP:字幕菌生活&#13;发布于2017-06-26 20:49:46&#160;/&#160;点击：86637&#160;/&#160;评论：0" target="_blank">撩妹神技，屡试不爽！！！</a></li>
-                                                <li>
-                                        <span>
-                                            <i>6</i>
-                                        </span>
-                                                    <a href="/v/ac3810790" title="【九筒封神榜】深夜足道之刀疤老板的故事&#13;UP:九筒空间站&#13;发布于2017-06-26 20:58:02&#160;/&#160;点击：78289&#160;/&#160;评论：103" target="_blank">【九筒封神榜】深夜足道之刀疤老板的故事</a></li>
-                                                <li>
-                                        <span>
-                                            <i>7</i>
-                                        </span>
-                                                    <a href="/v/ac3810451" title="【serpentza】在中国吃早餐很惊人？老外说中国各地早餐都差不多…&#13;UP:字幕菌生活&#13;发布于2017-06-26 18:32:01&#160;/&#160;点击：71198&#160;/&#160;评论：183" target="_blank">【serpentza】在中国吃早餐很惊人？老外说中国各地早餐都差不多…</a></li>
-                                                <li>
-                                        <span>
-                                            <i>8</i>
-                                        </span>
-                                                    <a href="/v/ac3810489" title="【街头小吃】鸡翅包饭&#13;UP:福尔磨牙&#13;发布于2017-06-26 18:46:10&#160;/&#160;点击：56124&#160;/&#160;评论：57" target="_blank">【街头小吃】鸡翅包饭</a></li>
-                                                <li>
-                                        <span>
-                                            <i>9</i>
-                                        </span>
-                                                    <a href="/v/ac3810180" title="大师你念得这经怎么这么耳熟呢？&#13;UP:肖宇源U&#13;发布于2017-06-26 17:14:27&#160;/&#160;点击：50356&#160;/&#160;评论：40" target="_blank">大师你念得这经怎么这么耳熟呢？</a></li>
-                                                <li>
-                                        <span>
-                                            <i>10</i>
-                                        </span>
-                                                    <a href="/v/ac3810971" title="广西车神叛逆少年之夺命125 第十一章来辣！！童年回忆杀&#13;UP:比尔的兔子&#13;发布于2017-06-26 22:22:52&#160;/&#160;点击：22601&#160;/&#160;评论：14" target="_blank">广西车神叛逆少年之夺命125 第十一章来辣！！童年回忆杀</a></li>
+
                                             </ul>
                                             <ul data-con="2" class="hidden">
                                                 <li class="has-img">
@@ -418,10 +308,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <footer class="module-footer">
-                                        <a href="/rank/list/#cid=60;range=1" target="_blank" class="more">查看完整榜单
-                                            <i class="icon icon-arrow-slim-right"></i></a>
-                                    </footer>
+
                                 </section>
                             </div>
                         </section>
@@ -437,11 +324,7 @@
                                         <b>
                                             <a href="javascript:;" target="_blank">{{$v['tname']}}</a></b>
                                     </h3>
-                                    <div id="area-change-btn68" class="fl no-select area-change-btn">
-                            <span>
-                                <i class="icon icon-loading"></i>
-                                <em>换一批</em></span>
-                                        <!--.point 弹幕飙升最快的视频会出现在这里--></div>
+
                                     <a href="{{url('/list/'.$v['tid'])}}" target="_blank" class="fr area-more">
                                         <span>更多</span>
                                         <i class="icon icon-arrow-slim-right"></i>
@@ -456,7 +339,6 @@
                                                 <figure class="fl block-box block-video @if($value['upload_time']<(time()-3600*24*7)) is-recommend @endif">
                                                     <a href="{{url('/play/'.$value['vid'])}}" data-did="5344456" target="_blank" class="block-img has-danmu">
                                                         <img src="{{asset($value['img'])}}" width="100%" height="100%" />
-                                                        <time>2:14</time>
                                                         <i>@if($value['upload_time']<(time()-3600*24*7))推荐 @endif</i>
                                                     </a>
                                                     <figcaption class="block-title">
@@ -467,7 +349,7 @@
                                                         </b>
                                                         <p class="clearfix">
                                                             <span class="icon icon-view-player">{{$value['click']}}</span>
-                                                            <span class="icon icon-danmu">$value['comment']</span></p>
+                                                            <span class="icon icon-danmu">{{$value['comment']}}</span></p>
                                                     </figcaption>
                                                 </figure>
                                             @endif
@@ -635,4 +517,7 @@
 
 
     </div>
+@endsection
+@section('js')
+    <script src="{{asset('/static/js/aq_auth.js')}}"></script>
 @endsection

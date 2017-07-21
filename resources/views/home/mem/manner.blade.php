@@ -72,8 +72,7 @@
                                     </button>
                                 </div>
                                 <span class="clearfix"></span>
-                            </div>
-                                @endforeach
+                            </div>@endforeach
                              @else
                                 <p class="alert">尚未有任何投稿。</p>
                              @endif
@@ -96,13 +95,7 @@
                                 $('#list-manage-manage').html(data);
                             });
                         });
-                        $('.inner').hover(function(){
-                            var nu = $(this).index();
-                            $('.block-manage').eq(nu).show();
-                        },function(){
-                            var nu = $(this).index();
-                            $('.block-manage').eq(nu).hide();
-                        });
+
                     })
 
 

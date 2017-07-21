@@ -51,6 +51,8 @@ Route::get('/v/{tid}/index','Home\IndexController@vindex');
 Route::get('/list/{key}','Home\ListController@vlist');
 // 注册路由
 Route::controller('/reg','Home\RegController');
+// 搜索路由
+Route::get('/search','Home\SearchController@search');
 //验证码
 Route::get('/code','codeController@code');
 // 登录路由
@@ -60,6 +62,8 @@ Route::get('/play/{vid}','Home\PlayController@play');
 //评论管理
 Route::controller('/pinlun','Home\pinlunController');
 // 个人中心路由
-Route::controller('/member','Home\MemberController');
+Route::group(['middleware'=>'member'],function() {
+    Route::controller('/member', 'Home\MemberController');
+});
 //收藏
 Route::get('/store','Home\PlayController@store');

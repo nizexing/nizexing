@@ -5,6 +5,7 @@
 
 
 @section("area-main")
+
     <div id="area-main-left" class="l">
         <div id="block-user-left" data-active="active">
             {{--照片--}}
@@ -44,7 +45,7 @@
                         <i class="icon"></i>视频投稿</a>
 
                     <a href="{{url('member/manner')}}" class="tab">
-                        <i class="icon"></i>视频管理</a>
+                        <i class="icon"></i>过往投稿</a>
                 </div>
             </div>
             <script>
@@ -67,12 +68,15 @@
             <div class="part-guide-left">
                 <div class="banner">
                     <a href="{{asset('member/info')}}" class="tab fixed">
-                        <i class="icon-config"></i>编辑资料</a>
+                        <i class="icon icon-cog"></i>编辑资料</a>
                     <span id="hint-setting-left" class="hidden">0</span></div>
             </div>
 
         </div>
     </div>
+
+@show
+@section('area')
 
 @show
 
