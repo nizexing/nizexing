@@ -23,29 +23,30 @@ class RegController extends Controller
         $user=DB::table('user')->where('username',$data['name'])->first();
         $tel=DB::table('user')->where('tel',$data['tel'])->first();
 
-        if($user || $tel)
+        if($user!=null || $tel!=null)
         {
+       
             return back()->with('error','账号或电话已被使用!,请重新注册!');
 
         }else{
 
+
+
             $regtime=time();
 
             $data['password']=Hash::make($data['password']);
-            // dd($data);
-             $num=DB::table('user')->insertGetId(['tel'=>$data['tel'],
+           
+            $num=DB::table('user')->insertGetId(['tel'=>$data['tel'],
                                              'username'=>$data['name'],
                                              'password'=>$data['password'],
                                               'regtime'=>$regtime]);
 
 
-             if($num){
-                         DB::table('user_detail')->insert(['uid'=>$num['uid']]);
-                          return redirect('/login/login');
-                    }else{
+           
+            $user=DB::table('user_detail')->insert(['uid'=>$num]);
 
-                        return back();
-        }
+            return redirect('/login/login');
+
         }
 
        
@@ -67,10 +68,16 @@ class RegController extends Controller
        return $a;
     }
 
-    // ajax  发送验证码
+    // ajax  发送验证码 
     public function getCode()
     {
-        echo session('code');
+        $code=$_GET['code'];
+
+        if($code==session('code')){
+          echo 1;
+        }else{
+          echo 0;
+        }
     }
     //ajax      判断用户名是否被注册
     public function getName()

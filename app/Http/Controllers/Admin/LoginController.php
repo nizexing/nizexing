@@ -44,7 +44,7 @@ class LoginController extends Controller
             // 先存入闪存
             $request->flash();
 
-            //校验账号获得校验结果
+            //校验管理员账号获得校验结果
             $b=DB::table('admin')->where('adminname',$a['user'])->first();
 
             if($b==null)
@@ -76,6 +76,10 @@ class LoginController extends Controller
               if($hashPassword==true && $a['yanzm']==session('code'))
               {
                 Session(['admin'=>$b['adminname']]);
+
+                $time=time();
+
+                DB::table('admin')->where('id',$b['id'])->update(['lastlogtime'=>$time]);
 
                 return redirect('/admin/admin/index');
               }

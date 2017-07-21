@@ -13,15 +13,14 @@ class AdminController extends Controller
    //显示后台主页
    public function getIndex()
    {	
-   	if(session('admin'))
-   		{
+      $admin=session('admin');
 
-			return view('/config/index');
+      $admins=DB::table('admin')->where('adminname',$admin)->first();
 
-   		}else{
+      $lastlogtime=date('Y年m月d日 H时i分s秒',$admins['lastlogtime']);
+      
+			return view('/config/index',compact('lastlogtime'));
 
-   			return redirect('/admin/login/login')->with('error','请先登录!');
-   		}
         
    }
 
@@ -153,8 +152,175 @@ class AdminController extends Controller
       return redirect('admin/admin/admin');
     }
 
+    //权限添加表单
+    public function getAuth()
+    {
+      return view('admin.auth.auth');
+    }
+
+    //接收权限分配
+    public function postAuths(Request $request)
+    {
+      // 获取传输过来的分配的角色
+      $data=$request->except('_token');
+
+      //获取权限的ID
+      $auth=DB::table('auth')->insertGetId(['urlname'=>$data['authurl'],'urldesc'=>$data['authname']]);
+
+      //获取角色分配给谁
+      $a=in_array('1',$data['auth']);  //金
+      $b=in_array('2',$data['auth']);  //银
+      $c=in_array('3',$data['auth']);  //铜
+
+     if($a)
+     {
+        if($b)
+        {
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
+        }
+
+        if($c)
+        {
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
+        }
+
+        if($b && $c)
+        {
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
+        }
+
+        if($b==false && $c==false)
+        {
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
+
+        }
+     }
+
+      if($b)
+      {
+        if($c)
+        {
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
+        }
+
+        if($a==false && $c==false)
+        {
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
+        }
+      }
+
+    if($c)
+    {
+      if($a==false && $b==false)
+      {
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
+      }
+    }
 
 
+      //待跳转更改
+
+}
+
+
+  //金牌角色权限
+  public function getJin()
+  {
+
+    $auth=DB::select('select * from jiaose_auth as a left join auth as b on a.auth_id=b.id');
+    foreach ($auth as $k => $v) {
+      if($v['jiaose_id']==1){
+        $jin[]=$auth[$k];
+      }
+    }
+
+    return view('admin.auth.jin',compact('jin'));
+  }
+
+ //银牌角色权限
+  public function getYin()
+  {
+
+    $auth=DB::select('select * from jiaose_auth as a left join auth as b on a.auth_id=b.id');
+    foreach ($auth as $k => $v) {
+
+      if($v['jiaose_id']==2){
+        $yin[]=$auth[$k];
+      }
+
+    }
+
+    return view('admin.auth.yin',compact('yin'));
+  }
+   //铜牌角色权限
+  public function getTong()
+  {
+
+    $auth=DB::select('select * from jiaose_auth as a left join auth as b on a.auth_id=b.id');
+    foreach ($auth as $k => $v) {
+      if($v['jiaose_id']==3){
+        $tong[]=$auth[$k];
+      }
+    }
+
+    return view('admin.auth.tong',compact('tong'));
+  }
+
+  public function getAuthedit($id)
+  {
+      $data=DB::table('auth')->where('id',$id)->first();
+
+      return view('admin.auth.editauth',compact('data'));
+  }
+
+  public function getDelete($id)
+  {
+      DB::table('auth')->where('id',$id)->delete();
+
+      return back();
+
+  }
+
+  public function postEdit(Request $request,$id)
+  {
+    $auth=$request->except('_token');
+
+    DB::table('auth')->where('id',$id)->update(['urlname'=>$auth['urlname'],'urldesc'=>$auth['urldesc']]);
+
+    return redirect('/admin/admin/select');
+  }
+
+
+  public function getAuthdelete($jiaose_id,$auth_id)
+  {
+
+    DB::delete('delete from jiaose_auth where jiaose_id=? and auth_id=?',[$jiaose_id,$auth_id]);
+
+    return back();
+  }
+
+
+  public function getSelect()
+  {
+
+    $data=DB::table('auth')->where('id','>',0)->get();
+
+    return view('admin.auth.lookauth',compact('data'));
+  }
+
+
+
+
+
+
+
+
+  
     //接收页面的ajax
     public static function getUniquer()
     {

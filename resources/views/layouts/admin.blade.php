@@ -57,7 +57,7 @@
             	<h3><i class="fa fa-fw fa-clipboard"></i>用户操作</h3>
                 <ul class="sub_menu">
 
-                    <li><a href="{{url('/admin/user/user')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>管理用户</a></li>
+                    <li><a href="{{url('/admin/user/user')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>用户列表</a></li>
                     <li><a href="{{ url('/admin/user/insert')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加用户</a></li>
 
                 </ul>
@@ -68,6 +68,17 @@
 
                     <li style="font-size:12px"><a href="{{url('/admin/admin/admin')}}" target="_self"><i class="fa fa-fw fa-plus-square"></i>浏览管理员</a></li>
                     <li style="font-size:12px"><a href="{{url('/admin/admin/admininsert')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>添加管理员</a></li>
+                 
+                </ul>
+            </li>
+  			<li>
+            	<h3><i class="fa fa-fw fa-clipboard"></i>权限浏览</h3>
+                <ul class="sub_menu">
+					 <li style="font-size:12px"><a href="{{url('/admin/admin/select')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>权限总览</a></li>
+					<li style="font-size:12px"><a href="{{url('/admin/admin/auth')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>权限添加</a></li>
+                    <li style="font-size:12px"><a href="{{url('/admin/admin/jin')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>金牌管理员</a></li>
+                    <li style="font-size:12px"><a href="{{url('/admin/admin/yin')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>银牌管理员</a></li>
+                    <li style="font-size:12px"><a href="{{url('/admin/admin/tong')}}" target="_self"><i class="fa fa-fw fa-list-ul"></i>铜牌管理员</a></li>
                 </ul>
             </li>
 			<li>
@@ -120,15 +131,7 @@
 
                 </ul>
             </li>
-           <!--  <li>
-            	<h3><i class="fa fa-fw fa-thumb-tack"></i>工具导航</h3>
-                <ul class="sub_menu">
-                    <li><a href="http://www.yeahzan.com/fa/facss.html" target="_self"><i class="fa fa-fw fa-font"></i>图标调用</a></li>
-                    <li><a href="http://hemin.cn/jq/cheatsheet.html" target="_self"><i class="fa fa-fw fa-chain"></i>Jquery手册</a></li>
-                    <li><a href="http://tool.c7sky.com/webcolor/" target="_self"><i class="fa fa-fw fa-tachometer"></i>配色板</a></li>
-                    <li><a href="element.html" target="_self"><i class="fa fa-fw fa-tags"></i>其他组件</a></li>
-                </ul>
-            </li> -->
+
 
                 </ul>
 
