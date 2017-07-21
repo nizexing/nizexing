@@ -52,9 +52,9 @@
             </ul>
             <ol id="header-guide" class="fr header-guide">
                 <li class="guide-item guide-user"> <a href="http://www.acfun.cn/member/" target="_blank" class="user-avatar item"> <img src="/home/picture/avatar.jpg" width="30" height="30" /></a> 
-                @if($user['username'])
+                @if($homeuser)
 
-                   <img src="{{$photo}}" width="30" height="30" style="border-radius: 50%">
+                   <img src="{{$homeuser['photo']}}" width="30" height="30" style="border-radius: 50%">
 
                 @else
 
@@ -203,7 +203,7 @@
             </div>
         </div>
     </section>
-    <div style="margin:0px 0px 210px 220px">
+    <div style="margin:0px 0px 210px 145px">
 <div id="a1"></div>
  <script type="text/javascript" src="/ckplayer/ckplayer.js" charset="utf-8"></script>
                                 <script type="text/javascript">
@@ -320,15 +320,13 @@
                         <div class="eating"></div> </a>
                    
                         <div class="title">
-                            {{ $user['username'] }}
+                            {{ $user['name'] }}
                         </div>
-                </div>
-                <div class="bottom">
-                    <div class="desc">
-                        {{ $detail['sign'] }}
+                        <div class="desc">
+                        <p>签名:</p>{{ $detail['sign'] }}
                     </div>
-    
                 </div>
+              
             </div>
         </section>
         <section class="clearfix wp area collection"></section>
@@ -378,7 +376,7 @@
 
          <!-- 评论编辑器 -->
 
-        <form action="/pinlun/pinlun/{{ $data['vid'] }}/{{ $user['uid'] }}/{{ $user['username'] }}" method="post">
+        <form action="/pinlun/pinlun/{{ $data['vid'] }}" method="post">
              {{ csrf_field() }}
              <p>请输入评论内容:</p>
                 <textarea name="content" id="" cols="30" rows="10" style="resize: none;width: 720px;height: 100px"></textarea>
