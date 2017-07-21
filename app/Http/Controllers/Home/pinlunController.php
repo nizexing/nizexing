@@ -10,11 +10,12 @@ use App\Http\Controllers\Controller;
 
 class pinlunController extends Controller
 {
-   public function postPinlun(Request $request,$data,$user,$uname)
+   public function postPinlun(Request $request,$data)
    {     
+
    	if(session('user')){
 
-
+      $user=session('user');
    			//获得评论内容
             $a=$request->except('_token');
 
@@ -22,18 +23,21 @@ class pinlunController extends Controller
 
             $photo=session('user')['photo'];
             
-            DB::table('comment')->insert(['uid'=>$user,
+            DB::table('comment')->insert(['uid'=>$user['uid'],
                                           'vid'=>$data,
                                       'content'=>$a['content'],
                                         'ctime'=>$time,
-                                        'photo'=>$photo,
-                                        'uname'=>$uname]);
+                                        'photo'=>$user['photo'],
+                                        'uname'=>$user['uname']]);
 
             
             return back();
+
         }else{
 
-        	return redirect('/login/login');
+        	header("refresh:3;url=http://www.nnn.com/login/login");
+          print('您还没有登录,请先登录!<br><b>3</b>秒后自动跳转至登录页........');
+
         }
    }
 }

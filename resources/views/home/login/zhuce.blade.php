@@ -299,6 +299,9 @@
                                 </ul>         
                                 @endif
                                 <h3 class="title">注册 AcFun</h3>
+                                @if(session('error'))
+                                <p style="font-size: 12px;color: red;margin-bottom: 10px">{{session('error')}}</p>
+                                @endif
                                 <div class="area">
                                     <i class="inp-icon icon icon-mobile"></i>
                                     <input name="tel" type="text" placeholder="请输入手机号码" required="required" value="" maxlength="11" 
@@ -309,7 +312,7 @@
                                 <p class="aa" style="font-size: 12px;margin: -45px -115px 0px 0px;width: 110px;float: right;">请输入11位电话号码</p>
                                 <div class="area">
                                     <i class="inp-icon icon icon-user"></i>
-                                    <input name="name" placeholder="请输入昵称" required="required" class="nickname">
+                                    <input name="name" placeholder="请输入账号" required="required" class="nickname">
                                     <span class="clearfix"></span>
                                 </div>
                             <p class="bb" style="font-size: 12px;margin: -45px -115px 0px 0px;width: 110px;float: right;"></p>
@@ -340,8 +343,7 @@
                         </div>
                         <div class="area-tool">
                             <input type="submit" class="do login-btn primary" value="注册" id="zhuce">
-                            <p>
-                                <!--(onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=800055564&o=acfun.cn&q=7', '_blank')") 海外号码点此联系客服--></p>
+
                             
                             <span class="clearfix"></span>
                         </div>
@@ -375,27 +377,42 @@
                                 });
                             }
                             })
-                           //验证昵称
-                           var n=/^[-|/|?|~|.|,|=|+|<|>|!|@|#|$|%|^|&|*]+./;
+                           //验证账号
+                           var n=/^[-|/|?|~|.|,|=|+|<|>|!|@|#|$|%|^|&|*|`]+/;
 
                            $('.nickname').blur(function(){
 
                              var nickname=$('.nickname').val();
 
-                                if(nicknane==''){
-                                    $('.bb').text('昵称不能为空').css('color','red');
-                                }
-
-                                if(n.test(nickname)==true)
+                            
+                                if(n.test(nickname))
                                 {
                                         $('.bb').text('不能以符号开头').css('color','red');
                                 }else{
-                                        $('.bb').text('该昵称可用').css('color','green');
+                                    // 判断账号是否为空
+                                    if(nickname==''){
+
+                                    $('.bb').text('账号不能为空').css('color','red');
+
+                                }else{
+
+                                    $.get('/reg/name',{'username':nickname},function(msg){
+                                        if(msg=='1'){
+                                            $('.bb').text('该账号以被注册').css('color','red');
+                                            
+                                        }else
+                                        if(msg=='0'){
+                                            $('.bb').text('账号可用').css('color','green');
+                                        }
+                                    });
+
+                                    
+                                }
                                      }
 
                                 if(nickname.length>12)
                                 {
-                                        $('.bb').text('昵称长度超过12位').css('color','red');
+                                        $('.bb').text('账号长度超过12位').css('color','red');
                                 }
 
                            });
@@ -481,34 +498,44 @@
                                  } 
                              });
 
-                            // alert($('.form')     );
                            // 当输入都合法时注册跳转
                            $('.form').submit(function()
                            {
                                 var a=$('.aa').css('color');
 
-                                // var b=$('.bb').css('color');
+                                var b=$('.bb').css('color');
 
                                 var c=$('.cc').css('color');
 
                                 var d=$('.dd').css('color');
+                                
+                                var code=$('.yzm').val();
 
-                                var e=$('.ee').css('color');
-
-                                if(a==c && c==d && d==e)
+                                if(a==b && b==c && c==d)
                                 {
-                                    alert('注册成功,马上跳转......');
-
-                                   location.href = "{{ url('/reg/insert') }}";
                                     
-                                }else{
+                                    $.get('/reg/code',{},function(msg){
 
-                                    alert('注册失败!');
+                                        if(msg==code){
 
-                                    location.href = "{{ url('/reg/zhuce') }}";
+                                            alert('注册成功,马上跳转......');
 
-                                    return false;
+                                            location.href = "{{ url('/reg/insert') }}";
+
+                                        }else{
+
+                                            alert('注册失败!');
+
+                                            location.href = "{{ url('/reg/zhuce') }}";
+
+                                            return false;
+                                        }
+                                    });
+
+                                    
                                 }
+
+                                
                            });
 
                         </script>

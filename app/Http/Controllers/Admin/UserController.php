@@ -250,8 +250,6 @@ class UserController extends Controller
     } 
 
 
-
-
     //修改指定用户密码显示密码修改表单
     public function getEditpsw($use)
     {
