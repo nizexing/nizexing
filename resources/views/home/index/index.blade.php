@@ -127,7 +127,7 @@
                                                     </a>
                                                     <figcaption class="block-title">
                                                         <b>
-                                                            <a href="/v/ac3810569" target="_blank">
+                                                            <a href="{{url('/play/'.$value['vid'])}}" target="_blank">
                                                                 {{$value['title']}}
                                                             </a>
                                                         </b>

@@ -13,15 +13,10 @@ class AdminController extends Controller
    //显示后台主页
    public function getIndex()
    {	
-   	if(session('admin'))
-   		{
 
 			return view('/config/index');
 
-   		}else{
 
-   			return redirect('/admin/login/login')->with('error','请先登录!');
-   		}
         
    }
 

@@ -34,8 +34,11 @@ class RecommendController extends Controller
 
        // 分类查询
        if($request->has('tid')){
-            $tids = Type::where('pid','=',Input::get('tid'))->select('tid')->get()->toArray();
-//            dd($tids);
+            $tmp = Type::where('pid','=',Input::get('tid'))->select('tid')->get()->toArray();
+            $tids = [];
+            foreach($tmp as $k=>$v){
+                $tids[] = $v['tid'];
+            }
            $video = $video -> whereIn('tjvideo.tid',$tids);
        }
 
@@ -45,8 +48,8 @@ class RecommendController extends Controller
         $status = ['1'=>'栏目推荐','2'=>'轮播图推荐','3'=>'top推荐','4'=>'猴子推荐'];
         // 获取一级分类
        $type = Type::where('pid',0) ->get();
-//       dd($type);
-       return view('admin/recommend/index',compact('video','status','search','type'));
+
+       return view('admin/recommend/index',compact('video','status','search','type','tjstatus'));
    }
 
     /**

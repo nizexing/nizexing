@@ -93,6 +93,7 @@ class ConfigController extends Controller
             ";
         }
         $str .= "];";
+
         $res = file_put_contents(config_path().'/web.php',$str);
         if($res){
             return [

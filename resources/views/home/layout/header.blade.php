@@ -142,7 +142,7 @@
                 {{--  二级分类  --}}
                 @foreach($type2 as $k1=>$v1)
                     @if(!empty($v1))
-                <ul data-category="14" tid="{{$v1[0]['pid']}}}" class="clearfix">
+                <ul data-category="14" tid="{{$v1[0]['pid']}}" class="clearfix">
                         @foreach($v1 as $k2=>$v2)
                     <li>
 

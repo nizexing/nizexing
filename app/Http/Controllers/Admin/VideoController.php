@@ -23,7 +23,6 @@ class VideoController extends Controller
     public function getIndex(Request $request)
     {
 
-
         $search = $request -> all();
 
         $video = Video::join('type','type.tid','=','video.tid')
@@ -38,7 +37,13 @@ class VideoController extends Controller
                 // 是的话 判断是几级分类
                 if($type['pid']==0){
                     // 一级分类 的话 查二级分类并联查出user.name 和 video.*
-                    $video =$video  -> where('type.pid',$type['tid']);
+                    // 分类 下的所有二级分类
+                    $tids = Type::where('pid',$type['tid'])->select('tid')->get()->toArray();
+                    foreach($tids as $k=>$v){
+                        $tids[$k] = $v['tid'];
+                    }
+                    $video =$video  -> whereIn('video.tid',$tids);
+
                 }else{
                     // 二级分类的话 直接联查出video的结果
                   $video = $video-> where('video.tid',$type['tid']);
@@ -51,7 +56,7 @@ class VideoController extends Controller
             }
         }
 
-        $video = $video->select('video.*','user.name','type.tname')->paginate(8);
+        $video = $video->select('video.*','user.name','type.tname')->paginate(7);
 //        dd($video);
         // 定义video.status视频的状态
         $status = ['0'=>'未知','1'=>'审核中','2'=>'审核通过','3'=>'冻结','4'=>'推荐'];

@@ -22,10 +22,6 @@ class TypeController extends Controller
      */
       public function getIndex($tid=0)
       {
-          if(!session('admin'))
-      {
-        return redirect('/admin/login/login')->with('error','请先登录!');
-      }
 
 
           // 若没有传入 tid 则查询根分类下的

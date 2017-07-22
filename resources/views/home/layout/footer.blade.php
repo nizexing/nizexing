@@ -6,24 +6,25 @@
                 <div class="item-cooperation">
                     <h5>合作</h5>
                     <p>
-                        <a href="javascript:;" target="_blank">关于我们</a>
-                        <a href="javascript:;" target="_blank" class="mr0">联系我们</a>
-                        <br>
-                        <a href="javascript:;" target="_blank">AC招聘</a></p>
+                        <a href="{{url('info/about')}}" target="_blank">关于我们</a>
+
+                        <a href="{{url('info/contact')}}" target="_blank" class="mr0">联系我们</a>
+                    </p>
+
                 </div>
 
 
                 <div class="item-function">
                     <h5>友情链接</h5>
                     <p>
-                        <!--a(href="#{think.config().rootDomain ||''}/map/",target="_blank") 网站地图-->
-                        <!--a(href="#{think.config().rootDomain ||''}/rank/",target="_blank") 排行榜-->
-                        <!--a.mr0(href="#{think.config().rootDomain ||''}/info/#page=help",target="_blank") 帮助手册-->
-                        <!--br-->
-                        <a href="https://www.douyu.com/" target="_blank">斗鱼直播</a>
-                        <a href="http://h.nimingban.com" target="_blank" class="mr0">匿名版</a>
-                        <br>
-                        <a href="http://lg.dianbo.me/index.php" target="_blank">AC大逃杀</a></p>
+
+                        @foreach($url as $k=>$v)
+                            @if($k!=0&&$k%2==0)
+                                <br>
+                            @endif
+                            <a href="{{url($v['url'])}}" target="_blank" class="mr0">{{$v['name']}}</a>
+                        @endforeach
+                    </p>
                 </div>
 
             </div>

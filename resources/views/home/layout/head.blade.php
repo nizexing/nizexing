@@ -29,11 +29,12 @@
     <link rel="stylesheet" href="{{asset('/static/css/member.css')}}" />
     <link id="style-theme-member" rel="stylesheet" href="{{asset('/static/css/theme.css')}}" />
     <script src="{{asset("/static/js/jquery.min.js")}}"></script>
+    @section("css")
+
+    @show
 </head>
 
-@section("css")
 
-@show
 
 
 <body>

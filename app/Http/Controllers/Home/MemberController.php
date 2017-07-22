@@ -8,7 +8,8 @@ use App\Http\Model\Type;
 use App\Http\Model\User_brower;
 use App\Http\Model\User_detail;
 use App\Http\Model\User;
-
+use App\Http\Model\Video_detail;
+use \DB;
 
 use App\Http\Model\User_store;
 use App\Http\Model\Video;
@@ -198,7 +199,7 @@ class MemberController extends CommonController
             'type' => 'required',
             'tid' => 'required',
             'title' => 'required|between:2,8',
-            'timg' => 'required',
+            'img' => 'required',
             'label' => 'required|max:255',
             'desc' => 'required|max:200',
         ],[
@@ -206,21 +207,20 @@ class MemberController extends CommonController
             'tid.required'=>'二级分类必选',
             'title.required'=>'标题必填',
             'title.between'=>'标题位数为6-8位',
-            'timg.required'=>'图片必须上传',
+            'img.required'=>'图片必须上传',
             'label.required'=>'标签必填',
             'label.max'=>'标签不能超过255个字符',
             'desc.required'=>'描述必填',
             'desc.required'=>'描述不能超过200个字符',
         ]);
         if ($validator->fails()) {
-            return redirect('admin/video/add')
+            return redirect('member/video')
                 ->withErrors($validator)
                 ->withInput();
         }
 
         // 获取主表的信息
-        $video = $request ->only('tid','label','title');
-        $video['img'] = $data['timg'];
+        $video = $request ->only('tid','label','title','img');
         $video['upload_time'] = time();
         $video['status'] = 1;
         $video['comment'] = 0;
@@ -242,10 +242,11 @@ class MemberController extends CommonController
         // 判断
         if($res1&&!empty($res2)&&$res2){
             DB::commit();
-            return redirect('admin/video/index')->with('success','添加成功');
+            return redirect('member/manner')->with('success','添加成功');
         }else{
             DB::rollBack();
-            return redirect('admin/video/add')->with('error','添加失败');
+            unlink(Input::get('video'));
+            return redirect('member/video')->with('error','添加失败');
         }
 
 

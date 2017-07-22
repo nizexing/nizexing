@@ -1,386 +1,597 @@
 @extends("home.layout.index")
-@section("css")
+
+@section('css')
     <link rel="stylesheet" href="{{asset('/static/css/core.min.css')}}">
     <link rel="stylesheet" href="{{asset('/static/css/index.min.css')}}">
-	<link rel="stylesheet" href="{{asset('/static/css/list.min.css')}}">
-	<link rel="stylesheet" href="{{asset('/static/css/paper.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/static/css/channel.min.css')}}">
 @endsection
-
-
 @section("main")
     <!-- main start -->
-
     <div id="main" class="main">
-        <input type="hidden" id="pageType" value="list">
         <nav id="channel-nav" class="nav">
             <!--Created by user on 16/2/24.-->
             <div class="nav-sub">
                 <div class="wp nav-channel-sub-con">
-                    <ul data-category="17" data-cid="123" class="clearfix">
-                        <li>
-                            <a href="{{url('/v/'.$vtype['pid'].'/index')}}" data-cid="123">本区推荐</a></li>
-                       {{--本级分类--}}
-                        @foreach($types as $k=>$v)
-                        <li class="@if($v['tid']==$tid)
-                                active
-@endif">
-                            <a href="{{url('/list/'.$v['tid'])}}" data-cid="135">{{$v['tname']}}</a></li>
-                        @endforeach
+                    <ul data-category="17" tid="{{$tid}}" class="clearfix">
+                        <li class="active">
+                            <a href="/v/list123/index.htm" data-cid="123">本区推荐</a></li>
+
                     </ul>
                 </div>
             </div>
         </nav>
-
-        <section class="wp clearfix column-box third-height">
-            <div class="column-left">
-                <header class="clearfix">
-                    <div class="fl list-tab">
-                        <a href="javascript:;" data-nav="0" class="no-select active">最新发布</a>
-                        <a href="javascript:;" data-nav="1" class="no-select">播放最多</a>
-                        <a href="javascript:;" data-nav="2" class="no-select">评论最多</a>
+        <section b-id="181" b-name="轮播图+6小视频" b-type="26" class="clearfix wp area area-slider">
+            <div class="slider-wrap fl">
+                <div class="slider-wrap-1">
+                    <div id="slider-big" m-id="301" m-name="轮播图" m-type="1" class="fl slider-big">
+                        <ul class="slider-con">
+                            @foreach($lunbo as $k=>$v)
+                                <li class="slider-item" @if($k!==1) style="display:none;" @endif>
+                                    <a href="{{url('/play/'.$v['vid'])}}" target="_blank">
+                                        <img src="{{  $v['img']  }}" style="width:100%;height:100%;"/>
+                                        <span class="mask-gradient slider-title">
+                                        <b class="text-overflow">{{$v['title']}}</b>
+                                    </span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
-
-                    <span id="third-view" class="fr">
-                    <a title="点击切换为双列显示" data-th="th-large" class="th-large">
-                        <i class="icon icon-th-large"></i>
-                    </a>
-                    <a title="点击切换为平铺显示" data-th="th-normal" class="th-normal">
-                        <i class="icon icon-th-list"></i>
-                    </a>
-                    <a title="点击切换为列表显示" data-th="th-list" class="th-list">
-                        <i class="icon icon-th"></i>
-                    </a>
-
-                </span>
-                    <script>
-                        $(function(){
-
-                            var alist = $('.column-box #third-view a');
-
-                            alist.click(function(){
-                                alist.removeClass('default');
-                                var aabb = $(this).attr('class');
-                                $(this).addClass('default');
-                                $('#list-data').removeClass().addClass(aabb);
-                            });
-                        })
-                    </script>
-                </header>
-                <div id="list-data" class="th-large">
-                    <div id="list-video">
-                        @foreach($video as $k=>$v)
-                        <li class="has-img third-img fl">
-                            <a href="{{url('/play/'.$v['vid'])}}" target="_blank" class="fl img-wp">
-                                <img src="{{asset($v['img'])}}" title="{{$v['title']}}
-                                        UP主:{{$v['name']}}
-                                        发布于{{date('Y-m-d H:i;s',$v['upload_time'])}}&nbsp;/&nbsp;点击：{{$v['click']}}&nbsp;/&nbsp;评论：{{$v['comment']}}"   width="160" height="90" style="display: inline;"></a>
-                            <b class="text-over">
-                                <a href="{{url('/play/'.$v['vid'])}}" title="{{$v['title']}}
-                            UP主:{{$v['name']}}
-                            发布于{{date('Y-m-d H:i;s',$v['upload_time'])}}&nbsp;/&nbsp;点击：{{$v['click']}}&nbsp;/&nbsp;评论：{{$v['comment']}}" target="_blank" class="third-title">{{$v['title']}}</a>
-                            </b>
-                            <div>
-                                <p class="up-name">
-                                    <a href="javascript:;" target="_blank">
-                                        <img src="{{asset($v['photo'])}}"  style="display: inline;"></a>
-                                    <a href="javascript:;" title="InstreetTV" target="_blank" class="third-name">{{$v['name']}}</a>
-                                    <span title="" class="verified-ico verified-0"></span>
-                                </p>
-                                <p class="video-num">
-                                    <span class="video-time">{{date('m月d日(星期w)H时i分',$v['upload_time'])}}</span>
-                                    <span class="icon icon-view-player">
-                                    <strong>@if($v['click']>10000) {{round($v['click']/10000,1).'万'}}@else {{$v['click']}} @endif</strong></span>
-                                    <span class="icon icon-danmu">&nbsp;@if($v['comment']>10000) {{round($v['comment']/10000,1).'万'}}@else {{$v['comment']}} @endif</span></p>
-                            </div>
-                            <p class="video-description">「Instreet」手机APP，这有一群和你一样热爱街头的人。</p></li>
-                        @endforeach
-                    </div>
-
                 </div>
+            </div>
+            <div class="fr slider-right-x6">
+                <ul m-id="302" m-name="小图综合推荐" m-type="2" class="slider-small">
 
+                    @foreach($top as $k=>$v)
+
+                        <li  style="width:210px;">
+                            <a href="{{ url('/play/'.$v['vid']) }}" target="_blank">
+                                <img src="{{asset($v['img'])}}" width="216" height="120">
+                                <div class="mask-gradient mask">
+                                    <b>{{$v['title']}}</b>
+                                    <p class="text-overflow">
+                                        <span>UP: {{$v['name']}}</span>
+                                        <span class="clearfix">
+                                            <i class="icon icon-view-player">{{$v['click']}}</i>
+                                            <i class="icon icon-danmu">{{$v['comment']}}</i></span>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="area-ad-right"></div>
+        </section>
+        <section class="clearfix wp main-bottom column-box">
+            {{--主体右半部分开始--}}
+            <div class="fr channel-rank column-right">
+                <!--Created by user on 16/2/26.-->
+
+                <div b-id="74" class="channel-module-rank">
+                    <section data-tab="" b-id="74" b-name="热门标签+排行榜+UP名人堂" b-type="14" class="module module-rank">
+                        <header class="clearfix module-header">
+                            <div class="fl module-title">
+                                <b>
+                                    <a href="javascript:;" target="_blank" title="排行榜">舞蹈·彼女排行榜</a></b>
+                            </div>
+                            <div class="fr module-tab">
+                                <a href="javascript:;" data-nav="1" class="active">日榜</a>
+                            </div>
+                        </header>
+                        <div m-id="130" m-name="排行榜" m-type="17" class="module-main">
+                            <div class="module-con">
+                                <ul data-con="1">
+                                    <li class="has-img   ">
+                                    <span>
+                                        <i>1</i>
+                                    </span>
+                                        <a href="/v/ac3869126" title="【空绫玥】不行啊❤不要啊❤ 渔网袜高跟鞋有 马甲线无 但其实是首背上的歌
+                                    UP:空绫玥
+                                    发布于2017-07-21 15:23:06&nbsp;/&nbsp;点击：16.4万&nbsp;/&nbsp;评论：130" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500621275.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500621275.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869126" title="【空绫玥】不行啊❤不要啊❤ 渔网袜高跟鞋有 马甲线无 但其实是首背上的歌
+                                        UP:空绫玥
+                                        发布于2017-07-21 15:23:06&nbsp;/&nbsp;点击：16.4万&nbsp;/&nbsp;评论：130" target="_blank">【空绫玥】不行啊❤不要啊❤ 渔网袜高跟鞋有 马甲线无 但其实是首背上的歌</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/1401465.aspx" target="_blank" title="空绫玥" class="text-overflow">UP: 空绫玥</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>16.4万</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>130</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img   ">
+                                    <span>
+                                        <i>2</i>
+                                    </span>
+                                        <a href="/v/ac3869487" title="老婆又发了两段小视频
+                                    UP:心木屏溪
+                                    发布于2017-07-21 17:26:27&nbsp;/&nbsp;点击：27641&nbsp;/&nbsp;评论：24" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500629158.png?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500629158.png?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869487" title="老婆又发了两段小视频
+                                        UP:心木屏溪
+                                        发布于2017-07-21 17:26:27&nbsp;/&nbsp;点击：27641&nbsp;/&nbsp;评论：24" target="_blank">老婆又发了两段小视频</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/568099.aspx" target="_blank" title="心木屏溪" class="text-overflow">UP: 心木屏溪</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>27641</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>24</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img  has-img-last ">
+                                    <span>
+                                        <i>3</i>
+                                    </span>
+                                        <a href="/v/ac3869450" title="成都天府软件园【SIXCAT】月圆之夜吸血少女变身记【宣美】满月
+                                    UP:SIXCAT舞团
+                                    发布于2017-07-21 17:14:18&nbsp;/&nbsp;点击：11253&nbsp;/&nbsp;评论：17" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500626355.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500626355.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869450" title="成都天府软件园【SIXCAT】月圆之夜吸血少女变身记【宣美】满月
+                                        UP:SIXCAT舞团
+                                        发布于2017-07-21 17:14:18&nbsp;/&nbsp;点击：11253&nbsp;/&nbsp;评论：17" target="_blank">成都天府软件园【SIXCAT】月圆之夜吸血少女变身记【宣美】满月</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/2562541.aspx" target="_blank" title="SIXCAT舞团" class="text-overflow">UP: SIXCAT舞团</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>11253</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>17</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>4</i>
+                                    </span>
+                                        <a href="/v/ac3869974" title="【渣熊】不要哟❤【色气风回归】
+                                    UP:脑卡小天使渣熊熊
+                                    发布于2017-07-21 21:00:58&nbsp;/&nbsp;点击：10791&nbsp;/&nbsp;评论：11" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500642098.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500642098.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869974" title="【渣熊】不要哟❤【色气风回归】
+                                        UP:脑卡小天使渣熊熊
+                                        发布于2017-07-21 21:00:58&nbsp;/&nbsp;点击：10791&nbsp;/&nbsp;评论：11" target="_blank">【渣熊】不要哟❤【色气风回归】</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/1199176.aspx" target="_blank" title="脑卡小天使渣熊熊" class="text-overflow">UP: 脑卡小天使渣熊熊</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>10791</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>11</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>5</i>
+                                    </span>
+                                        <a href="/v/ac3869591" title="【兔子林x吃粥组合】恋爱裁判❤无罪？有罪？【初合作】
+                                    UP:菟籽琳
+                                    发布于2017-07-21 17:59:58&nbsp;/&nbsp;点击：8383&nbsp;/&nbsp;评论：21" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500624534.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500624534.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869591" title="【兔子林x吃粥组合】恋爱裁判❤无罪？有罪？【初合作】
+                                        UP:菟籽琳
+                                        发布于2017-07-21 17:59:58&nbsp;/&nbsp;点击：8383&nbsp;/&nbsp;评论：21" target="_blank">【兔子林x吃粥组合】恋爱裁判❤无罪？有罪？【初合作】</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/749817.aspx" target="_blank" title="菟籽琳" class="text-overflow">UP: 菟籽琳</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>8383</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>21</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>6</i>
+                                    </span>
+                                        <a href="/v/ac3869351" title="颜瞳桐♥ダメよ♥不行啊~
+                                    UP:牡丹花下鬼啊
+                                    发布于2017-07-21 16:41:26&nbsp;/&nbsp;点击：7530&nbsp;/&nbsp;评论：8" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500625244.png?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500625244.png?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869351" title="颜瞳桐♥ダメよ♥不行啊~
+                                        UP:牡丹花下鬼啊
+                                        发布于2017-07-21 16:41:26&nbsp;/&nbsp;点击：7530&nbsp;/&nbsp;评论：8" target="_blank">颜瞳桐♥ダメよ♥不行啊~</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/1988319.aspx" target="_blank" title="牡丹花下鬼啊" class="text-overflow">UP: 牡丹花下鬼啊</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>7530</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>8</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>7</i>
+                                    </span>
+                                        <a href="/v/ac3869516" title="一镜到底40所高中热舞
+                                    UP:心木屏溪
+                                    发布于2017-07-21 17:34:07&nbsp;/&nbsp;点击：7256&nbsp;/&nbsp;评论：14" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500629547.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500629547.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869516" title="一镜到底40所高中热舞
+                                        UP:心木屏溪
+                                        发布于2017-07-21 17:34:07&nbsp;/&nbsp;点击：7256&nbsp;/&nbsp;评论：14" target="_blank">一镜到底40所高中热舞</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/568099.aspx" target="_blank" title="心木屏溪" class="text-overflow">UP: 心木屏溪</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>7256</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>14</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>8</i>
+                                    </span>
+                                        <a href="/v/ac3869977" title="Idol School偶像学校DANCE BREAK
+                                    UP:脑残雀
+                                    发布于2017-07-21 21:01:29&nbsp;/&nbsp;点击：4105&nbsp;/&nbsp;评论：4" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500641955.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500641955.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869977" title="Idol School偶像学校DANCE BREAK
+                                        UP:脑残雀
+                                        发布于2017-07-21 21:01:29&nbsp;/&nbsp;点击：4105&nbsp;/&nbsp;评论：4" target="_blank">Idol School偶像学校DANCE BREAK</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/199029.aspx" target="_blank" title="脑残雀" class="text-overflow">UP: 脑残雀</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>4105</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>4</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>9</i>
+                                    </span>
+                                        <a href="/v/ac3870309" title="【小焦】疑心暗鬼❤️黑丝❤️绝对领域#色气的小姐姐喜欢吗#
+                                    UP:小焦儿vjv
+                                    发布于2017-07-22 02:00:39&nbsp;/&nbsp;点击：3177&nbsp;/&nbsp;评论：9" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500658926.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500658926.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3870309" title="【小焦】疑心暗鬼❤️黑丝❤️绝对领域#色气的小姐姐喜欢吗#
+                                        UP:小焦儿vjv
+                                        发布于2017-07-22 02:00:39&nbsp;/&nbsp;点击：3177&nbsp;/&nbsp;评论：9" target="_blank">【小焦】疑心暗鬼❤️黑丝❤️绝对领域#色气的小姐姐喜欢吗#</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/10334343.aspx" target="_blank" title="小焦儿vjv" class="text-overflow">UP: 小焦儿vjv</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>3177</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>9</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>10</i>
+                                    </span>
+                                        <a href="/v/ac3869783" title="【惟安】Electric ・Magic♪将心相连的魔法音乐
+                                    UP:苏惟安
+                                    发布于2017-07-21 19:19:44&nbsp;/&nbsp;点击：2089&nbsp;/&nbsp;评论：2" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500635324.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500635324.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869783" title="【惟安】Electric ・Magic♪将心相连的魔法音乐
+                                        UP:苏惟安
+                                        发布于2017-07-21 19:19:44&nbsp;/&nbsp;点击：2089&nbsp;/&nbsp;评论：2" target="_blank">【惟安】Electric ・Magic♪将心相连的魔法音乐</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/1193230.aspx" target="_blank" title="苏惟安" class="text-overflow">UP: 苏惟安</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>2089</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>2</strong></span>
+                                        </p>
+                                    </li>
+                                </ul>
+                                <ul data-con="2" class="hidden">
+                                    <li class="has-img   ">
+                                    <span>
+                                        <i>1</i>
+                                    </span>
+                                        <a href="/v/ac3869126" title="【空绫玥】不行啊❤不要啊❤ 渔网袜高跟鞋有 马甲线无 但其实是首背上的歌
+                                    UP:空绫玥
+                                    发布于2017-07-21 15:23:06&nbsp;/&nbsp;点击：16.4万&nbsp;/&nbsp;评论：130" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500621275.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500621275.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869126" title="【空绫玥】不行啊❤不要啊❤ 渔网袜高跟鞋有 马甲线无 但其实是首背上的歌
+                                        UP:空绫玥
+                                        发布于2017-07-21 15:23:06&nbsp;/&nbsp;点击：16.4万&nbsp;/&nbsp;评论：130" target="_blank">【空绫玥】不行啊❤不要啊❤ 渔网袜高跟鞋有 马甲线无 但其实是首背上的歌</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/1401465.aspx" target="_blank" title="空绫玥" class="text-overflow">UP: 空绫玥</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>16.4万</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>130</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img   ">
+                                    <span>
+                                        <i>2</i>
+                                    </span>
+                                        <a href="/v/ac3865099" title="【短短】-玉生烟 中国风翻跳
+                                    UP:一只小短短OwO
+                                    发布于2017-07-19 18:25:19&nbsp;/&nbsp;点击：14.6万&nbsp;/&nbsp;评论：210" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_19/1500473157.png?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_19/1500473157.png?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3865099" title="【短短】-玉生烟 中国风翻跳
+                                        UP:一只小短短OwO
+                                        发布于2017-07-19 18:25:19&nbsp;/&nbsp;点击：14.6万&nbsp;/&nbsp;评论：210" target="_blank">【短短】-玉生烟 中国风翻跳</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/2663901.aspx" target="_blank" title="一只小短短OwO" class="text-overflow">UP: 一只小短短OwO</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>14.6万</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>210</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img  has-img-last ">
+                                    <span>
+                                        <i>3</i>
+                                    </span>
+                                        <a href="/v/ac3867494" title="【小仙若】染上你的颜色 ❤突然卖萌
+                                    UP:一只小仙若
+                                    发布于2017-07-20 19:05:34&nbsp;/&nbsp;点击：11.2万&nbsp;/&nbsp;评论：336" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_20/1500548689.JPG?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_20/1500548689.JPG?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3867494" title="【小仙若】染上你的颜色 ❤突然卖萌
+                                        UP:一只小仙若
+                                        发布于2017-07-20 19:05:34&nbsp;/&nbsp;点击：11.2万&nbsp;/&nbsp;评论：336" target="_blank">【小仙若】染上你的颜色 ❤突然卖萌</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/8676540.aspx" target="_blank" title="一只小仙若" class="text-overflow">UP: 一只小仙若</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>11.2万</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>336</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>4</i>
+                                    </span>
+                                        <a href="/v/ac3856644" title="萝莉们化妆后简直大变脸~
+                                    UP:黑白天空~~
+                                    发布于2017-07-15 16:26:04&nbsp;/&nbsp;点击：92427&nbsp;/&nbsp;评论：105" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_15/1500107149.gif?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_15/1500107149.gif?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3856644" title="萝莉们化妆后简直大变脸~
+                                        UP:黑白天空~~
+                                        发布于2017-07-15 16:26:04&nbsp;/&nbsp;点击：92427&nbsp;/&nbsp;评论：105" target="_blank">萝莉们化妆后简直大变脸~</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/1373203.aspx" target="_blank" title="黑白天空~~" class="text-overflow">UP: 黑白天空~~</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>92427</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>105</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>5</i>
+                                    </span>
+                                        <a href="/v/ac3862538" title="【浅璟】✿桃源恋歌✿咬一口是甜蜜的味道✿
+                                    UP:浅璟papa
+                                    发布于2017-07-18 16:50:36&nbsp;/&nbsp;点击：53681&nbsp;/&nbsp;评论：49" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_18/1500367594.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_18/1500367594.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3862538" title="【浅璟】✿桃源恋歌✿咬一口是甜蜜的味道✿
+                                        UP:浅璟papa
+                                        发布于2017-07-18 16:50:36&nbsp;/&nbsp;点击：53681&nbsp;/&nbsp;评论：49" target="_blank">【浅璟】✿桃源恋歌✿咬一口是甜蜜的味道✿</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/1833411.aspx" target="_blank" title="浅璟papa" class="text-overflow">UP: 浅璟papa</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>53681</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>49</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>6</i>
+                                    </span>
+                                        <a href="/v/ac3859346" title="【E.X】❀桃源恋歌❀只因太思念你❤【A站初投稿】
+                                    UP:EX炸裂
+                                    发布于2017-07-17 10:52:03&nbsp;/&nbsp;点击：42981&nbsp;/&nbsp;评论：99" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_17/1500259749.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_17/1500259749.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3859346" title="【E.X】❀桃源恋歌❀只因太思念你❤【A站初投稿】
+                                        UP:EX炸裂
+                                        发布于2017-07-17 10:52:03&nbsp;/&nbsp;点击：42981&nbsp;/&nbsp;评论：99" target="_blank">【E.X】❀桃源恋歌❀只因太思念你❤【A站初投稿】</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/12439728.aspx" target="_blank" title="EX炸裂" class="text-overflow">UP: EX炸裂</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>42981</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>99</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>7</i>
+                                    </span>
+                                        <a href="/v/ac3865678" title="【兔姬】❤恋爱循环❤初恋的味道你感觉到了吗❤
+                                    UP:有知鹿影视文化
+                                    发布于2017-07-19 23:08:16&nbsp;/&nbsp;点击：31488&nbsp;/&nbsp;评论：10" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_19/1500476626.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_19/1500476626.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3865678" title="【兔姬】❤恋爱循环❤初恋的味道你感觉到了吗❤
+                                        UP:有知鹿影视文化
+                                        发布于2017-07-19 23:08:16&nbsp;/&nbsp;点击：31488&nbsp;/&nbsp;评论：10" target="_blank">【兔姬】❤恋爱循环❤初恋的味道你感觉到了吗❤</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/11804361.aspx" target="_blank" title="有知鹿影视文化" class="text-overflow">UP: 有知鹿影视文化</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>31488</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>10</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>8</i>
+                                    </span>
+                                        <a href="/v/ac3869487" title="老婆又发了两段小视频
+                                    UP:心木屏溪
+                                    发布于2017-07-21 17:26:27&nbsp;/&nbsp;点击：27641&nbsp;/&nbsp;评论：24" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_21/1500629158.png?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_21/1500629158.png?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3869487" title="老婆又发了两段小视频
+                                        UP:心木屏溪
+                                        发布于2017-07-21 17:26:27&nbsp;/&nbsp;点击：27641&nbsp;/&nbsp;评论：24" target="_blank">老婆又发了两段小视频</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/568099.aspx" target="_blank" title="心木屏溪" class="text-overflow">UP: 心木屏溪</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>27641</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>24</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>9</i>
+                                    </span>
+                                        <a href="/v/ac3858235" title="【欧尼】染上你的颜色 ❤今天的你是什么颜色的呢
+                                    UP:铁板欧尼酱
+                                    发布于2017-07-16 15:56:39&nbsp;/&nbsp;点击：26942&nbsp;/&nbsp;评论：29" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_16/1500191494.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_16/1500191494.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3858235" title="【欧尼】染上你的颜色 ❤今天的你是什么颜色的呢
+                                        UP:铁板欧尼酱
+                                        发布于2017-07-16 15:56:39&nbsp;/&nbsp;点击：26942&nbsp;/&nbsp;评论：29" target="_blank">【欧尼】染上你的颜色 ❤今天的你是什么颜色的呢</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/1803006.aspx" target="_blank" title="铁板欧尼酱" class="text-overflow">UP: 铁板欧尼酱</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>26942</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>29</strong></span>
+                                        </p>
+                                    </li>
+                                    <li class="has-img channel-rank-after  ">
+                                    <span>
+                                        <i>10</i>
+                                    </span>
+                                        <a href="/v/ac3858237" title="【苔苔】纯洁的未来之景
+                                    UP:Norinori
+                                    发布于2017-07-16 15:57:20&nbsp;/&nbsp;点击：12233&nbsp;/&nbsp;评论：27" target="_blank" class="fl img-wp">
+                                            <img data-original="http://imgs.aixifan.com/content/2017_07_16/1500191249.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_16/1500191249.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
+                                        <b>
+                                            <a href="/v/ac3858237" title="【苔苔】纯洁的未来之景
+                                        UP:Norinori
+                                        发布于2017-07-16 15:57:20&nbsp;/&nbsp;点击：12233&nbsp;/&nbsp;评论：27" target="_blank">【苔苔】纯洁的未来之景</a>
+                                        </b>
+                                        <p class="p1 text-overflow">
+                                            <a href="http://www.acfun.cn/u/12434406.aspx" target="_blank" title="Norinori" class="text-overflow">UP: Norinori</a></p>
+                                        <p class="p2">
+                                        <span class="icon icon-view-player">
+                                            <strong>12233</strong></span>
+                                            <span class="icon icon-comments">
+                                            <strong>27</strong></span>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
 
             </div>
-            <div class="column-right">
-                <section data-tab="" b-id="undefined" b-name="undefined" b-type="undefined" class="module module-rank">
-                    <header class="clearfix module-header">
-                        <div class="fl module-title">
-                            <b>
-                                <a href="http://www.acfun.cn/rank/list/#cid=135;range=1" target="_blank" title="热门视频">热门视频</a></b>
-                        </div>
-                        <div class="fr module-tab">
-                            <a href="javascript:;" data-nav="1" class="active">日榜</a>
-                            <a href="javascript:;" data-nav="2">周榜</a></div>
-                    </header>
-                    <div m-id="undefined" m-name="" m-type="" class="module-main">
-                        <div class="module-con">
-                            <ul data-con="1">
-                                <li class="has-img   ">
-                                <span>
-                                    <i>1</i>
-                                </span>
-                                    <a href="/v/ac3839060" title="成都天府软件园【SIXCAT】体操服摆渡【helloVenus】Wiggle Wiggle
-                                UP:SIXCAT舞团
-                                发布于2017-07-07 19:18:46&nbsp;/&nbsp;点击：21793&nbsp;/&nbsp;评论：15" target="_blank" class="fl img-wp">
-                                        <img data-original="http://imgs.aixifan.com/content/2017_07_07/1499423996.png?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_07/1499423996.png?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
-                                    <b>
-                                        <a href="/v/ac3839060" title="成都天府软件园【SIXCAT】体操服摆渡【helloVenus】Wiggle Wiggle
-                                    UP:SIXCAT舞团
-                                    发布于2017-07-07 19:18:46&nbsp;/&nbsp;点击：21793&nbsp;/&nbsp;评论：15" target="_blank">成都天府软件园【SIXCAT】体操服摆渡【helloVenus】Wiggle Wiggle</a>
-                                    </b>
-                                    <p class="p1 text-overflow">
-                                        <a href="http://www.acfun.cn/u/2562541.aspx" target="_blank" title="SIXCAT舞团" class="text-overflow">UP: SIXCAT舞团</a></p>
-                                    <p class="p2">
-                                    <span class="icon icon-view-player">
-                                        <strong>21793</strong></span>
-                                        <span class="icon icon-comments">
-                                        <strong>15</strong></span>
-                                    </p>
-                                </li>
-                                <li class="has-img   ">
-                                <span>
-                                    <i>2</i>
-                                </span>
-                                    <a href="/v/ac3839554" title="【干物板栗】桃花旗袍【高跟性感风初尝试】
-                                UP:干物板栗
-                                发布于2017-07-08 00:06:00&nbsp;/&nbsp;点击：4817&nbsp;/&nbsp;评论：45" target="_blank" class="fl img-wp">
-                                        <img data-original="http://imgs.aixifan.com/content/2017_07_07/1499443276.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_07/1499443276.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
-                                    <b>
-                                        <a href="/v/ac3839554" title="【干物板栗】桃花旗袍【高跟性感风初尝试】
-                                    UP:干物板栗
-                                    发布于2017-07-08 00:06:00&nbsp;/&nbsp;点击：4817&nbsp;/&nbsp;评论：45" target="_blank">【干物板栗】桃花旗袍【高跟性感风初尝试】</a>
-                                    </b>
-                                    <p class="p1 text-overflow">
-                                        <a href="http://www.acfun.cn/u/2272617.aspx" target="_blank" title="干物板栗" class="text-overflow">UP: 干物板栗</a></p>
-                                    <p class="p2">
-                                    <span class="icon icon-view-player">
-                                        <strong>4817</strong></span>
-                                        <span class="icon icon-comments">
-                                        <strong>45</strong></span>
-                                    </p>
-                                </li>
-                                <li class="has-img  has-img-last ">
-                                <span>
-                                    <i>3</i>
-                                </span>
-                                    <a href="/v/ac3839648" title="【深深】你不在北京（自编）
-                                UP:carina深深
-                                发布于2017-07-08 01:42:26&nbsp;/&nbsp;点击：1615&nbsp;/&nbsp;评论：8" target="_blank" class="fl img-wp">
-                                        <img data-original="http://imgs.aixifan.com/content/2017_07_07/1499448752.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_07/1499448752.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
-                                    <b>
-                                        <a href="/v/ac3839648" title="【深深】你不在北京（自编）
-                                    UP:carina深深
-                                    发布于2017-07-08 01:42:26&nbsp;/&nbsp;点击：1615&nbsp;/&nbsp;评论：8" target="_blank">【深深】你不在北京（自编）</a>
-                                    </b>
-                                    <p class="p1 text-overflow">
-                                        <a href="http://www.acfun.cn/u/10611976.aspx" target="_blank" title="carina深深" class="text-overflow">UP: carina深深</a></p>
-                                    <p class="p2">
-                                    <span class="icon icon-view-player">
-                                        <strong>1615</strong></span>
-                                        <span class="icon icon-comments">
-                                        <strong>8</strong></span>
-                                    </p>
-                                </li>
-                                <li class="has-img channel-rank-after  ">
-                                <span>
-                                    <i>4</i>
-                                </span>
-                                    <a href="/v/ac3838574" title="BlackPink 《As If It’s Your Last》分解教学
-                                UP:跳舞吧APP
-                                发布于2017-07-07 16:58:25&nbsp;/&nbsp;点击：1454&nbsp;/&nbsp;评论：0" target="_blank" class="fl img-wp">
-                                        <img data-original="http://imgs.aixifan.com/content/2017_07_07/1499417849.png?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_07/1499417849.png?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
-                                    <b>
-                                        <a href="/v/ac3838574" title="BlackPink 《As If It’s Your Last》分解教学
-                                    UP:跳舞吧APP
-                                    发布于2017-07-07 16:58:25&nbsp;/&nbsp;点击：1454&nbsp;/&nbsp;评论：0" target="_blank">BlackPink 《As If It’s Your Last》分解教学</a>
-                                    </b>
-                                    <p class="p1 text-overflow">
-                                        <a href="http://www.acfun.cn/u/11902638.aspx" target="_blank" title="跳舞吧APP" class="text-overflow">UP: 跳舞吧APP</a></p>
-                                    <p class="p2">
-                                    <span class="icon icon-view-player">
-                                        <strong>1454</strong></span>
-                                        <span class="icon icon-comments">
-                                        <strong>0</strong></span>
-                                    </p>
-                                </li>
-                                <li class="has-img channel-rank-after  ">
-                                <span>
-                                    <i>5</i>
-                                </span>
-                                    <a href="/v/ac3838500" title="SUNNY-孤独舞者
-                                UP:团队来袭2
-                                发布于2017-07-07 16:41:55&nbsp;/&nbsp;点击：1311&nbsp;/&nbsp;评论：0" target="_blank" class="fl img-wp">
-                                        <img data-original="http://imgs.aixifan.com/content/2017_07_07/1499416637.png?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_07/1499416637.png?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
-                                    <b>
-                                        <a href="/v/ac3838500" title="SUNNY-孤独舞者
-                                    UP:团队来袭2
-                                    发布于2017-07-07 16:41:55&nbsp;/&nbsp;点击：1311&nbsp;/&nbsp;评论：0" target="_blank">SUNNY-孤独舞者</a>
-                                    </b>
-                                    <p class="p1 text-overflow">
-                                        <a href="http://www.acfun.cn/u/1756929.aspx" target="_blank" title="团队来袭2" class="text-overflow">UP: 团队来袭2</a></p>
-                                    <p class="p2">
-                                    <span class="icon icon-view-player">
-                                        <strong>1311</strong></span>
-                                        <span class="icon icon-comments">
-                                        <strong>0</strong></span>
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul data-con="2" class="hidden">
-                                <li class="has-img   ">
-                                <span>
-                                    <i>1</i>
-                                </span>
-                                    <a href="/v/ac3831568" title="【NANA】羞耻白丝短裙翻跳皇冠的《What s My Name》
-                                UP:太阳当空照NANA
-                                发布于2017-07-04 22:35:49&nbsp;/&nbsp;点击：69961&nbsp;/&nbsp;评论：44" target="_blank" class="fl img-wp">
-                                        <img data-original="http://imgs.aixifan.com/content/2017_07_04/1499176579.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_04/1499176579.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
-                                    <b>
-                                        <a href="/v/ac3831568" title="【NANA】羞耻白丝短裙翻跳皇冠的《What s My Name》
-                                    UP:太阳当空照NANA
-                                    发布于2017-07-04 22:35:49&nbsp;/&nbsp;点击：69961&nbsp;/&nbsp;评论：44" target="_blank">【NANA】羞耻白丝短裙翻跳皇冠的《What s My Name》</a>
-                                    </b>
-                                    <p class="p1 text-overflow">
-                                        <a href="http://www.acfun.cn/u/1229819.aspx" target="_blank" title="太阳当空照NANA" class="text-overflow">UP: 太阳当空照NANA</a></p>
-                                    <p class="p2">
-                                    <span class="icon icon-view-player">
-                                        <strong>69961</strong></span>
-                                        <span class="icon icon-comments">
-                                        <strong>44</strong></span>
-                                    </p>
-                                </li>
-                                <li class="has-img   ">
-                                <span>
-                                    <i>2</i>
-                                </span>
-                                    <a href="/v/ac3831302" title="【尖尖】LAMB/性感御姐风
-                                UP:娃娃书
-                                发布于2017-07-04 20:22:32&nbsp;/&nbsp;点击：56156&nbsp;/&nbsp;评论：37" target="_blank" class="fl img-wp">
-                                        <img data-original="http://imgs.aixifan.com/content/2017_07_04/1499170706.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_04/1499170706.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
-                                    <b>
-                                        <a href="/v/ac3831302" title="【尖尖】LAMB/性感御姐风
-                                    UP:娃娃书
-                                    发布于2017-07-04 20:22:32&nbsp;/&nbsp;点击：56156&nbsp;/&nbsp;评论：37" target="_blank">【尖尖】LAMB/性感御姐风</a>
-                                    </b>
-                                    <p class="p1 text-overflow">
-                                        <a href="http://www.acfun.cn/u/1164346.aspx" target="_blank" title="娃娃书" class="text-overflow">UP: 娃娃书</a></p>
-                                    <p class="p2">
-                                    <span class="icon icon-view-player">
-                                        <strong>56156</strong></span>
-                                        <span class="icon icon-comments">
-                                        <strong>37</strong></span>
-                                    </p>
-                                </li>
-                                <li class="has-img  has-img-last ">
-                                <span>
-                                    <i>3</i>
-                                </span>
-                                    <a href="/v/ac3826063" title="[JG NATION] 전효성 ( Jun Hyo Seong )
-                                UP:屁眼上面一颗饭
-                                发布于2017-07-02 22:05:45&nbsp;/&nbsp;点击：26800&nbsp;/&nbsp;评论：26" target="_blank" class="fl img-wp">
-                                        <img data-original="http://imgs.aixifan.com/content/2017_07_02/1499004120.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_02/1499004120.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
-                                    <b>
-                                        <a href="/v/ac3826063" title="[JG NATION] 전효성 ( Jun Hyo Seong )
-                                    UP:屁眼上面一颗饭
-                                    发布于2017-07-02 22:05:45&nbsp;/&nbsp;点击：26800&nbsp;/&nbsp;评论：26" target="_blank">[JG NATION] 전효성 ( Jun Hyo Seong )</a>
-                                    </b>
-                                    <p class="p1 text-overflow">
-                                        <a href="http://www.acfun.cn/u/691885.aspx" target="_blank" title="屁眼上面一颗饭" class="text-overflow">UP: 屁眼上面一颗饭</a></p>
-                                    <p class="p2">
-                                    <span class="icon icon-view-player">
-                                        <strong>26800</strong></span>
-                                        <span class="icon icon-comments">
-                                        <strong>26</strong></span>
-                                    </p>
-                                </li>
-                                <li class="has-img channel-rank-after  ">
-                                <span>
-                                    <i>4</i>
-                                </span>
-                                    <a href="/v/ac3837465" title="欧美小姐姐跳全孝盛的Find Me~你们喜欢嘛
-                                UP:脑残雀
-                                发布于2017-07-07 11:01:23&nbsp;/&nbsp;点击：22871&nbsp;/&nbsp;评论：17" target="_blank" class="fl img-wp">
-                                        <img data-original="http://imgs.aixifan.com/content/2017_07_07/1499396584.jpg?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_07/1499396584.jpg?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
-                                    <b>
-                                        <a href="/v/ac3837465" title="欧美小姐姐跳全孝盛的Find Me~你们喜欢嘛
-                                    UP:脑残雀
-                                    发布于2017-07-07 11:01:23&nbsp;/&nbsp;点击：22871&nbsp;/&nbsp;评论：17" target="_blank">欧美小姐姐跳全孝盛的Find Me~你们喜欢嘛</a>
-                                    </b>
-                                    <p class="p1 text-overflow">
-                                        <a href="http://www.acfun.cn/u/199029.aspx" target="_blank" title="脑残雀" class="text-overflow">UP: 脑残雀</a></p>
-                                    <p class="p2">
-                                    <span class="icon icon-view-player">
-                                        <strong>22871</strong></span>
-                                        <span class="icon icon-comments">
-                                        <strong>17</strong></span>
-                                    </p>
-                                </li>
-                                <li class="has-img channel-rank-after  ">
-                                <span>
-                                    <i>5</i>
-                                </span>
-                                    <a href="/v/ac3839060" title="成都天府软件园【SIXCAT】体操服摆渡【helloVenus】Wiggle Wiggle
-                                UP:SIXCAT舞团
-                                发布于2017-07-07 19:18:46&nbsp;/&nbsp;点击：21793&nbsp;/&nbsp;评论：15" target="_blank" class="fl img-wp">
-                                        <img data-original="http://imgs.aixifan.com/content/2017_07_07/1499423996.png?imageView2/1/w/180/h/100" src="http://imgs.aixifan.com/content/2017_07_07/1499423996.png?imageView2/1/w/180/h/100" width="90" height="50" style="display: inline;"></a>
-                                    <b>
-                                        <a href="/v/ac3839060" title="成都天府软件园【SIXCAT】体操服摆渡【helloVenus】Wiggle Wiggle
-                                    UP:SIXCAT舞团
-                                    发布于2017-07-07 19:18:46&nbsp;/&nbsp;点击：21793&nbsp;/&nbsp;评论：15" target="_blank">成都天府软件园【SIXCAT】体操服摆渡【helloVenus】Wiggle Wiggle</a>
-                                    </b>
-                                    <p class="p1 text-overflow">
-                                        <a href="http://www.acfun.cn/u/2562541.aspx" target="_blank" title="SIXCAT舞团" class="text-overflow">UP: SIXCAT舞团</a></p>
-                                    <p class="p2">
-                                    <span class="icon icon-view-player">
-                                        <strong>21793</strong></span>
-                                        <span class="icon icon-comments">
-                                        <strong>15</strong></span>
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <footer class="module-footer">
-                        <a href="http://www.acfun.cn/rank/list/#cid=135;range=1" target="_blank" class="more">查看完整榜单
-                            <i class="icon icon-arrow-slim-right"></i></a>
-                    </footer>
-                </section>
-                <div class="list-right-img">
+            {{--主体右半部分结束--}}
+            <div class="fl channel-operate column-left">
+                <!--Created by user on 16/3/9.-->
+                @foreach($tjvideo as $k=>$v)
+                <section data-cid="130" tid="{{$tids[$k]['tid']}}" tname="{{$tids[$k]['tname']}}" class="clearfix column-box area area-channel area-channel-channel area125">
+                    <div data-tab="">
+                        <header class="clearfix area-header">
+                            <div class="fl channel-symbol"></div>
+                            <a href="{{url('list/'.$tids[$k]['tid'])}}" target="_blank" class="area-title">{{$tids[$k]['tname']}}</a>
 
-                </div>
+                            <a href="{{url('list/'.$tids[$k]['tid'])}}" target="_blank" class="fr area-more">
+                                <span>更多</span>
+                                <i class="icon icon-arrow-slim-right"></i>
+                            </a>
+                            <div class="clearfix hidden"></div>
+                        </header>
+                        <section data-pagenum="1" m-id="198" class="video-main">
+                            <div data-con="0" class="column-box area-main active ">
+                                <div class="clearfix module-video crop-margin">
+                                    @foreach($v as $key=>$value)
+                                    <figure class="fl block-box block-video ">
+                                        <a href="{{url('/play/'.$value['vid'])}}" target="_blank" class="block-img has-danmu">
+                                            <img src="{{asset($value['img'])}}" >
+                                            <time>10:04</time></a>
+                                        <figcaption class="block-title">
+                                            <b>
+                                                <a href="{{url('/play/'.$value['vid'])}}" target="_blank" title="{{$value['title']}}
+                                            UP:{{$value['name']}}
+                                            发布于2017-07-19 16:40:33&nbsp;/&nbsp;点击:{{$value['click']}}&nbsp;/&nbsp;评论:{{$value['comment']}}">{{$value['title']}}</a>
+                                            </b>
+                                            <p class="clearfix">
+                                                <span class="icon icon-view-player">{{$value['click']}}</span>
+                                                <span class="icon icon-danmu">{{$value['comment']}}</span></p>
+                                        </figcaption>
+                                    </figure>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div data-con="1" class="column-box area-main hidden ">
+                                <div class="clearfix module-video crop-margin"></div>
+                            </div>
+
+                        </section>
+                    </div>
+                </section>
+                @endforeach
             </div>
         </section>
-    </div>
-    <div id="list-pager">
-        <div id="yy" class="area-pager ">
-            {!! $video->render() !!}
 
-        </div>
     </div>
-    <style>
-        #list-pager{
-            margin:0;
-            margin-right:400px;
-        }
-        #list-pager>.area-pager>ul>li>a{
-            width:28px;
-            height: 28px;
-        }
-        #list-pager>#yy>ul>li{
-            padding:0px;
-            width:28px;
-        }
-
-    </style>
+@endsection
+@section('js')
+    <script src="{{asset('/static/js/aq_auth.js')}}"></script>
     <script>
         $(function(){
-            var pages = $('#list-pager>.area-pager>ul>li');
-            pages.addClass('pager');
+            $('#nav li[tid={{$tid}}]').addClass('active');
+            var aa = $('#nav>.nav-sub ul[tid={{$tid}}]').html();
 
-            pages.click(function(){
-                var url = $(this).find('a').attr('href');
-                location.href = url;
-            });
+            $('#main>#channel-nav ul[tid={{$tid}}]').html($('#main>#channel-nav ul[tid={{$tid}}]').html()+aa);
         })
     </script>
-	<!-- main end -->
-@endsection    
+@endsection
+

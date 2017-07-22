@@ -44,15 +44,15 @@
                                     <div class="inner" style="overflow:hidden;">
                                 <p class="hint-list-index">{{$k+1}}</p>
                                 <div class="l">
-                                    <a target="_blank" href="javascript:;" class="thumb thumb-preview">
+                                    <a target="_blank" href="{{url('play/'.$v['vid'])}}" class="thumb thumb-preview">
                                         <img data-vid="{{$v['vid']}}" src="{{url($v['img'])}}" class="preview">
                                         <div class="cover"></div>
                                     </a>
                                 </div>
                                 <div class="r">
                                     <p class="block-title">
-                                        <a href="{{url('v'.$v['tid']).'/index'}}"  target="_blank" class="channel">{{$v['tname']}}</a>
-                                        <a data-aid="3812968" target="_blank" href="" title="" style="" class="title">{{$v['title']}}</a>
+                                        <a href="{{url('v/'.$v['tid']).'/index'}}"  target="_blank" class="channel">{{$v['tname']}}</a>
+                                        <a data-aid="3812968" target="_blank" href="{{url('play/'.$v['vid'])}}" title="" style="" class="title">{{$v['title']}}</a>
 
                                         </p>
                                     <div class="info">发布于
@@ -63,7 +63,7 @@
                                     <p class="desc">{{$v['desc']}}</p>
                                     <div class="area-tag">
                                         <?php $arr = explode('-',$v['label']); ?>
-                                        <a class="tag" href="/search/#query=dsf" target="_blank">@foreach($arr as $kk=>$vv) {{$vv}} @endforeach</a></div>
+                                        <a class="tag" href="javascirpt:;" target="_blank">@foreach($arr as $kk=>$vv) {{$vv}} @endforeach</a></div>
                                 </div>
                                 <div class="block-manage hide" >
 

@@ -15,9 +15,9 @@
                 <div class="unit unit-0">
                     <div class="a">合作</div>
                     <div class="b">
-                        <a id="" target="_blank" href="/info/#page=about" data-id="" class="a-0">关于我们</a>
-                        <a id="" target="_blank" href="/info/#page=contact" data-id="" class="a-1">联系我们</a>
-                        <a id="" target="_blank" href="/info/#page=joinus" data-id="" class="a-2">AC招聘</a>
+                        <a id="" target="_blank" href="{{url('info/about')}}" data-id="" class="a-0">关于我们</a>
+                        <a id="" target="_blank" href="{{url('info/contact')}}" data-id="" class="a-1">联系我们</a>
+
                         <span class="clearfix"></span>
                     </div>
                 </div>
@@ -26,9 +26,14 @@
                 <div class="unit unit-3">
                     <div class="a">友情链接</div>
                     <div class="b">
-                        <a id="" target="_blank" href="http://www.douyu.tv/" data-id="" class="a-0">斗鱼直播</a>
-                        <a id="" target="_blank" href="http://h.nimingban.com" data-id="" class="a-1">匿名版</a>
-                        <a id="" target="_blank" href="http://lg.dianbo.me/index.php" data-id="" class="a-2">AC大逃杀</a>
+                        <p>
+                        @foreach($url as $k=>$v)
+                            @if($k!=0&&$k%2==0)
+                                <br>
+                            @endif
+                            <a href="{{url($v['url'])}}" target="_blank" class="mr0">{{$v['name']}}</a>
+                        @endforeach
+                        </p>
                         <span class="clearfix"></span>
                     </div>
                 </div>

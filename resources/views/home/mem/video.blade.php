@@ -30,6 +30,23 @@
 
     <div id="area-main-right" class="r">
     <div id="area-cont-right">
+        <div id="notice-info">
+
+            @if(session('errors'))
+                <ul style="list-style:list;" id="info" class="list-group">
+                    @foreach($errors ->all() as $error)
+                        <li class="bg-danger">{{$error}}</li>
+                    @endforeach
+                </ul>
+            @endif
+            @if(session('error'))
+                <p style="background:#f0ad4e" class="error"> {{session('error')}}</p>
+            @endif
+            @if(session('success'))
+                <p class="success"> {{session('success')}}</p>
+            @endif
+
+        </div>
 
         {{--<script src="http://cdn.aixifan.com/dotnet/20130418/script/member/upload-video.min.js?v=1.1.77"></script>--}}
         <div class="container" style="width:720px;">
@@ -289,8 +306,8 @@
 
                 // multi 默认true 可以上传多个 uploadLimit为最大上传数量
                 'multi' : false,
-                'uploadLimit' : 1,
-                "queueSizeLimit" : 1,
+                'uploadLimit' : 5,
+                "queueSizeLimit" : 5,
                 // 设置上传进度显示方式，默认percentage显示上传百分比，speed显示上传速度
                 'progressData' : 'speed',
                 // 是否自动将已完成任务从队列中删除，如果设置为false则会一直保留此任务显示。默认true
@@ -305,6 +322,7 @@
                     }else{
                         $('#video').val(data);
                         layer.msg('视频上传成功');
+                        $('#createForm').submit();
                         return false;
                     }
 
@@ -334,6 +352,14 @@
 
             });
         });
+
+        // 提示信息自动消失
+        $(function(){
+            setTimeout(function(){
+                $('#notice-info').hide();
+            },2000);
+
+        })
 
     </script>
 @endsection

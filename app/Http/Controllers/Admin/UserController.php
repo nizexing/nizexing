@@ -13,10 +13,7 @@ class UserController extends Controller
      //用户管理
    public function getUser()
    {    
-      if(!session('admin'))
-    {
-        return redirect('/admin/login/login')->with('error','请先登录!');
-    }
+
 
         //获取所有用户
         $user = DB::table('user')->paginate(5);

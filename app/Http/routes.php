@@ -65,5 +65,8 @@ Route::controller('/pinlun','Home\pinlunController');
 Route::group(['middleware'=>'member'],function() {
     Route::controller('/member', 'Home\MemberController');
 });
-//收藏
+// 收藏
 Route::get('/store','Home\PlayController@store');
+// 网站联系信息
+Route::get('info/about','Home\InfoController@about');
+Route::get('info/contact','Home\InfoController@contact');

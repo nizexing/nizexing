@@ -14,10 +14,6 @@ class RankController extends Controller
    {
 
 
-    if(!session('admin'))
-    {
-        return redirect('/admin/login/login')->with('error','请先登录!');
-    }
 
      $data=DB::table('rank')->join('type','rank.tid','=','type.tid')->join('user','rank.uid','=','user.uid')->orderBy('click','desc')->skip(0)->take(20)->paginate(5);
 

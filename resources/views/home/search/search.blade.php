@@ -13,7 +13,7 @@
     <div id="main" class="main">
         <div class="search-box-bg">
             <div id="search-box" class="fr search-box">
-                <form id="search-form" target="_blank" method="get" action="{{url('/search')}}">
+                <form id="search-form"  method="get" action="{{url('/search')}}">
                     <input id="search-text" name="key" type="text" placeholder=""  value="" autocomplete="off">
                     <button id="search-btn" class="search-btn" style="width:72px">
                         <i class="icon icon-search"></i>
@@ -30,21 +30,7 @@
                                 <span class="cont">
                                     <i class="light">饭店</i>党</span></a>
                             </li>
-                            <li>
-                                <a href="http://www.acfun.cn/search/#query=饭店遇上巴黎" target="_blank">
-                                <span class="cont">
-                                    <i class="light">饭店</i>遇上巴黎</span></a>
-                            </li>
-                            <li>
-                                <a href="http://www.acfun.cn/search/#query=饭店迷情最后一战" target="_blank">
-                                <span class="cont">
-                                    <i class="light">饭店</i>迷情最后一战</span></a>
-                            </li>
-                            <li>
-                                <a href="http://www.acfun.cn/search/#query=饭店客房" target="_blank">
-                                <span class="cont">
-                                    <i class="light">饭店</i>客房</span></a>
-                            </li>
+
                         </ul>
                     </div>
                 </form>

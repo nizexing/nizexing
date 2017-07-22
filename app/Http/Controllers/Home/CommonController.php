@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Model\Url;
 use Illuminate\Http\Request;
 use App\Http\Model\User;
 use App\Http\Model\Type;
@@ -37,7 +38,11 @@ class CommonController extends Controller
        $this -> type = $type;
 
 
-       // 页尾 友情链接  
+       // 页尾 友情链接 和 关于我们
+       $url = Url::take(4)->get();
+
+       view() -> share('url',$url);
+
    }
 
 }

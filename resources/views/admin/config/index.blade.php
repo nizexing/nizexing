@@ -357,7 +357,7 @@
               layer.confirm('您确定要根据现有的网站配置,更新前台页面？', {
                   btn: ['确定','取消'] //按钮
               }, function(){
-                  $.post('{{asset('admin/config/update')}}',{'_token':'{{csrf_token()}}'},function(data){
+                  $.post('{{url('admin/config/update')}}',{'_token':'{{csrf_token()}}'},function(data){
                           layer.msg(data.msg);
                   });
               }, function(){

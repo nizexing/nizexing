@@ -42,27 +42,46 @@
                         <input type="text" value="@if(!empty($search['key'])){{$search['key']}}@endif" id="key">
                         <button onclick="search()">搜索</button>
                     </div>
+
+                    <div class="short_wrap padself">
+                        <a href="javascript:;"><i class="fa fa-plus"></i>各种推荐:</a>
+                        <a href="{{url('/admin/recommend/index/1')}}" class="btn btn-info
+@if($tjstatus=='1')
+                                btn-warning
+@endif">栏目推荐</a>
+                        <a href="{{url('/admin/recommend/index/2')}}" class="btn btn-info
+@if($tjstatus=='2')
+                                btn-warning
+@endif">轮播图推荐</a>
+                        <a href="{{url('/admin/recommend/index/3')}}" class="btn btn-info
+@if($tjstatus=='3')
+                                btn-warning
+@endif">top推荐</a>
+                    </div>
+
                     <div class="short_wrap padself">
                         <a href="{{url('/admin/recommend/index/1')}}" ><i class="fa fa-plus"></i>栏目推荐:</a>
                         @foreach($type as $k=>$v)
-                            <a href="{{url('/admin/recommend/index/2?tid='.$v['tid'])}}" class="btn btn-info">{{$v['tname']}}推荐</a>
+                            <a href="{{url('/admin/recommend/index/1?tid='.$v['tid'])}}" class="btn btn-info
+@if(!empty($search['tid'])&&$v['tid'] ==  $search['tid'])
+                                    btn-warning
+@endif">{{$v['tname']}}推荐</a>
                         @endforeach
-                    </div>
-                    <div class="short_wrap padself">
-                        <a href="javascript:;"><i class="fa fa-plus"></i>各种推荐:</a>
-                        <a href="{{url('/admin/recommend/index/1')}}" class="btn btn-info">栏目推荐</a>
-                        <a href="{{url('/admin/recommend/index/2')}}" class="btn btn-info">轮播图推荐</a>
-                        <a href="{{url('/admin/recommend/index/3')}}" class="btn btn-info">top推荐</a>
-                        <a href="{{url('/admin/recommend/index/4')}}" class="btn btn-info">猴子推荐</a>
                     </div>
 
                     <script>
                         // 关键字搜索
                         function search(){
                             var key= $('#key').val();
-                                location.href = "{{url('admin/recommend/index')}}?key="+key;
+                                if(!location.search){
+                                    location.href = location.href + '?key='+key;
+                                }else{
+                                    location.href = location.href + '&key='+key;
+                                }
+
                             return false;
                         }
+
                     </script>
                 </div>
 
