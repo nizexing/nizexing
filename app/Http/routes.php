@@ -58,6 +58,7 @@ Route::get('/code','codeController@code');
 Route::controller('/login','Home\LoginController');
 // 视频播放页路由
 Route::get('/play/{vid}','Home\PlayController@play');
+
 //评论管理
 Route::controller('/pinlun','Home\pinlunController');
 // 个人中心路由

@@ -1,4 +1,3 @@
-
 @extends("home.layout.play")
 @section('css')
     <link rel="stylesheet" href="{{asset('/static/css/core.min.css')}}">
@@ -71,7 +70,8 @@
      <div class="fl ico">
       <div class="img"></div>
      </div> <span class="sp3 fl" id="shoucang" style="margin:17px 0px 0px 0px">收藏</span> <br/> 
-     <span class="sp4" id="num" style="font-size: 20px;margin:0px -5px 0px 35px">{{$num}}</span></span>
+     <span class="sp4" id="num" style="font-size: 20px;margin:0px -5px 0px 35px">{{$num}}</span>
+    </span>
 
             <script>
             $('#shoucang').click(function(){
@@ -107,7 +107,7 @@
 
 
         <span id="bd_phoneshow" class="phone fl">
-
+    
       </span>
         <span data-status="0" class="banana fl">
 
@@ -134,11 +134,11 @@
     <div class="introduction">
         <section class="clearfix wp area">
             <div class="columen-left fl">
-                <div class="title">
+                <div class="title" style="margin-left: 10px">
                     简介
                 </div>
                 <div class="desc gheight">
-                    <div class="sp1">
+                    <div class="sp1" style="margin-left: 10px">
                         视屏简介内容:&nbsp;&nbsp;{{ $massge['desc'] }}
 
                     </div>
@@ -224,7 +224,7 @@
 
         <form action="/pinlun/pinlun/{{ $data['vid'] }}" method="post">
              {{ csrf_field() }}
-             <p>请输入评论内容:</p>
+             <p style="margin-left: 10px">请输入评论内容:</p>
                 <textarea name="content" id="" cols="30" rows="10" style="resize: none;width: 720px;height: 100px;width: 690px;margin-top: 20px"></textarea>
 
               <input type="submit" value="提交" style="margin: 5px 532px;width: 170px" class="btn btn-default" id="submit">

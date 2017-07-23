@@ -15,10 +15,11 @@ class PlayController extends CommonController
    public function play($vid)
 
    {    
-
         //获取视频
 
         $video=DB::table('video')->where('vid',$vid)->get()[0];
+
+
 
         //增加点击量
         $video['click']=$video['click']+1;
@@ -58,7 +59,7 @@ class PlayController extends CommonController
         $user=DB::table('user')->where('uid',$data['uid'])->first();
 
         //获取评论内容
-        $content=DB::table('comment')->where('vid',$vid)->get();
+        $content=DB::table('comment')->where('vid',$vid)->orderBy('ctime','desc')->get();
 
         //评论总数
        	$contents=count($content);
@@ -111,5 +112,6 @@ class PlayController extends CommonController
    		}
 
    }
+   
 
 }

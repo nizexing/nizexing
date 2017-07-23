@@ -86,6 +86,7 @@
                 </a>
                 <span class="clearfix"></span>
             </div>
+
             <div id="win-info-guide" class="win hidden" style="opacity: 1; top: 46px;">
                 <div class="mainer">
                     <div class="a">
@@ -97,12 +98,12 @@
                         </div>
                         <span class="clearfix"></span>
                     </div>
-
                     <div class="c">
                         <a href="{{url('/member/info')}}" target="_blank">查看更多</a></div>
                     <div class="tail"></div>
                 </div>
             </div>
+
             <script>
 
                 $(function(){

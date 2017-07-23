@@ -12,7 +12,6 @@
     <script type="text/javascript" src="{{asset('/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('static/bootstrap-validator/bootstrapValidator.js')}}"></script>
     <script type="text/javascript" src="{{asset('static/bootstrap-validator/zh_CN.js')}}"></script>    
-    <script type="text/javascript" src="{{asset('/layer.js')}}"></script>
 	@section('css')
 
 	@show
