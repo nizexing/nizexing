@@ -74,8 +74,6 @@ class IndexController extends CommonController
         //动画
         $donghua=DB::table('video')->where('tid',1)->orderBy('click','desc')->get();
 
-
-
         //音乐
         $yinyue=DB::table('video')->where('tid',2)->orderBy('click','desc')->get();
 
@@ -90,7 +88,6 @@ class IndexController extends CommonController
 
         //舞蹈
         $dance=DB::table('video')->where('tid',8)->orderBy('click','desc')->get();
-
 
         return view('home.index.index',['lunbo'=>$lunbo,"tjvideo"=>$tjvideo,"top"=>$top,"adver"=>$adver,'donghua'=>$donghua,'yinyue'=>$yinyue,'game'=>$game,'keji'=>$keji,'dance'=>$dance]);
     }

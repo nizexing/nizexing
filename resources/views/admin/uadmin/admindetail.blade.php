@@ -82,7 +82,7 @@
 
         <button type="submit" class="btn btn-success" style="margin-bottom: 70px">点击修改资料</button> 
 
-        <button type="button" class="btn btn-success" style="margin-bottom: 70px" id="button">返回用户列表</button> 
+        <button type="button" class="btn btn-success" style="margin-bottom: 70px" id="button">返回管理员列表</button> 
 </form>
 
     <script type="text/javascript">

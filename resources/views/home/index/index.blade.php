@@ -576,7 +576,7 @@
 <span style="display: block;margin: -39px 0px 0px 60px"><a>{{$v['title']}}</a></span><br>
 
         @endif
-        @if($k>3 && $k<10)
+        @if($k>3 && $k<9)
 <div style="height: 10px"></div>
 
 <span style="margin: -12px 0px 0px 10px;overflow:hidden;height: 10px"><a>{{$v['title']}}</a></span>
