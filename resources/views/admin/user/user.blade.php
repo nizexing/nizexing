@@ -20,6 +20,7 @@
             @if(!session('error'))
             <div class="result_content">
             <h1>用户列表</h1>
+                <b style="color: #808080">提示:</b><span style="color: #ccc">如无任何数据则表示没有查询到相关用户数据!</span>
                 <table class="list_tab">
                     <tr>                     
                         <th>UID</th>

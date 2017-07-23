@@ -9,26 +9,17 @@
     <title> 注册</title>
     <link rel="stylesheet" href="/home/css/core.css">
     <link rel="stylesheet" href="/home/css/form.css">
-    <!--[if lte IE 7]>
-        <link rel="stylesheet" href="/home/css/font-awesome-ie7.min.css"></link>
-    <![endif]-->
-    <!--[if (gte IE 8)|!(IE)]>
-        <!-->
+
         <link rel="stylesheet" href="/home/css/font-awesome.min.css"></link>
-    <!--<![endif]-->
-    <!--[if lte IE 7]>
-        <link rel="stylesheet" href="/home/css/style-ie7.css"></link>
-    <![endif]-->
-    <!--[if (gte IE 8)|!(IE)]>
-        <!-->
+
         <link rel="stylesheet" href="/home/css/style.css"></link>
-    <!--<![endif]-->
+
     <link rel="stylesheet" href="/home/css/style_1.css">
     <script src="/home/js/jquery-1.8.3.min.js"></script>
   
     </head>
 <body>
-    <!-- Google Tag Manager -->
+
     <div id="stage">
         <div id="area-info"></div>
         <div id="area-window">
@@ -514,14 +505,13 @@
                                 if(a==b && b==c && c==d)
                                 {
                                     
-                                    $.get('/reg/code',{},function(msg){
+                                    $.get('/reg/code',{'code':code},function(msg){
 
-                                        if(msg==code){
+                                        if(msg){
 
-                                            alert('注册成功,马上跳转......');
+                                            alert('注册成功,马上跳转到登录页......');
 
-                                            location.href = "{{ url('/reg/insert') }}";
-
+                                            
                                         }else{
 
                                             alert('注册失败!');

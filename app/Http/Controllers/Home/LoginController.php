@@ -118,6 +118,7 @@ class LoginController extends Controller
       $users=DB::table('user_detail')->where('uid',$user['uid'])->first();
       
       if($users['email']==null){
+        
         return back()->with('error','该邮箱不存在!');
       }
 

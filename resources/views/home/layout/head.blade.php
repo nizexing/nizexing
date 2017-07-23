@@ -104,9 +104,7 @@
                 </div>
             </div>
             <script>
-//                $('#a-avatar-guide').mouseover(function(){
-//                    $('#win-info-guide').removeClass('hidden');
-//                });
+
                 $(function(){
                     $('#a-avatar-guide>.img-circle').mouseover(function(){
 
@@ -160,7 +158,7 @@
         </div>
     </div>
     <div id="sub-guide">
-        <div id="sub-guide-inner">
+        <div id="sub-guide-inner" style="height: 0px">
 
             {{--  二级分类  --}}
             @foreach($type2 as $k1=>$v1)
@@ -199,7 +197,7 @@
     });
 </script>
 
-<div id="header">
+<div id="header" style="margin-top: -90px">
     <div id="header-inner" class="inner">
         <a id="logo-home-member" href="/" title="认真你就输了"></a>
         <div id="block-message-header" class="block hidden">

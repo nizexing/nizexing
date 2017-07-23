@@ -174,7 +174,7 @@ class UserController extends Controller
     public function postSearch(Request $request)
     {
         $data=$request->except('_token');
-        // $data['keys'];  用户名或者是电话
+        // $data['keys']; 关键字 用户名或者是电话
         // $data['agemin']; 最小年龄
         // $data['agemax']; 最大年龄
         
@@ -235,6 +235,7 @@ class UserController extends Controller
 
            if(empty($user))
            {
+              //??????
               return back()->with('error','没有您要查询的相关数据!');
 
            }else{

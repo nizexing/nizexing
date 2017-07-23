@@ -36,8 +36,8 @@
                 <a href="/v/list58/index.htm" class="sp3">音乐</a>
                 <span class="sp4">&gt;</span>
                 <a href="/v/list137/index.htm" class="sp5">演奏</a>
-                <a href="/u/12138573.aspx" target="_blank" class="avatar-wrap"> <img src="/home/picture/avatar.jpg" class="avatar" /></a>
-                <a href="/u/12138573.aspx" target="_blank" class="name-wrap">{{ $user['username'] }}</a>
+                <a href="/u/12138573.aspx" target="_blank" class="avatar-wrap"> <img src="{{ $detail['photo'] }}" class="avatar" /></a>
+                <a href="/u/12138573.aspx" target="_blank" class="name-wrap">{{ $user['name'] }}</a>
                 <span class="sp6">{{ $data['upload'] }}</span>
 
             </div>
@@ -46,7 +46,7 @@
             </div>
         </div>
     </section>
-    <div style="margin:0px 0px 210px 145px">
+    <div style="margin: 70px 0px 210px 0px">
 <div id="a1"></div>
  <script type="text/javascript" src="/ckplayer/ckplayer.js" charset="utf-8"></script>
                                 <script type="text/javascript">
@@ -70,7 +70,8 @@
         <span id="shoucang" data-status="0" class="collection fl">
      <div class="fl ico">
       <div class="img"></div>
-     </div> <span class="sp3 fl" id="shoucang">收藏</span> <br /> <span class="sp4" id="num">{{$num}}</span></span>
+     </div> <span class="sp3 fl" id="shoucang" style="margin:17px 0px 0px 0px">收藏</span> <br/> 
+     <span class="sp4" id="num" style="font-size: 20px;margin:0px -5px 0px 35px">{{$num}}</span></span>
 
             <script>
             $('#shoucang').click(function(){
@@ -213,9 +214,9 @@
         </div>
     </div>
 
-    <div class="comment-area">
+    <div class="comment-area" >
         <section class="clearfix wp area comm">
-            <div class="columen-left fl">
+            <div class="columen-left fl" style="margin-top: 75px">
 
 
 
@@ -224,24 +225,18 @@
         <form action="/pinlun/pinlun/{{ $data['vid'] }}" method="post">
              {{ csrf_field() }}
              <p>请输入评论内容:</p>
-                <textarea name="content" id="" cols="30" rows="10" style="resize: none;width: 720px;height: 100px"></textarea>
+                <textarea name="content" id="" cols="30" rows="10" style="resize: none;width: 720px;height: 100px;width: 690px;margin-top: 20px"></textarea>
 
-              <input type="submit" value="提交" style="margin: 10px 550px;width: 170px" class="btn btn-default" id="submit">
+              <input type="submit" value="提交" style="margin: 5px 532px;width: 170px" class="btn btn-default" id="submit">
         </form>
 
-                <div id="area-comment" class="block">
+                <div id="area-comment" class="block" style="margin-top: 42px;">
                     <div class="banner">
 
                         <i class="icon _icon-commentLeft"></i>
 
                         <p class="tab _fixed">评论区</p>        
-            
-                        
-
                     </div>
-
-
-      <!-- !!!!!! -->
                     <script>
                     $('#submit').click(function(){
                         if(!session('user')){
@@ -250,25 +245,18 @@
                     });
                     </script>
 
-
-
-
              <!-- 评论内容区 -->
-
-
 
             @foreach($content as $k=>$v)
             <div class="mainer">
             <div id="c-78399892" class="item-comment   item-comment-first " data-fullcid="78395691,78396292,78397393,78397396,78397596,78399892" data-qid="78397596" data-layer="21">
              <div class="area-comment-left">
              <a class="thumb" target="_blank" href="http://www.acfun.cn/u/490814.aspx#home">
-
              <img class="avatar-bg" src="{{ $v['photo'] }}" style="width: 48px;height: 50px"></a> </div> 
              <div class="area-comment-right"> 
              <div class="author-comment last" data-uid="490814" > 
              <span class="index-comment">{{$v['uname']}}</span> 
              <a class="name " data-uid="490814" target="_blank" href="http://www.acfun.cn/u/490814.aspx#home"></a> 
-
              <span class="time_">发表于 {{ date('Y-m-d H:i:s',$v['ctime']) }}</span><p class="floor-comment">6</p> </div>
               <div class="content-comment">{{ $v['content'] }}</div>
               <div class="author-comment last"></div></div></div>

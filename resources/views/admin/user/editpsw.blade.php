@@ -48,8 +48,18 @@
 
             $.get('/admin/user/old',{'oldpassword':old,'_token':'{{csrf_token()}}','id':"{{ $user['id'] }}"},function(msg){
                   
-              alert(msg);
-
+              // alert(msg);
+              layer.open({
+                  type: 1
+                  ,offset: 't' //具体配置参考：offset参数项
+                  ,content: '<div style="padding: 20px 80px;">'+msg+'</div>'
+                  ,btn: '确认'
+                  ,btnAlign: 'c' //按钮居中
+                  ,shade: 0 //不显示遮罩
+                  ,yes: function(){
+                    layer.closeAll();
+                  }
+                });
 
 
 

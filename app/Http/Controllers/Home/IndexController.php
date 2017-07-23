@@ -11,7 +11,7 @@ use App\Http\Model\Tjvideo;
 use App\Http\Model\Type;
 use App\Http\Model\Url;
 use App\Http\Model\User;
-
+use DB;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -69,9 +69,29 @@ class IndexController extends CommonController
             $tjvideo[$v['tid']] = $video;
            
         }
-//        dump($type);
-//        dd($tjvideo);
-        return view('home.index.index',['lunbo'=>$lunbo,"tjvideo"=>$tjvideo,"top"=>$top,"adver"=>$adver]);
+
+        //动画
+        $donghua=DB::table('video')->where('tid',1)->orderBy('click','desc')->get();
+
+
+
+        //音乐
+        $yinyue=DB::table('video')->where('tid',2)->orderBy('click','desc')->get();
+
+
+        //游戏
+        $game=DB::table('video')->where('tid',3)->orderBy('click','desc')->get();
+
+
+        //科技
+        $keji=DB::table('video')->where('tid',4)->orderBy('click','desc')->get();
+
+
+        //舞蹈
+        $dance=DB::table('video')->where('tid',8)->orderBy('click','desc')->get();
+
+
+        return view('home.index.index',['lunbo'=>$lunbo,"tjvideo"=>$tjvideo,"top"=>$top,"adver"=>$adver,'donghua'=>$donghua,'yinyue'=>$yinyue,'game'=>$game,'keji'=>$keji,'dance'=>$dance]);
     }
 
 

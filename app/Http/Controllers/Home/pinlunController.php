@@ -12,7 +12,7 @@ class pinlunController extends Controller
 {
    public function postPinlun(Request $request,$data)
    {     
-
+    // dd(session('user'));
    	if(session('user')){
 
       $user=session('user');
@@ -28,7 +28,7 @@ class pinlunController extends Controller
                                       'content'=>$a['content'],
                                         'ctime'=>$time,
                                         'photo'=>$user['photo'],
-                                        'uname'=>$user['uname']]);
+                                        'uname'=>$user['username']]);
 
             
             return back();

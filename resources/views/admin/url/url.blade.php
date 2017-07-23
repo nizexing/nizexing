@@ -62,9 +62,24 @@
                     //发送AJAX
                     $.get('/admin/url/status',{'id':a,'status':b},function(msg){
                        
-                        alert('该链接将从首页撤下!');
+                        layer.open({
+                                      type: 1
+                                      ,offset: 't' //具体配置参考：offset参数项
+                                      ,content: '<div style="padding: 20px 80px;">该链接将从首页撤下!</div>'
+                                      ,btn: '确定'
+                                      ,btnAlign: 'c' //按钮居中
+                                      ,shade: 0 //不显示遮罩
+                                      ,yes: function(){
+                                        layer.closeAll();
+                                      }
+                                    });
 
-                            histroy.(0);
+
+
+
+                        // alert('该链接将从首页撤下!');
+
+                            location.href=location.href;
                     });
                 });
 
@@ -76,10 +91,20 @@
 
                     //发送AJAX
                     $.get('/admin/url/status',{'id':a,'status':b},function(msg){
-                                
-                          alert('该链接将被推荐至首页!');
+                                 layer.open({
+                                      type: 1
+                                      ,offset: 't' //具体配置参考：offset参数项
+                                      ,content: '<div style="padding: 20px 80px;">该链接将被推荐至首页!</div>'
+                                      ,btn: '确定'
+                                      ,btnAlign: 'c' //按钮居中
+                                      ,shade: 0 //不显示遮罩
+                                      ,yes: function(){
+                                        layer.closeAll();
+                                      }
+                                    });
+                          // alert('该链接将被推荐至首页!');
 
-                            histroy.(0);
+                            location.href=location.href;
 
                     });
                 });
