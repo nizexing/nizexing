@@ -134,7 +134,7 @@
     <div id="guide-bar">
         <div class="inner">
             <div class="l">
-                <a href="{{url('/index')}}" title="天下漫友是一家" class="first only">首页</a>
+                <a href="{{url('/')}}" title="天下漫友是一家" class="first only">首页</a>
                 @foreach($type as $v)
                         <a  href="/v/{{$v['tid']}}/index" tid="{{$v['tid']}}">{{$v['tname']}}</a>
                 @endforeach
@@ -208,6 +208,7 @@
 
 
 
-</div><div id="mainer">
+</div><div id="mainer" style=" margin-top: 125px;
+">
     <div id="mainer-inner">
         <div id="block-main">

@@ -119,7 +119,7 @@ class IndexController extends CommonController
             ->select('tjvideo.*','user.name')->take(6)->get();
 
 
-
+        dd($top);
 
 //        echo time();
         // 轮播图推荐 6

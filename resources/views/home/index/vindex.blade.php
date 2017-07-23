@@ -49,11 +49,6 @@
 
         }
 
-        .b04 .arrow { position: absolute; top: 200px;}
-
-        .b04 #al { left: 15px;}
-
-        .b04 #ar { right: 15px;}
 
     </style>
 @endsection
@@ -78,7 +73,7 @@
                     <div id="" m-id="301" m-name="轮播图" m-type="1" class="b04 fl slider-big">
                         <ul>
                             @foreach($lunbo as $k=>$v)
-                                <li style="margin:0px 0px 0px 0px;margin-right:-10px;">
+                                <li style="margin:0px 0px 0px 0px;margin-right:-7px;">
                                     <a href="{{url('/play/'.$v['vid'])}}" target="_blank" style="margin:0px;width:452px;height:251px;">
                                         <img src="{{  $v['img']  }}"style="width:452px;height:231px;margin:0px;"/>
                                     </a>
@@ -257,19 +252,7 @@
 
                     dots: true
 
-                }),
-
-                data04 = unslider04.data('unslider');
-
-
-
-            $('.unslider-arrow04').click(function() {
-
-                var fn = this.className.split(' ')[1];
-
-                data04[fn]();
-
-            });
+                });
 
         });
     </script>

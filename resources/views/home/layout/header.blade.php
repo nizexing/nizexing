@@ -33,7 +33,7 @@
     <div class="header-top">
         <div class="wp clearfix header-top-con">
             <h1 class="fl logo">
-                <a href="/index">
+                <a href="/">
                     <img src="{{asset(Config('web.logo'))}}" width="88" height="27"></a>
             </h1>
             <ul id="header-guide" class="fr header-guide">

@@ -239,6 +239,7 @@
                     }
                     alert("上传成功");
                     $('#pic').attr('src','{{asset("")}}'+data);
+                    $('#pic').show();
                     $('#tr').show();
                     $('#upload_path').val(data);
 //

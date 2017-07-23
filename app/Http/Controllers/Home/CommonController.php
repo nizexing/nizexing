@@ -39,7 +39,7 @@ class CommonController extends Controller
 
 
        // 页尾 友情链接 和 关于我们
-       $url = Url::take(4)->get();
+       $url = Url::where('status',1)->take(4)->get();
 
        view() -> share('url',$url);
 

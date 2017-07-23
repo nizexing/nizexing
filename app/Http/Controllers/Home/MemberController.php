@@ -225,9 +225,8 @@ class MemberController extends CommonController
         $video['status'] = 1;
         $video['comment'] = 0;
         $video['click'] = 0;
-        if(!$request->has('uid')){
-            $video['uid'] = 0;
-        }
+        $video['uid'] = session('user')['uid'];
+
         // 副表信息
         $video_detail = $request -> only('desc','video');
 
@@ -239,6 +238,7 @@ class MemberController extends CommonController
             $video_detail['vid'] = $res1;
             $res2 = Video_detail::insert($video_detail);
         }
+
         // 判断
         if($res1&&!empty($res2)&&$res2){
             DB::commit();
