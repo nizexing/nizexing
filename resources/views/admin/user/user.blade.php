@@ -55,6 +55,7 @@
             {!! $user->render() !!}
 
         </div>
+        <div style="height: 150px"></div>
           @else
             <p style="margin:30px 0px 0px 25px;font-size:20px">{{ session('error') }}</p>
             @endif

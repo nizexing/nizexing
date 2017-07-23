@@ -47,7 +47,7 @@ class UserController extends Controller
 
      DB::table('user_detail')->where('uid',$id)->delete();
 
-     return redirect('/admin/user/user');
+        return back();
     
    }
 
