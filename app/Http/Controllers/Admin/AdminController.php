@@ -80,22 +80,18 @@ class AdminController extends Controller
 
         }else{
 
-            $a=DB::table('admin')->insertGetId(
-                     ['adminname'=>$data['adminname'],
-                       'password'=>$data['password'],
-                            'tel'=>$data['tel'],
-                          'email'=>$data['email']]);
+            $a=DB::table('admin')->insertGetId(['adminname'=>$data['adminname'],
+                                                 'password'=>$data['password'],
+                                                      'tel'=>$data['tel'],
+                                                    'email'=>$data['email']]);
 
-            DB::table('admin_jiaose')->insert(
-                          ['admin_id'=>$a,
-                          'jiaose_id'=>$data['jiaose_id']]);
+            DB::table('admin_jiaose')->insert(['admin_id'=>$a,
+                                              'jiaose_id'=>$data['jiaose_id']]);
         }
 
         return redirect('admin/admin/admin');
 
     } 
-
-
 
     //删除管理员
     public function getAdmindelete($id)
@@ -104,12 +100,14 @@ class AdminController extends Controller
 
       //获取用户数据
       $num=DB::table('admin')->where('id',$id)->get();
+
       //获取用户角色数据
       $jnum=DB::table('admin_jiaose')->where('admin_id',$id)->get();
-      dd($jnum);
+
       //删除相关数据
       //删除用户表
       DB::table('admin')->where('id',$id)->delete();
+
       //删除用户角色
       $a=DB::table('admin_jiaose')->where('admin_id',$id)->delete();
 
@@ -130,24 +128,19 @@ class AdminController extends Controller
       if($a['password']=='')
       {
 
-         $b=DB::table('admin')->where('id',$a['id'])
-                           ->update(
-                                   ['tel'=>$a['tel'],
-                                  'email'=>$a['email']]);
+         $b=DB::table('admin')->where('id',$a['id'])->update(['tel'=>$a['tel'],
+                                                            'email'=>$a['email']]);
       }else{
 
             //管理员密码哈希加密
           $a['password']=Hash::make($a['password']);
 
-           $b=DB::table('admin')->where('id',$a['id'])
-                           ->update(
-                              ['password'=>$a['password'],
-                                    'tel'=>$a['tel'],
-                                  'email'=>$a['email']]);
+           $b=DB::table('admin')->where('id',$a['id'])->update(['password'=>$a['password'],
+                                                                     'tel'=>$a['tel'],
+                                                                   'email'=>$a['email']]);
       }
 
-      $c=DB::table('admin_jiaose')->where('admin_id',$a['id'])
-                                  ->update(['jiaose_id'=>$a['jiaose_id']]);
+      $c=DB::table('admin_jiaose')->where('admin_id',$a['id'])->update(['jiaose_id'=>$a['jiaose_id']]);
 
       return redirect('admin/admin/admin');
     }
@@ -164,6 +157,13 @@ class AdminController extends Controller
       // 获取传输过来的分配的角色
       $data=$request->except('_token');
 
+      if(count($data)<=2)
+      {
+        return back()->with('error','输入错误!请重新输入!');
+      }
+
+
+
       //获取权限的ID
       $auth=DB::table('auth')->insertGetId(['urlname'=>$data['authurl'],'urldesc'=>$data['authname']]);
 
@@ -172,74 +172,73 @@ class AdminController extends Controller
       $b=in_array('2',$data['auth']);  //银
       $c=in_array('3',$data['auth']);  //铜
 
-     if($a)
-     {
-        if($b)
-        {
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
-        }
-
-        if($c)
-        {
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
-        }
-
-        if($b && $c)
-        {
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
-        }
-
-        if($b==false && $c==false)
-        {
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
-
-        }
-     }
-
-      if($b)
+      //只有金
+      if($a==true && $b==false && $c==false)
       {
-        if($c)
-        {
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
-        }
-
-        if($a==false && $c==false)
-        {
-          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
-        }
+        DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
+      }
+      //只有银
+      if($b==true && $b==false && $a==false)
+      {
+        DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
       }
 
-    if($c)
-    {
-      if($a==false && $b==false)
+      //只有铜
+      if($c==true && $b==false && $a==false)
       {
+        DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
+      }
+
+      //只有金银
+      if($a==true && $b==true && $c==false)
+      {
+        DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
+        DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
+      }
+
+      //只有金铜
+      if($a==true && $b==false && $c==true)
+      {
+        DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
+        DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
+      }
+
+      //只有银铜
+      if($a==false && $b==true && $c==true)
+      {
+        DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
+        DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
+      }
+
+      //金银铜
+      if($a==true && $b==true && $c==true)
+      {
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>1]);
+          DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>2]);
           DB::table('jiaose_auth')->insert(['auth_id'=>$auth,'jiaose_id'=>3]);
       }
-    }
-
 
       //待跳转更改
+      return back()->with('success','添加成功!可继续添加!');
 
 }
-
 
   //金牌角色权限
   public function getJin()
   {
 
     $auth=DB::select('select * from jiaose_auth as a left join auth as b on a.auth_id=b.id');
+
     foreach ($auth as $k => $v) {
+
       if($v['jiaose_id']==1){
+
         $jin[]=$auth[$k];
+
       }
     }
 
-    return view('admin.auth.jin',compact('jin'));
+      return view('admin.auth.jin',compact('jin','a'));
   }
 
  //银牌角色权限
@@ -247,9 +246,11 @@ class AdminController extends Controller
   {
 
     $auth=DB::select('select * from jiaose_auth as a left join auth as b on a.auth_id=b.id');
+
     foreach ($auth as $k => $v) {
 
       if($v['jiaose_id']==2){
+
         $yin[]=$auth[$k];
       }
 
@@ -262,8 +263,11 @@ class AdminController extends Controller
   {
 
     $auth=DB::select('select * from jiaose_auth as a left join auth as b on a.auth_id=b.id');
+
     foreach ($auth as $k => $v) {
+
       if($v['jiaose_id']==3){
+
         $tong[]=$auth[$k];
       }
     }
@@ -271,13 +275,15 @@ class AdminController extends Controller
     return view('admin.auth.tong',compact('tong'));
   }
 
+
+
   public function getAuthedit($id)
   {
       $data=DB::table('auth')->where('id',$id)->first();
 
       return view('admin.auth.editauth',compact('data'));
   }
-
+  //删除权限
   public function getDelete($id)
   {
       DB::table('auth')->where('id',$id)->delete();
@@ -285,17 +291,19 @@ class AdminController extends Controller
       return back();
 
   }
-
+  //修改权限
   public function postEdit(Request $request,$id)
   {
     $auth=$request->except('_token');
 
-    DB::table('auth')->where('id',$id)->update(['urlname'=>$auth['urlname'],'urldesc'=>$auth['urldesc']]);
+    DB::table('auth')->where('id',$id)->update(['urlname'=>$auth['urlname'],
+                                                'urldesc'=>$auth['urldesc']]);
 
     return redirect('/admin/admin/select');
   }
 
 
+  //删除指定角色权限
   public function getAuthdelete($jiaose_id,$auth_id)
   {
 
@@ -305,6 +313,7 @@ class AdminController extends Controller
   }
 
 
+  //查看所有权限
   public function getSelect()
   {
 

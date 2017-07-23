@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="{{asset('/bootstrap.min.css')}}">
     <script type="text/javascript" src="{{asset('/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('static/bootstrap-validator/bootstrapValidator.js')}}"></script>
-    <script type="text/javascript" src="{{asset('static/bootstrap-validator/zh_CN.js')}}"></script>
+    <script type="text/javascript" src="{{asset('static/bootstrap-validator/zh_CN.js')}}"></script>    
+    <script type="text/javascript" src="{{asset('/layer.js')}}"></script>
 	@section('css')
 
 	@show
@@ -127,8 +128,6 @@
 
 
                     <li><a href="{{url('/admin/config/index')}}" target="_self"><i class="fa fa-fw fa-cubes"></i>网站配置</a></li>
-                    <li><a href="{{url('/admin/admin/shiyan')}}" target="_self"><i class="fa fa-fw fa-cubes"></i>实验</a></li>
-
                 </ul>
             </li>
 

@@ -144,7 +144,9 @@
                                 </div>
 
                             </div>
-                            <div class="column-right">
+
+
+                            <div class="column-right" style="display: none">
                                 <section data-tab="" b-id="4" b-name="{{$v['tname']}}" b-type="4" class="module module-rank">
                                     <header class="clearfix module-header">
                                         <div class="fl module-title">
@@ -359,7 +361,7 @@
 
                                 </div>
                             </div>
-                            <div class="column-right">
+                            <div class="column-right" style="display: none">
                                 <section data-tab="" b-id="11" b-name="【11】影视" b-type="5" class="module module-rank">
                                     <header class="clearfix module-header">
                                         <div class="fl module-title">
@@ -368,72 +370,12 @@
                                         </div>
                                         <div class="fr module-tab">
                                             <a href="javascript:;" data-nav="1" class="active">日榜</a>
-                                            <a href="javascript:;" data-nav="2">周榜</a></div>
+                                          </div>
                                     </header>
                                     <div m-id="47" m-name="排行榜" m-type="17" class="module-main">
                                         <div class="module-con">
                                             <ul data-con="1">
-                                                <li class="has-img">
-                                        <span>
-                                            <i>1</i>
-                                        </span>
-                                                    <a href="/v/ac3811153" title="【赌城群英会】06【粤语中字】&#13;UP:青蓝紫&#13;发布于2017-06-26 23:51:58&#160;/&#160;点击：37575&#160;/&#160;评论：6" target="_blank" class="fl img-wp">
-                                                        <img data-original="http://imgs.aixifan.com/content/2017_06_26/1498492302.jpg?imageView2/1/w/180/h/100" src="/static/picture/1.png" width="90" height="50" /></a>
-                                                    <b>
-                                                        <a href="/v/ac3811153" title="【赌城群英会】06【粤语中字】&#13;UP:青蓝紫&#13;发布于2017-06-26 23:51:58&#160;/&#160;点击：37575&#160;/&#160;评论：6" target="_blank">【赌城群英会】06【粤语中字】</a></b>
-                                                    <p class="text-overflow">
-                                                        <a href="http://www.acfun.cn/u/1230060.aspx" target="_blank" title="青蓝紫">UP: 青蓝紫</a></p>
-                                                    <p>
-                                            <span class="icon icon-view-player">
-                                                <strong>37575</strong></span>
-                                                        <span class="icon icon-comments">
-                                                <strong>6</strong></span>
-                                                    </p>
-                                                </li>
-                                                <li class="has-img">
-                                        <span>
-                                            <i>2</i>
-                                        </span>
-                                                    <a href="/v/ac3811000" title="【木鱼微剧场】《帝企鹅日记》&#13;UP:木鱼水心&#13;发布于2017-06-26 22:35:59&#160;/&#160;点击：33334&#160;/&#160;评论：66" target="_blank" class="fl img-wp">
-                                                        <img data-original="http://imgs.aixifan.com/content/2017_06_26/1498486061.jpg?imageView2/1/w/180/h/100" src="/static/picture/1.png" width="90" height="50" /></a>
-                                                    <b>
-                                                        <a href="/v/ac3811000" title="【木鱼微剧场】《帝企鹅日记》&#13;UP:木鱼水心&#13;发布于2017-06-26 22:35:59&#160;/&#160;点击：33334&#160;/&#160;评论：66" target="_blank">【木鱼微剧场】《帝企鹅日记》</a></b>
-                                                    <p class="text-overflow">
-                                                        <a href="http://www.acfun.cn/u/707822.aspx" target="_blank" title="木鱼水心">UP: 木鱼水心</a></p>
-                                                    <p>
-                                            <span class="icon icon-view-player">
-                                                <strong>33334</strong></span>
-                                                        <span class="icon icon-comments">
-                                                <strong>66</strong></span>
-                                                    </p>
-                                                </li>
-                                                <li class="has-img has-img-last">
-                                        <span>
-                                            <i>3</i>
-                                        </span>
-                                                    <a href="/v/ac3811591" title="【韩剧】三流之路 11 朴叙俊 金智媛 安宰弘 宋昰昀【韩迷】&#13;UP:mpor2&#13;发布于2017-06-27 09:47:35&#160;/&#160;点击：21891&#160;/&#160;评论：10" target="_blank" class="fl img-wp">
-                                                        <img data-original="http://imgs.aixifan.com/content/2017_06_26/1498490064.jpg?imageView2/1/w/180/h/100" src="/static/picture/1.png" width="90" height="50" /></a>
-                                                    <b>
-                                                        <a href="/v/ac3811591" title="【韩剧】三流之路 11 朴叙俊 金智媛 安宰弘 宋昰昀【韩迷】&#13;UP:mpor2&#13;发布于2017-06-27 09:47:35&#160;/&#160;点击：21891&#160;/&#160;评论：10" target="_blank">【韩剧】三流之路 11 朴叙俊 金智媛 安宰弘 宋昰昀【韩迷】</a></b>
-                                                    <p class="text-overflow">
-                                                        <a href="http://www.acfun.cn/u/1108815.aspx" target="_blank" title="mpor2">UP: mpor2</a></p>
-                                                    <p>
-                                            <span class="icon icon-view-player">
-                                                <strong>21891</strong></span>
-                                                        <span class="icon icon-comments">
-                                                <strong>10</strong></span>
-                                                    </p>
-                                                </li>
-                                                <li>
-                                        <span>
-                                            <i>4</i>
-                                        </span>
-                                                    <a href="/v/ac3812255" title="香港电影中的撩妹技巧《XV》&#13;UP:小马俊杰哥&#13;发布于2017-06-27 13:12:09&#160;/&#160;点击：18471&#160;/&#160;评论：8" target="_blank">香港电影中的撩妹技巧《XV》</a></li>
-                                                <li>
-                                        <span>
-                                            <i>5</i>
-                                        </span>
-                                                    <a href="/v/ac3810829" title="《便利店凌凌》第三集&#13;UP:SmartMedia&#13;发布于2017-06-26 21:19:36&#160;/&#160;点击：16777&#160;/&#160;评论：1" target="_blank">《便利店凌凌》第三集</a></li>
+                                             
                                             </ul>
                                             <ul data-con="2" class="hidden">
                                                 <li class="has-img">
@@ -515,6 +457,101 @@
         @endforeach
 
 
+        <!-- 动画 -->
+        <div style="width: 250px;height: 400px;margin: -2415px 140px 0px 5px;float: right;">
+        <div>
+        <p style="font-size: 20px;font-weight: 20px;margin-top:0px ">动画排行榜</p><br>
+        @foreach($donghua as $k=>$v)
+        @if($k<2)
+<img src="{{$v['img']}}" style="width: 50px;height: 40px;background-color: blue;margin: -12px 0px 0px 5px ">
+<span style="display: block;margin: -39px 0px 0px 60px"><a>{{$v['title']}}</a></span><br>
+
+        @endif
+        @if($k>3 && $k<12)
+<div style="height: 10px"></div>
+
+<span style="margin: -12px 0px 0px 10px;overflow:hidden;height: 10px"><a>{{$v['title']}}</a></span>
+        @endif
+        @endforeach
+        </div>
+            
+        </div>
+        <!-- 音乐 -->
+   <div style="width: 250px;height: 400px;margin: -1907px 140px 0px 5px;float: right;">
+        <div>
+        <p style="font-size: 20px;font-weight: 20px;margin-top:0px ">音乐排行榜</p><br>
+        @foreach($yinyue as $k=>$v)
+        @if($k<2)
+<img src="{{$v['img']}}" style="width: 50px;height: 40px;background-color: blue;margin: -12px 0px 0px 5px ">
+<span style="display: block;margin: -39px 0px 0px 60px"><a>{{$v['title']}}</a></span><br>
+
+        @endif
+        @if($k>3 && $k<12)
+<div style="height: 10px"></div>
+
+<span style="margin: -12px 0px 0px 10px;overflow:hidden;height: 10px"><a>{{$v['title']}}</a></span>
+        @endif
+        @endforeach
+        </div>
+            
+        </div>
+        <!-- 游戏 -->
+         <div style="width: 250px;height: 400px;margin: -1270px 140px 0px 5px;float: right;">
+        <div>
+        <p style="font-size: 20px;font-weight: 20px;margin-top:0px ">游戏排行榜</p><br>
+        @foreach($game as $k=>$v)
+        @if($k<2)
+<img src="{{$v['img']}}" style="width: 50px;height: 40px;background-color: blue;margin: -12px 0px 0px 5px ">
+<span style="display: block;margin: -39px 0px 0px 60px"><a>{{$v['title']}}</a></span><br>
+
+        @endif
+        @if($k>3 && $k<14)
+<div style="height: 10px"></div>
+
+<span style="margin: -12px 0px 0px 10px;overflow:hidden;height: 10px"><a>{{$v['title']}}</a></span>
+        @endif
+        @endforeach
+        </div>
+            
+        </div>
+        <!-- 科技 -->
+        <div style="width: 250px;height: 400px;margin: -755px 140px 0px 5px;float: right;overflow: hidden;">
+        <div>
+        <p style="font-size: 20px;font-weight: 20px;margin-top:0px ">科技排行榜</p><br>
+        @foreach($keji as $k=>$v)
+        @if($k<2)
+<img src="{{$v['img']}}" style="width: 50px;height: 40px;background-color: blue;margin: -12px 0px 0px 5px ">
+<span style="display: block;margin: -39px 0px 0px 60px"><a>{{$v['title']}}</a></span><br>
+
+        @endif
+        @if($k>3 && $k<10)
+<div style="height: 10px"></div>
+
+<span style="margin: -12px 0px 0px 10px;overflow:hidden;height: 10px"><a>{{$v['title']}}</a></span>
+        @endif
+        @endforeach
+        </div>
+            
+        </div>
+        <!-- 舞蹈 -->
+             <div style="width: 250px;height: 400px;margin: -375px 140px 0px 5px;float: right;overflow: hidden;">
+        <div>
+        <p style="font-size: 20px;font-weight: 20px;margin-top:0px ">舞蹈排行榜</p><br>
+        @foreach($dance as $k=>$v)
+        @if($k<2)
+<img src="{{$v['img']}}" style="width: 50px;height: 40px;background-color: blue;margin: -12px 0px 0px 5px ">
+<span style="display: block;margin: -39px 0px 0px 60px"><a>{{$v['title']}}</a></span><br>
+
+        @endif
+        @if($k>3 && $k<10)
+<div style="height: 10px"></div>
+
+<span style="margin: -12px 0px 0px 10px;overflow:hidden;height: 10px"><a>{{$v['title']}}</a></span>
+        @endif
+        @endforeach
+        </div>
+            
+        </div>
 
     </div>
 @endsection

@@ -70,8 +70,6 @@ class PlayController extends CommonController
 
   		$num=count($store);
 
-  		
-
         return view('home.play.play',compact('data','massge','user','detail','content','homeuser','num','contents'));
    }
 

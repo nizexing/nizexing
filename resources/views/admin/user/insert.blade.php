@@ -42,6 +42,7 @@
         $('.photo').change(function(){
 
           var path=$('.photo').val();
+          
           $('.photos').val(path);
           
         });

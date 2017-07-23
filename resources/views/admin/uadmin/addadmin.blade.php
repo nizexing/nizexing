@@ -28,7 +28,19 @@
 
 					if(msg==1){
 						
-						alert('这个账号已存在,请重新输入一个账号!');
+                        layer.open({
+                                      type: 1
+                                      ,offset: 't' //具体配置参考：offset参数项
+                                      ,content: '<div style="padding: 20px 80px;">这个账号已存在,请重新输入一个账号!</div>'
+                                      ,btn: '关闭'
+                                      ,btnAlign: 'c' //按钮居中
+                                      ,shade: 0 //不显示遮罩
+                                      ,yes: function(){
+                                        layer.closeAll();
+                                      }
+                                    });
+
+						// alert('这个账号已存在,请重新输入一个账号!');
 
 						$('#adminname').val('');
 					}
@@ -40,13 +52,13 @@
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">密码</label>
           <input type="text" class="form-control" id="password" style="width:400px"
-          value="{{ old('password') }}" name="password" required="">
+          value="{{ old('password') }}" name="password" required>
         </div>
 
 		<div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">重复密码</label>
           <input type="text" class="form-control" id="rpassword" style="width:400px"
-          value="{{ old('rpassword') }}" name="rpassword" required="">
+          value="{{ old('rpassword') }}" name="rpassword" required>
         </div>
 		
 		<script>
@@ -57,7 +69,18 @@
 
 			if(a != b)
 			{
-				alert('两次密码不一致,请重新输入!');
+    layer.open({
+                  type: 1
+                  ,offset: 't' //具体配置参考：offset参数项
+                  ,content: '<div style="padding: 20px 80px;">两次密码不一致,请重新输入!</div>'
+                  ,btn: '关闭'
+                  ,btnAlign: 'c' //按钮居中
+                  ,shade: 0 //不显示遮罩
+                  ,yes: function(){
+                    layer.closeAll();
+                  }
+                });
+				// alert('两次密码不一致,请重新输入!');
 
 				$(this).val('');
 			}
@@ -68,17 +91,17 @@
         <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">联系电话</label>
           <input type="text" class="form-control" id="inputSuccess1" style="width:250px"
-          value="{{ old('tel') }}" name="tel" required="">
+          value="{{ old('tel') }}" name="tel" required>
         </div>
 
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">联系邮箱</label>
           <input type="text" class="form-control" id="inputSuccess1" style="width:250px"
-          value="{{ old('email') }}" name="email" required="">
+          value="{{ old('email') }}" name="email" required>
         </div>
 
         <div class="form-group has-success" style="margin-bottom: 40px">
-        <label class="control-label" for="inputSuccess1"> 角色名称</label>
+        <label class="control-label" for="inputSuccess1">注册角色</label>
         @if(session('error'))
         		<p style="color: red;font-weight: bold;">{{session('error')}}</p>
         @endif
@@ -98,14 +121,6 @@
         history.go(-1);
     });
 
-
-    // $('#sub').click(function(){
-    // 	var a=$('.jiaose').attr('checked');
-    // 	if(a==undefind){
-    // 		alert('请选择管理员角色!');
-    // 		history.go(0);
-    // 	}
-    // });
     </script>>
 
 
