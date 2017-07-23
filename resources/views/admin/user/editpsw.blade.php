@@ -57,9 +57,13 @@
          });
          //判断两次输入的新密码是否相同
          $('#news').blur(function() {
+
            var newpsw=$(this).val();
+
            var newpsws=$('#new').val();
+
            if(newpsw!=newpsws){
+            
               $('.news').text('新密码不一致,请重新输入!');
            }
          });

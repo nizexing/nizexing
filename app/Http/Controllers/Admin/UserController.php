@@ -265,9 +265,9 @@ class UserController extends Controller
 
         $user=DB::table('admin')->where('id',$data['id'])->first();
 
-        if(   
-              $user['password']==$data['oldpassword'] && 
-              $data['newpassword']==$data['newpasswords'])
+        $aa=Hash::check($data['oldpassword'],$user['password']);
+
+        if($aa && $data['newpassword']==$data['newpasswords'])
           {
 
           //加密$data['newpasswords']哈希
@@ -294,22 +294,22 @@ class UserController extends Controller
 
       $data=$_GET;
 
-      $user=DB::table('admin')->where('id',$data['id'])->first();
-
-      //解析哈希密码
-      $hashpassword=Hash::Check($data['oldpassword'],$user['password']);
-      
       if($data['oldpassword']=='')
         {
           echo '旧密码不能为空!';
           
-        }
+        }else{
 
-      if(!empty($data['oldpassword']) && $hashpassword==flase)
-        {
-          echo '旧密码不正确,请确重新输入!';
-        }
+            $user=DB::table('admin')->where('id',$data['id'])->first();
 
+            //解析哈希密码
+            $hashpassword=Hash::Check($data['oldpassword'],$user['password']);
+
+            if($hashpassword==false)
+              {
+                echo '旧密码不正确,请确重新输入!';
+              }
+      }
     }
 
 }

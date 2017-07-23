@@ -21,7 +21,7 @@ class LoginController extends Controller
   {
     //获取登录数据
     $a=$request->except('_token');
-
+    
     //无账号或无密码或无验证码
     if($a['user']=='')
       { 

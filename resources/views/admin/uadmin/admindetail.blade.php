@@ -44,12 +44,12 @@
         <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">联系电话</label>
           <input type="text" class="form-control" id="inputSuccess1" style="width:250px"
-          value="{{$v['tel']}}" name="tel">
+          value="" name="tel" placeholder="{{$v['tel']}}">
         </div>
          <div class="form-group has-success">
           <label class="control-label" for="inputSuccess1">联系邮箱</label>
           <input type="text" class="form-control" id="inputSuccess1" style="width:250px"
-          value="{{$v['email']}}" name="email">
+          value="" name="email" placeholder="{{$v['email']}}">
         </div>
         
 
