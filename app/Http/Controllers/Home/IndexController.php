@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Home\CommonController;
 
 use App\Http\Model\Adver;
+use App\Http\Model\Rank;
 use App\Http\Model\Tjvideo;
 use App\Http\Model\Type;
 use App\Http\Model\Url;
@@ -48,7 +49,7 @@ class IndexController extends CommonController
         // 轮播图推荐 6
         $lunbo = Tjvideo::join('user','user.uid','=','tjvideo.uid')
             ->where("tjstatus",2)->orderBy('order')
-            ->select('tjvideo.*','user.name')->take(6)->get();
+            ->select('tjvideo.*','user.name')->take(5)->get();
 
         // 遍历分类 获取 栏目推荐
         $type = $this -> type;
@@ -105,27 +106,28 @@ class IndexController extends CommonController
         // 分类 下的所有二级分类
         $tids = Type::where('pid',$tid)->get()->toArray();
 
-
+        $tmp = [];
+        foreach($tids as $k=>$v){
+            $tmp[$k] = $v['tid'];
+        }
 
         // 获取 各种推荐
         // top 推荐 6 + 猴子推荐 5
         $top = Tjvideo::join('user','user.uid','=','tjvideo.uid')
-            ->where('tjstatus',3)->whereIn('tjvideo.tid',$tids)
+            ->where('tjstatus',3)->whereIn('tjvideo.tid',$tmp)
             ->orderBy('order')
             ->select('tjvideo.*','user.name')->take(6)->get();
 
 
-        $monkey = Tjvideo::join('user','user.uid','=','tjvideo.uid')
-            ->where('tjstatus',4)->whereIn('tjvideo.tid',$tids)
-            ->orderBy('order')
-            ->select('tjvideo.*','user.name')->take(5)->get();
+
 
 //        echo time();
         // 轮播图推荐 6
         $lunbo = Tjvideo::join('user','user.uid','=','tjvideo.uid')
-            ->where("tjstatus",2)->whereIn('tjvideo.tid',$tids)
+            ->where("tjstatus",2)->whereIn('tjvideo.tid',$tmp)
             ->orderBy('order')
             ->select('tjvideo.*','user.name')->take(6)->get();
+
 
         // 遍历分类 获取 栏目推荐
         $tjvideo = [];
@@ -139,9 +141,11 @@ class IndexController extends CommonController
 
         }
 
-//        dd($tjvideo);
-//        dd($tids);
-        return view('home/index/vindex',compact('top','lunbo','tjvideo','tid','tids'));
+
+                $rank = Rank::whereIn('tid',$tmp) -> orderBy('click') -> get();
+
+//
+        return view('home/index/vindex',compact('top','lunbo','tjvideo','tid','tids','rank'));
     }
 
 

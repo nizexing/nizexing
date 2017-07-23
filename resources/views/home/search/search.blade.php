@@ -14,7 +14,7 @@
         <div class="search-box-bg">
             <div id="search-box" class="fr search-box">
                 <form id="search-form"  method="get" action="{{url('/search')}}">
-                    <input id="search-text" name="key" type="text" placeholder=""  value="" autocomplete="off">
+                    <input id="search-key" name="key" type="text" value="{{$search['key']}}">
                     <button id="search-btn" class="search-btn" style="width:72px">
                         <i class="icon icon-search"></i>
                         <span>搜索</span></button>
@@ -187,9 +187,11 @@
 
 
             var href =  location.pathname + '?';
-            if('key' in req){
-                href = href+'key='+req['key']+'&';
+            key = $('#search-key').val();
+            if(key){
+                href = href+'key='+key+'&';
             }
+
             // 排序
             $('.column-left>.video-list .sort-filter span').click(function(){
                 href = href+'order='+$(this).attr('data-value');
@@ -206,6 +208,7 @@
                 href = href+'tid='+$(this).attr('data-tid');
                 location.href = href;
             });
+
         })
 
     </script>

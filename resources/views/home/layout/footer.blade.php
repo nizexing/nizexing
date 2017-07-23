@@ -22,7 +22,7 @@
                             @if($k!=0&&$k%2==0)
                                 <br>
                             @endif
-                            <a href="{{url($v['url'])}}" target="_blank" class="mr0">{{$v['name']}}</a>
+                            <a href="//{{$v -> url}}" target="_blank" class="mr0">{{$v['name']}}</a>
                         @endforeach
                     </p>
                 </div>

@@ -136,10 +136,7 @@
                                         }
                                     </script>
 
-                                    <div class="r">
-                                        <a id="btn-password-personal" href="/mem/f" class="btn info">
-                                            <i class="icon icon-key"></i>修改密码</a>
-                                    </div>
+
                                     <span class="clearfix"></span>
                                 </div>
                             </div>

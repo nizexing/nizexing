@@ -76,8 +76,8 @@
                                         发布于{{date('Y-m-d H:i;s',$v['upload_time'])}}&nbsp;/&nbsp;点击：{{$v['click']}}&nbsp;/&nbsp;评论：{{$v['comment']}}"   width="160" height="90" style="display: inline;"></a>
                             <b class="text-over">
                                 <a href="{{url('/play/'.$v['vid'])}}" title="{{$v['title']}}
-                            UP主:{{$v['name']}}
-                            发布于{{date('Y-m-d H:i;s',$v['upload_time'])}}&nbsp;/&nbsp;点击：{{$v['click']}}&nbsp;/&nbsp;评论：{{$v['comment']}}" target="_blank" class="third-title">{{$v['title']}}</a>
+                                        UP主:{{$v['name']}}
+                                        发布于{{date('Y-m-d H:i;s',$v['upload_time'])}}&nbsp;/&nbsp;点击：{{$v['click']}}&nbsp;/&nbsp;评论：{{$v['comment']}}" target="_blank" class="third-title">{{$v['title']}}</a>
                             </b>
                             <div>
                                 <p class="up-name">
@@ -92,7 +92,8 @@
                                     <strong>@if($v['click']>10000) {{round($v['click']/10000,1).'万'}}@else {{$v['click']}} @endif</strong></span>
                                     <span class="icon icon-danmu">&nbsp;@if($v['comment']>10000) {{round($v['comment']/10000,1).'万'}}@else {{$v['comment']}} @endif</span></p>
                             </div>
-                            <p class="video-description">「Instreet」手机APP，这有一群和你一样热爱街头的人。</p></li>
+                            <p class="video-description">{{$v['desc']}}</p>
+                        </li>
                         @endforeach
                     </div>
 

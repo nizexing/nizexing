@@ -3,6 +3,58 @@
 @section('css')
     <link rel="stylesheet" href="{{asset('/static/css/core.min.css')}}">
     <link rel="stylesheet" href="{{asset('/static/css/index.min.css')}}">
+    <style>
+        .b04 { width: 452px;}
+
+        .b04 .dots { position: absolute; left: 0; right: 0; bottom: 20px;}
+        .b04 li{list-style:none;}
+        .b04 .dots li
+
+        {
+
+            display: inline-block;
+
+            width: 10px;
+
+            height: 10px;
+
+            margin: 0 4px;
+
+            text-indent: -999em;
+
+            border: 2px solid #fff;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            opacity: .4;
+
+            -webkit-transition: background .5s, opacity .5s;
+
+            -moz-transition: background .5s, opacity .5s;
+
+            transition: background .5s, opacity .5s;
+
+        }
+
+        .b04 .dots li.active
+
+        {
+
+            background: #fff;
+
+            opacity: 1;
+
+        }
+
+        .b04 .arrow { position: absolute; top: 200px;}
+
+        .b04 #al { left: 15px;}
+
+        .b04 #ar { right: 15px;}
+
+    </style>
 @endsection
 @section("main")
     <!-- main start -->
@@ -10,20 +62,25 @@
         <section b-id="181" b-name="轮播图+6小视频" b-type="26" class="clearfix wp area area-slider">
             <div class="slider-wrap fl">
                 <div class="slider-wrap-1">
-                    <div id="slider-big" m-id="301" m-name="轮播图" m-type="1" class="fl slider-big">
-                        <ul class="slider-con">
+                    <div id="" m-id="301" m-name="轮播图" m-type="1" class="b04 fl slider-big">
+                        <ul>
                             @foreach($lunbo as $k=>$v)
-                            <li class="slider-item" @if($k!==1) style="display:none;" @endif>
-                                <a href="{{url('/play/'.$v['vid'])}}" target="_blank">
-                                    <img src="{{  $v['img']  }}" style="width:100%;height:100%;"/>
-                                    <span class="mask-gradient slider-title">
-                                        <b class="text-overflow">{{$v['title']}}</b>
-                                    </span>
-                                </a>
-                            </li>
+                                <li style="margin:0px 0px 0px 0px;margin-right:-10px;">
+                                    <a href="{{url('/play/'.$v['vid'])}}" target="_blank" style="margin:0px;width:452px;height:251px;">
+                                        <img src="{{  $v['img']  }}"style="width:452px;height:231px;margin:0px;"/>
+                                    </a>
+                                </li>
+
                             @endforeach
+                            <a href="javascript:void(0);" class="unslider-arrow05 prev">
+                                <img class="arrow" id="al" src="{{asset('static/images/arrowl.png')}}" alt="prev" width="20" height="35"></a>
+
+                            <a href="javascript:void(0);" class="unslider-arrow05 next">
+                                <img class="arrow" id="ar" src="{{asset('static/images/arrowr.png')}}" alt="next" width="20" height="37"></a>
                         </ul>
                     </div>
+
+
                 </div>
             </div>
             <div class="fr slider-right-x6">
@@ -345,7 +402,7 @@
                                                     </a>
                                                     <figcaption class="block-title">
                                                         <b>
-                                                            <a href="/v/ac3810569" target="_blank">
+                                                            <a href="" target="_blank">
                                                                 {{$value['title']}}
                                                             </a>
                                                         </b>
@@ -460,7 +517,7 @@
         <!-- 动画 -->
         <div style="width: 250px;height: 400px;margin: -2415px 140px 0px 5px;float: right;">
         <div>
-        <p style="font-size: 20px;font-weight: 20px;margin-top:0px ">动画排行榜</p><br>
+        <p style="font-size: 20px;font-weight:20px;margin-top:0px ">动画排行榜</p><br>
         @foreach($donghua as $k=>$v)
         @if($k<2)
 <img src="{{$v['img']}}" style="width: 50px;height: 40px;background-color: blue;margin: -12px 0px 0px 5px ">
@@ -557,4 +614,31 @@
 @endsection
 @section('js')
     <script src="{{asset('/static/js/aq_auth.js')}}"></script>
+    <script src="{{asset('/static/js/unslider.min.js')}}"></script>
+    <script>
+        $(document).ready(function(e) {
+
+            var unslider04 = $('.b04').unslider({
+
+                    dots: true
+
+                }),
+
+                data04 = unslider04.data('unslider');
+
+
+
+            $('.unslider-arrow04').click(function() {
+
+                var fn = this.className.split(' ')[1];
+
+                data04[fn]();
+
+            });
+
+        });
+    </script>
+
+
+
 @endsection

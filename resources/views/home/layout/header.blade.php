@@ -119,7 +119,7 @@
         <div class="clearfix wp nav-parent">
             <ul class="clearfix">
                 <li class="nav-home active">
-                    <a href="{{asset('/index')}}">首页</a></li>
+                    <a href="{{url('/')}}">首页</a></li>
                 @foreach($type as $v)
                 <li  tid="{{$v['tid']}}"
                      @if(!empty($vtype))

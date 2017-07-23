@@ -17,6 +17,7 @@ class SearchController extends CommonController
         $search = $request -> all();
 
 
+
         $video = Video::join('type','type.tid','=','video.tid')
             -> join('user','video.uid','=','user.uid')
             -> join('video_detail','video_detail.vid','=','video.vid');
@@ -40,6 +41,7 @@ class SearchController extends CommonController
                 // 不是分类名  则查询为title标题或label标签是否含有 $key['key']
                 $video = $video ->where('video.title','like','%'.$key['key'].'%')
                     ->orWhere('video.label','like','%'.$key['key'].'%');
+
             }
         }
         // 如果有tid的话

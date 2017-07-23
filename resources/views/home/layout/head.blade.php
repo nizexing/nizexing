@@ -147,7 +147,7 @@
             </style>
             <div class="r">
                 <form id="area-search-guide" target="_blank" method="get" action="{{url('/search')}}">
-                    <input name="key" type="text" placeholder="请输入搜索词" autocomplete="off" x-webkit-speech="" class="ipt-search" />
+                    <input name="key" type="text" placeholder="请输入搜索词" value="" autocomplete="off" x-webkit-speech="" class="ipt-search" />
                     <i class="icon icon-search"></i>
                     <input type="submit" value="搜 索" title="搜索" class="btn-search" style="background:url({{asset('home/images/111.png')}}) 0 0 no-repeat;"/>
                     <span class="clearfix"></span>

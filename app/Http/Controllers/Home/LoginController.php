@@ -94,7 +94,7 @@ class LoginController extends Controller
 
           session(['user'=>$user]);
           
-          return redirect('/index');
+          return redirect('/');
       }
 
     }
