@@ -132,7 +132,7 @@
               <label class="col-xs-3 control-label">关于我们 ：</label>
               <div class="col-xs-8">
                 <!-- 加载编辑器的容器 -->
-                <script id="container" name="about" type="text/plain">{{$config['about']}}</script>
+                <script id="container" name="about" type="text/plain">{!!$config['about']!!}</script>
                 <!-- 实例化编辑器 -->
                 <script type="text/javascript">
                     var ue = UE.getEditor('container',{
@@ -155,7 +155,7 @@
               <label class="col-xs-3 control-label">联系我们 ：</label>
                 <div class="col-xs-8">
                   <!-- 加载编辑器的容器 -->
-                  <script id="container2" name="contact" type="text/plain">{{$config['contact']}}</script>
+                  <script id="container2" name="contact" type="text/plain">{!!$config['contact']!!}</script>
                   <!-- 实例化编辑器 -->
                   <script type="text/javascript">
                       var ue2 = UE.getEditor('container2',{

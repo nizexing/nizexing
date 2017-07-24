@@ -20,7 +20,8 @@ class SearchController extends CommonController
 
         $video = Video::join('type','type.tid','=','video.tid')
             -> join('user','video.uid','=','user.uid')
-            -> join('video_detail','video_detail.vid','=','video.vid');
+            -> join('video_detail','video_detail.vid','=','video.vid')
+            -> whereIn('video.status',[2,4]);
 
         if($request->has('key')){
             // 有关键字的话
