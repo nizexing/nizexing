@@ -300,10 +300,10 @@ class UserController extends Controller
           
         }else{
 
-            $user=DB::table('admin')->where('id',$data['id'])->first();
+              $user=DB::table('admin')->where('id',$data['id'])->first();
 
-            //解析哈希密码
-            $hashpassword=Hash::Check($data['oldpassword'],$user['password']);
+              //解析哈希密码
+              $hashpassword=Hash::Check($data['oldpassword'],$user['password']);
 
             if($hashpassword==false)
               {
