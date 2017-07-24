@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="result-count">共
-                        <span>{{count($video)}}</span>条结果</div>
+                        <span>{!!$video->total()!!}</span>条结果</div>
                     <div class="video-anchor-box hidden">
                         <p>主播推荐</p>
                         <div class="video-anchor-wrap"></div>

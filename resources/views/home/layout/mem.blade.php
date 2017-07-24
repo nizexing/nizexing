@@ -16,7 +16,7 @@
             </a>
             {{--名字--}}
             <div class="d">
-                <a href="javascript:;"  class="name" style="cursor:default;">{{$user['name']}}</a></div>
+                <a href="javascript:;"  class="name" style="cursor:default;">{{$user['username']}}</a></div>
 
         </div>
         <div id="shadow-guide-left" class="hidden"></div>

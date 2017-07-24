@@ -44,7 +44,7 @@
                                             <img id="img-avatar-personal"  src="{{asset($user['photo'])}}" class="avatar"></a>
                                     </div>
                                     <div class="l b">
-                                        <a id="name-personal" href="javascript:;" class="name">{{$user['name']}}</a>
+                                        <a id="name-personal" href="javascript:;" class="name">{{$user['username']}}</a>
                                         <style>
                                             .b a{font-size: 16px;
                                                 font-weight: bold;
@@ -177,7 +177,7 @@
                                     <div class="l a">
                                         <p class="subtitle">真实姓名</p></div>
                                     <div class="l b">
-                                        <input id="ipt-truename-personal" value="{{$user['name']}}" name="realname" data-length="0,8" type="text" class="name" placeholder="请输入真实姓名"></div>
+                                        <input id="ipt-truename-personal" value="{{$user['realname']}}" name="realname" data-length="0,8" type="text" class="name" placeholder="请输入真实姓名"></div>
                                     <span class="clearfix"></span>
                                 </div>
                                     <a href="" name="aphoto"></a>
