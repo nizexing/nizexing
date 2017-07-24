@@ -359,11 +359,7 @@
                                    
                                 </div>
                                 <div class="other-login">
-                                    <!--span.l 使用第三方账号登录-->
-                                    <!--a#btn-login-sina.l(href="/loginbysina.aspx", title="使用新浪微博账号登录")-->
-                                    <!-- img(src="#{path}/project/sanae/style/image/weibo-reg.png")-->
-                                    <!--a#btn-login-tencent.l(href="/loginbyqq.aspx", title="使用腾讯QQ账号登录")-->
-                                    <!-- img(src="#{path}/project/sanae/style/image/qq-reg.png")-->
+                                
                                     <a href="/login/forgot" target="_blank" class="inro r" id="forgot">忘记密码?</a>
 
                                     <span class="clearfix"></span>
