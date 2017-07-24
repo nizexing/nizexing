@@ -34,7 +34,7 @@
         <section class="wp clearfix column-box third-height">
             <div class="column-left">
                 <header class="clearfix">
-                    <div class="fl list-tab">
+                    <div class="fl list-tab hidden">
                         <a href="javascript:;" data-nav="0" class="no-select active">最新发布</a>
                         <a href="javascript:;" data-nav="1" class="no-select">播放最多</a>
                         <a href="javascript:;" data-nav="2" class="no-select">评论最多</a>
@@ -101,7 +101,7 @@
 
 
             </div>
-            <div class="column-right">
+            <div class="column-right hidden">
                 <section data-tab="" b-id="undefined" b-name="undefined" b-type="undefined" class="module module-rank">
                     <header class="clearfix module-header">
                         <div class="fl module-title">

@@ -116,7 +116,6 @@ class IndexController extends CommonController
             ->select('tjvideo.*','user.name')->take(6)->get();
 
 
-        dd($top);
 
 //        echo time();
         // 轮播图推荐 6
@@ -139,7 +138,7 @@ class IndexController extends CommonController
         }
 
 
-                $rank = Rank::whereIn('tid',$tmp) -> orderBy('click') -> get();
+        $rank = Rank::whereIn('tid',$tmp) -> orderBy('click','desc') -> get();
 
 //
         return view('home/index/vindex',compact('top','lunbo','tjvideo','tid','tids','rank'));

@@ -37,14 +37,14 @@ class ListController extends CommonController
 //            $video = Video::where('tid',$tid)->orderBy('upload_time','desc');
 //            $video -> user;
 
-        $video = Video::leftjoin('user','video.uid','=','user.uid')->leftjoin('user_detail','video.uid','=','user_detail.uid')->leftjoin('video_detail','video.vid','=','video_detail.vid')->paginate(20);
-//        // 调用IndexController中的 name 方法
-//        $tmp = $video['data'];
-//        $video['data'] = IndexController::name($tmp);
-//        dd($video);
+        $video = Video::leftjoin('user','video.uid','=','user.uid')
+       	 	->leftjoin('user_detail','video.uid','=','user_detail.uid')
+        	->leftjoin('video_detail','video.vid','=','video_detail.vid')
+        	->where('tid',$tid)
+        	->whereIn('video.status',[2,4])
+        	->orderBy('upload_time')->paginate(10);
 
-        // 热门视屏
-//        $hotvideo =
+     
         // 显示 页面
         return view("home.list.list", ['video'=>$video,'vtype'=>$vtype,'types'=>$types,'tid'=>$tid]);
     }
